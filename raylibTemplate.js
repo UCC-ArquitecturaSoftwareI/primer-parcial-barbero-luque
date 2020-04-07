@@ -194,7 +194,7 @@ Module['FS_createPath']('/', 'resources', true, true);
   }
 
  }
- loadPackage({"files": [{"start": 0, "audio": 0, "end": 10693, "filename": "/resources/shell.html"}, {"start": 10693, "audio": 0, "end": 12650, "filename": "/resources/ship.png"}, {"start": 12650, "audio": 1, "end": 2351570, "filename": "/resources/Cyberpunk Moonlight Sonata.mp3"}], "remote_package_size": 2351570, "package_uuid": "9c6b8be4-a9cf-4afc-8579-72dbe5ece4f7"});
+ loadPackage({"files": [{"start": 0, "audio": 0, "end": 10693, "filename": "/resources/shell.html"}, {"start": 10693, "audio": 0, "end": 12650, "filename": "/resources/ship.png"}, {"start": 12650, "audio": 1, "end": 2351570, "filename": "/resources/Cyberpunk Moonlight Sonata.mp3"}], "remote_package_size": 2351570, "package_uuid": "bd8b2659-197f-4a21-8a9a-bbb0c4bf4273"});
 
 })();
 
