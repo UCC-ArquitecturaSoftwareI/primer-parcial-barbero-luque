@@ -7,5 +7,5 @@ para deployear la versión HTML5 del juego en gh-pages del mismo repositorio.
 Se puede ver desde: [Github Pages][gh-pages]
 
 
-[gh-pages]:https://ucc-arquitecturasoftwarei.github.io/plantilla-raylib/
-[badge]:https://github.com/UCC-ArquitecturaSoftwareI/plantilla-raylib/workflows/Build%20and%20Deploy/badge.svg
+[gh-pages]:https://ucc-arquitecturasoftwarei.github.io/primer-parcial-barbero-luque/
+[badge]:https://github.com/UCC-ArquitecturaSoftwareI/primer-parcial-barbero-luque/workflows/Build%20and%20Deploy/badge.svg
