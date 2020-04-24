@@ -1,8 +1,13 @@
 ![Build and Deploy][badge]
-# Plantilla de proyecto raylib con CI
+# Juego estilo Tower Defense
 
-Este proyecto es una plantilla básica para crear proyectos en Raylib. Incluye github actions
-para deployear la versión HTML5 del juego en gh-pages del mismo repositorio.
+Este proyecto es una juego de estilo Tower Defense, creado para el primer parcial de Arquitectura de Software 1.
+Se busca que el jugador pueda acceder a un logo, un menu principal, una pantalla de creditos y al juego en sí. Una vez en el juego
+el jugador puede obtener dinero destruyendo enemigos, que usa para comprar y mejorar 4 tipos de torres contra 3 tipos de enemigos,
+con funcionalidad para importar mapas nuevos.
+
+
+Los miembros del grupo son Francisco Luque y Agustín Barbero.
 
 Se puede ver desde: [Github Pages][gh-pages]
 
