@@ -4,8 +4,8 @@
 
 #include <raylib.h>
 
-#include "clases/Nave.h"
-#include "Nave.h"
+#include "gameplayScreen.cpp"
+
 
 const int screenWidth = 800;
 const int screenHeight = 450;
@@ -13,12 +13,13 @@ const int screenHeight = 450;
 static void UpdateDrawFrame(void);          // Función dedicada a operar cada frame
 
 
-Nave *player;
-
 class windowcontroller{
+public:
     void start(){
-        InitWindow(screenWidth, screenHeight, "raylib template - advance game");
-        player = new Nave("resources/ship.png", Vector2{screenWidth / 2, screenHeight / 2});
+        InitWindow(screenWidth, screenHeight, "Tower Defense");
+        InitGameplayScreen();
+        SetTargetFPS(60);
+
     }
 
     /**
@@ -28,13 +29,9 @@ class windowcontroller{
     static void UpdateDrawFrame(void) {
 
         // siempre hay que reproducir la musica que esta actualmente
-        UpdateMusicStream(music);
+        //UpdateMusicStream(music);
 
-        // Verifico Entradas de eventos.
-        if (IsKeyDown(KEY_RIGHT)) player->move_x(2.0f);
-        if (IsKeyDown(KEY_LEFT)) player->move_x(-2.0f);
-        if (IsKeyDown(KEY_UP)) player->move_y(-2.0f);
-        if (IsKeyDown(KEY_DOWN)) player->move_y(2.0f);
+        UpdateGameplayScreen();
 
 
         // Comienzo a dibujar
@@ -42,9 +39,7 @@ class windowcontroller{
 
         ClearBackground(RAYWHITE); // Limpio la pantalla con blanco
 
-        // Dibujo todos los elementos del juego.
-        player->draw();
-        DrawText("Inicio", 20, 20, 40, LIGHTGRAY);
+        DrawGameplayScreen();
 
         // Finalizo el dibujado
         EndDrawing();
