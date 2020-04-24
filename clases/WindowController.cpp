@@ -10,8 +10,6 @@
 const int screenWidth = 800;
 const int screenHeight = 450;
 
-static void UpdateDrawFrame(void);          // Función dedicada a operar cada frame
-
 
 class windowcontroller{
 public:
