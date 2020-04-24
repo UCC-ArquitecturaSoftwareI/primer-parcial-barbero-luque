@@ -1,5 +1,5 @@
 #include <raylib.h>
-#include "clases/WindowController.cpp"
+#include "clases/WindowController.h"
 
 #if defined(PLATFORM_WEB) // Para crear HTML5
 #include <emscripten/emscripten.h>

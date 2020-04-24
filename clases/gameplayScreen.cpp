@@ -2,33 +2,33 @@
 // Created by Francisco on 24/4/2020.
 //
 
-static int framesCounter;
-static int finishScreen;
-#include "hud.cpp"
-void InitGameplayScreen(void)
-{
+#include "gameplayScreen.h"
+
+
+void InitGameplayScreen() {
     framesCounter = 0;
     finishScreen = 0;
     hudInit();
 }
 
-void UpdateGameplayScreen(void)
-{
+void UpdateGameplayScreen() {
 
 
 }
 
-void DrawGameplayScreen(void)
-{
+void DrawGameplayScreen() {
     hudDraw();
 }
 
-void UnloadGameplayScreen(void)
-{
+
+
+
+
+void UnloadGameplayScreen() {
 
 }
 
-int FinishGameplayScreen(void)
-{
+int FinishGameplayScreen() {
     return finishScreen;
 }
+
