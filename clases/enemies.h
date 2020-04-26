@@ -16,9 +16,9 @@ private:
     Vector2 enemie_pos;
     Texture2D enemie;
 public:
-    enemies(int level, const Vector2 &enemiePos, std::string patch);
+    enemies(int lvl, const Vector2 &enemiePos, std::string patch);
     void move_x(float d);
     void move_y(float d);
     void draw();
-}
+};
 #endif //RAYLIBTEMPLATE_ENEMIES_H

@@ -2,15 +2,15 @@
 // Created by Agustin on 25/4/2020.
 //
 
-#include "clases/enemies.h"
+#include "enemies.h"
 #include <string>
 
-enemies::enemies(int level, const Vector2 &enemiePos, std::string patch) : enemie_pos(enemiePos) {
-    level = eLevel;
-    if( level == 1 ){
+enemies::enemies(int lvl, const Vector2 &enemiePos, std::string patch) : enemie_pos(enemiePos) {
+    level = lvl;
+    if( lvl == 1 ){
         speed = 0.5;
         hp = 75;
-    }else if ( level == 2 ){
+    }else if ( lvl == 2 ){
         speed = 0.75;
         hp = 100;
     }else{
