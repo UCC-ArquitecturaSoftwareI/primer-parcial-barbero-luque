@@ -8,13 +8,13 @@ Texture2D mapTexture;
 Rectangle mapRec;
 void mapInit()
 {
-    mapRec={static_cast<float>(GetScreenWidth()-(GetScreenWidth()/5)),0,static_cast<float>(GetScreenWidth()/5*2), static_cast<float>(GetScreenHeight())};
+    mapRec={0,0,static_cast<float>(GetScreenWidth()/10), static_cast<float>(GetScreenHeight())};
     mapTexture = LoadTexture("resources/mapTest.png");
 
 }
 void mapDraw()
 {
-    DrawTexture(mapTexture, static_cast<float>(GetScreenWidth()-(GetScreenWidth()/5)*1.54),0 ,WHITE);
+    DrawTexture(mapTexture, 0,0 ,WHITE);
 }
 
 void mapUnload()
