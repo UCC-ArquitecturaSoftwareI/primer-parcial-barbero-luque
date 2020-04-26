@@ -2,7 +2,7 @@
 // Created by Agustin on 25/4/2020.
 //
 
-#include "enemies.h"
+#include "clases/enemies.h"
 #include <string>
 
 enemies::enemies(int level, const Vector2 &enemiePos, std::string patch) : enemie_pos(enemiePos) {
