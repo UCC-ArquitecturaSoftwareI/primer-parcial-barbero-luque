@@ -8,8 +8,8 @@
 void InitGameplayScreen() {
     framesCounter = 0;
     finishScreen = 0;
-    hudInit();
     mapInit();
+    hudInit();
 }
 
 void UpdateGameplayScreen() {
@@ -18,8 +18,8 @@ void UpdateGameplayScreen() {
 }
 
 void DrawGameplayScreen() {
-    hudDraw();
     mapDraw();
+    hudDraw();
 }
 
 

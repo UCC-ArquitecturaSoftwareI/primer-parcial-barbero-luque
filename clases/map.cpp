@@ -8,7 +8,7 @@ Texture2D mapTexture;
 Rectangle mapRec;
 void mapInit()
 {
-    mapRec={0,0,static_cast<float>(GetScreenWidth()/10), static_cast<float>(GetScreenHeight())};
+    mapRec = {0,0,static_cast<float>(GetScreenWidth()/15), static_cast<float>(GetScreenHeight())};
     mapTexture = LoadTexture("resources/mapTest.png");
 
 }
