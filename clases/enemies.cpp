@@ -3,15 +3,14 @@
 //
 
 #include "enemies.h"
+#include <string>
 
-Texture2D enemiesTexture;
-
-enemies::enemies(int lvl, const Vector2 &enemiePos, std::string patch) : enemie_pos(enemiePos) {
-    level = lvl;
-    if( lvl == 1 ){
+enemies::enemies(int level, const Vector2 &enemiePos, std::string patch) : enemie_pos(enemiePos) {
+    level = eLevel;
+    if( level == 1 ){
         speed = 0.5;
         hp = 75;
-    }else if ( lvl == 2 ){
+    }else if ( level == 2 ){
         speed = 0.75;
         hp = 100;
     }else{
@@ -26,10 +25,10 @@ void enemies::draw() {
 }
 
 void enemies::move_x(float d) {
-    enemie_pos.x += d; // ACTUALIZAR CON SPEED
+    enemie_pos.x += d*speed; // ACTUALIZAR CON SPEED
 }
 void enemies::move_y(float d) {
-    enemie_pos.y += d; // ACTUALIZAR CON SPEED
+    enemie_pos.y += d*speed; // ACTUALIZAR CON SPEED
 }
 
 
