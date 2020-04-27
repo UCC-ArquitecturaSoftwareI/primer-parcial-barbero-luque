@@ -7,6 +7,7 @@
 static int framesCounter;
 static int finishScreen;
 #include "hud.h"
+#include "map.h"
 
 void InitGameplayScreen();
 void UpdateGameplayScreen();
