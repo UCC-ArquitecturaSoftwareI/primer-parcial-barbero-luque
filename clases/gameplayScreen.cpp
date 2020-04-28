@@ -24,8 +24,8 @@ void InitGameplayScreen() {
 
     switch (currentlevel){
         case 1:
-            for(int i=0;i<15;i++){
-                enemies currentenemy(1,startpos,"resources/towerDefense_tile245.png");
+            for(int i=0;i<2;i++){
+                enemies currentenemy(1, startpos,"resources/towerDefense_tile245.png");
                 activeEnemies.push_back(currentenemy);
             }
             currentdX=1;
