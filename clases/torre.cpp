@@ -8,3 +8,7 @@ torre::torre(int a, std::string b){
     cost=a;
     name=b;
 }
+
+void torre::fireProj(enemies) {
+
+}

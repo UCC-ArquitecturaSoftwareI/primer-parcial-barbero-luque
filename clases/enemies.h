@@ -9,7 +9,7 @@
 #define RAYLIBTEMPLATE_ENEMIES_H
 
 class enemies {
-private:
+protected:
     int level;
     float speed;
     int hp;
@@ -20,5 +20,10 @@ public:
     void move_x(float d);
     void move_y(float d);
     void draw();
+    Vector2 getenemie_pos(){
+        return enemie_pos;
+    }
+
+
 };
 #endif //RAYLIBTEMPLATE_ENEMIES_H

@@ -6,15 +6,24 @@
 #define PROYECTO_TORRE_H
 
 #include <string>
+#include "enemies.h"
 
 class torre{
-private:
+protected:
     int cost;
    std::string name;
 public:
     torre(int a, std::string b);
 
+    int getcost(){
+        return cost;
+    };
 
+    std::string getname()
+    {
+        return name;
+    };
 
+    void fireProj(enemies);
 };
 #endif //PROYECTO_TORRE_H
