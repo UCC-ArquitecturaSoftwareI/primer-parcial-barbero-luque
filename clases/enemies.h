@@ -21,7 +21,7 @@ public:
     void move_y(float d);
     void draw();
     Vector2 getenemie_pos(){
-                return enemie_pos;
+        return enemie_pos;
     }
 
 
