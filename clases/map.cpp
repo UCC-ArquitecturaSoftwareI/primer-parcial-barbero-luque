@@ -9,7 +9,7 @@ Rectangle mapRec;
 void mapInit()
 {
     mapRec = {0,0,static_cast<float>(GetScreenWidth()/15), static_cast<float>(GetScreenHeight())};
-    mapTexture = LoadTexture("resources/mapTest.png");
+    mapTexture = LoadTexture("resources/Map1.png");
 
 }
 void mapDraw()
