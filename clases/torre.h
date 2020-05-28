@@ -8,12 +8,14 @@
 #include <string>
 #include "enemies.h"
 
-class torre{
+class tower{
 protected:
     int cost;
-   std::string name;
+    std::string name;
+    Vector2 tower_pos;
+    Texture2D towerTexture;
 public:
-    torre(int a, std::string b);
+    tower(int a, std::string b, const Vector2 &towerPos, std::string patch);
 
     int getcost(){
         return cost;
@@ -25,5 +27,7 @@ public:
     };
 
     void fireProj(enemies);
+
+    void setTowerPosition(Vector2);
 };
 #endif //PROYECTO_TORRE_H

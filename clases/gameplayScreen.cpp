@@ -77,7 +77,6 @@ void DrawGameplayScreen() {
             */
     }
     //DrawText(reinterpret_cast<const char *>(playerhealth), 80, static_cast<float>(GetScreenHeight()) - 20, 14 , BLACK);
-
 }
 
 
