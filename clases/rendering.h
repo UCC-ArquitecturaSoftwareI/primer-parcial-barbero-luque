@@ -8,6 +8,7 @@
 template <class T>
 class rendering{
 public:
+
 private:
     
 };

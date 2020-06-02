@@ -7,28 +7,27 @@
 int playerhealth;
 int playermaxhealth=100;
 
-void startplayer(){
-    playerhealth=playermaxhealth;
-}
+class Player{
+private:
+    int playerhealth;
+    int playermaxhealth;
+    int playermoney;
+public:
 
-void pdamage(int d)
-{
-    playerhealth -=d;
-    if (playerhealth<0)
-    {
-        playerhealth=0;
-    }
-}
+    void startplayer();
+    void pdamage(int d);
+    void pheal(int h);
+    bool isPlayerdead();
+    int takeMoney(int);
+    void giveMoney(int);
 
-void pheal(int h)
-{
-    playerhealth+=h;
-    if(playerhealth>playermaxhealth)
-        playerhealth=playermaxhealth;
-}
+    int getPlayerMoney();
+    int getPlayerHealth();
+    int getPlayerMaxHealth();
 
-int isPlayerdead()
-{
-    return playerhealth==0;
-}
+    void setPlayerHealth(int);
+    void setPlayerMaxHealth(int);
+    void setPlayerMoney(int);
+};
+
 #endif //RAYLIBTEMPLATE_PLAYER_H

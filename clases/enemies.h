@@ -23,7 +23,6 @@ public:
     Vector2 getenemie_pos(){
         return enemie_pos;
     }
-
-
 };
+
 #endif //RAYLIBTEMPLATE_ENEMIES_H
