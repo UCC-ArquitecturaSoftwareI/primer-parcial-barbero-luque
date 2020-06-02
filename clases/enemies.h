@@ -26,7 +26,6 @@ public:
     Vector2 getenemie_pos(){
         return enemie_pos;
     }
-
     float getSpeed() const;
 
     void setSpeed(float speed);
@@ -40,4 +39,5 @@ public:
     }
 
 };
+
 #endif //RAYLIBTEMPLATE_ENEMIES_H
