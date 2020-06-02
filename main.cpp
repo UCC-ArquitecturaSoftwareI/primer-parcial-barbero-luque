@@ -1,6 +1,5 @@
 #include <raylib.h>
 #include "clases/WindowController.h"
-
 #if defined(PLATFORM_WEB) // Para crear HTML5
 #include <emscripten/emscripten.h>
 #endif
@@ -20,7 +19,6 @@ int main() {
     //music = LoadMusicStream("resources/Cyberpunk Moonlight Sonata.mp3");
 
     //PlayMusicStream(music);
-
     w.start();
 
 #if defined(PLATFORM_WEB)  // Para versión Web.

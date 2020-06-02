@@ -8,8 +8,11 @@ Rectangle hudRightPanel;
 
 Texture2D healthbarBaseText;
 
+Texture2D towerCreateButton;
 
 Texture2D healthbarOverText;
+
+Texture2D
 
 
 void hudInit()
@@ -19,14 +22,16 @@ void hudInit()
 
     healthbarBaseText=LoadTexture("resources/health_bar_decoration.png");
     healthbarOverText=LoadTexture("resources/health_bar.png");
+
+    towerCreateButton=LoadTexture("resources/TowerCreateButton.png");
 }
-void hudDraw()
+
+void hudDraw(Player p)
 {
     DrawTexture(hudTexturePanel, static_cast<float>(GetScreenWidth()-(GetScreenWidth()/5)*1.54),0 ,WHITE);
     DrawTexture(healthbarBaseText, 5 , static_cast<float>(GetScreenHeight()) - 20 , WHITE);
-
-    DrawTexture(healthbarOverText, 19 , static_cast<float>(GetScreenHeight()) - 20 , WHITE);
-
+    DrawTextureRec(healthbarOverText,{0,0,static_cast<float>(49-(p.getPlayerMaxHealth()-p.getPlayerHealth()/p.getPlayerMaxHealth()*49)),17}, {19 , static_cast<float>(GetScreenHeight()) - 20}, WHITE);
+    DrawTexture(towerCreateButton,600,50,WHITE);
 }
 
 void hudUnload()

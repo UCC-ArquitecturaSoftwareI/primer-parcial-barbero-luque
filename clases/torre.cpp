@@ -3,14 +3,28 @@
 //
 
 #include "torre.h"
+#include "projectile.h"
 
-tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch) : tower_pos(towerPos) {
+tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2) : tower_pos(towerPos) {
     cost=a;
     name=b;
-    towerTexture = LoadTexture(patch.c_str());
+    towerTextureBase = LoadTexture(patch.c_str());
+    towerTextureTop = LoadTexture(patch2.c_str());
 }
 
-void tower::fireProj(enemies) {
+projectile tower::fireProj(Enemies &e) {
+    if(currentCooldown==0)
+    {
+        Texture2D projectileText=LoadTexture("resources/Missile.png");
+        projectile temp(e,10,tower_pos,projectileText,10);
+        currentCooldown=maxCooldown;
+        return temp;
+        }
+    else{
+        currentCooldown--;
+        projectile temp;
+        return temp;
+    }
 
 }
 

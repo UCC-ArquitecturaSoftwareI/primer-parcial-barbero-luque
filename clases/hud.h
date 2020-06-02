@@ -5,9 +5,10 @@
 #ifndef RAYLIBTEMPLATE_HUD_H
 #define RAYLIBTEMPLATE_HUD_H
 #include <raylib.h>
+#include "player.h"
 
 void hudInit();
-void hudDraw();
+void hudDraw(Player p);
 
 void hudUnload();
 

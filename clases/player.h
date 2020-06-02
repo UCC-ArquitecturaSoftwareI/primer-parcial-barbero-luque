@@ -9,9 +9,9 @@ int playermaxhealth=100;
 
 class Player{
 private:
-    int playerhealth;
-    int playermaxhealth;
-    int playermoney;
+    int playerhealth=100;
+    int playermaxhealth=100;
+    int playermoney=0;
 public:
 
     void startplayer();

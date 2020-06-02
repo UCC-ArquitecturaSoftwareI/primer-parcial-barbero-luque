@@ -9,26 +9,44 @@
 class projectile{
 
 private:
-    enemies target;
 
-    float speed;
+    Enemies &target;
+
+    float speed=0;
     Vector2 pos;
     float damage;
     rendering<projectile> renderer;
     Texture2D projTexture;
 public:
 
-
-
-    projectile(enemies target, float speed, Vector2 pos, Texture2D projTexture, float damage)
+    projectile()
     {
 
     }
-    const enemies &getTarget() const {
+
+    projectile(projectile const &p)
+    {
+        target=p.target;
+        speed=p.speed;
+        pos=p.pos;
+        damage=p.damage;
+        projTexture=p.projTexture;
+
+    }
+
+    projectile(Enemies &t, float s, Vector2 p, Texture2D pT, float d)
+    {
+        target=t ;
+        speed=s;
+        pos=p;
+        damage=d;
+        projTexture=pT;
+    }
+    const Enemies &getTarget() const {
         return target;
     }
 
-    void setTarget(const enemies &target) {
+    void setTarget(const Enemies &target) {
         projectile::target = target;
     }
     float getSpeed() const;

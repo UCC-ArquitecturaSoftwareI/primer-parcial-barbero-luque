@@ -8,15 +8,19 @@
 #include <string>
 #include "enemies.h"
 #include "rendering.h"
+#include "projectile.h"
 
 class tower{
 protected:
     int cost;
     std::string name;
     Vector2 tower_pos;
-    Texture2D towerTexture;
+    Texture2D towerTextureBase;
+    Texture2D towerTextureTop;
+    int currentCooldown=0;
+    int maxCooldown=60;
 public:
-    tower(int a, std::string b, const Vector2 &towerPos, std::string patch);
+    tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2);
 
     int getcost(){
         return cost;
@@ -27,7 +31,7 @@ public:
         return name;
     };
 
-    void fireProj(enemies);
+    projectile fireProj(Enemies &e);
 
     void setTowerPosition(Vector2);
 };

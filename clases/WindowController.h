@@ -15,6 +15,7 @@ const int screenHeight = 450;
 
 class windowcontroller{
 public:
+    Player p;
     void start();
     static void UpdateDrawFrame();
 };
