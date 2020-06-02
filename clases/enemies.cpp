@@ -5,6 +5,7 @@
 #include "enemies.h"
 #include <string>
 
+/*
 enemies::enemies(int lvl, const Vector2 &enemiePos, std::string patch) : enemie_pos(enemiePos) {
     level = lvl;
     if( lvl == 1 ){
@@ -39,4 +40,4 @@ void enemies::setSpeed(float speed) {
     enemies::speed = speed;
 }
 
-
+*/

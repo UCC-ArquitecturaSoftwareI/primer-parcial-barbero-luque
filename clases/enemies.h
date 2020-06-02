@@ -9,6 +9,44 @@
 #ifndef RAYLIBTEMPLATE_ENEMIES_H
 #define RAYLIBTEMPLATE_ENEMIES_H
 
+class Enemies{
+public:
+    // Factory Method
+    static Enemies *make_enemie(int enem);
+    virtual void quehara() = 0;
+};
+
+class easy: public Enemies{
+public:
+    void quehara(){
+        // LO SABREMOS EN EL PROXIMO CAPITULO
+    }
+};
+
+class medium: public Enemies{
+public:
+    void quehara(){
+        // LO SABREMOS EN EL PROXIMO CAPITULO
+    }
+};
+
+class hard: public Enemies{
+public:
+    void quehara(){
+        // LO SABREMOS EN EL PROXIMO CAPITULO
+    }
+};
+
+Enemies *Enemies::make_enemie(int enem){
+    if (enem == 1)
+        return new easy;
+    else if (enem == 2)
+        return new medium;
+    else
+        return new hard;
+}
+
+/*
 class enemies {
 protected:
     int level;
@@ -38,6 +76,6 @@ public:
         return enemie;
     }
 
-};
+};*/
 
 #endif //RAYLIBTEMPLATE_ENEMIES_H
