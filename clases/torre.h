@@ -7,6 +7,7 @@
 
 #include <string>
 #include "enemies.h"
+#include "rendering.h"
 
 class tower{
 protected:

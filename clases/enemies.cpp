@@ -21,7 +21,7 @@ enemies::enemies(int lvl, const Vector2 &enemiePos, std::string patch) : enemie_
 }
 
 void enemies::draw() {
-    DrawTexture(enemie, enemie_pos.x - enemie.width/2, enemie_pos.y- enemie.height/2, WHITE);
+   renderer.drawEnemy(enemie,enemie_pos.x,enemie_pos.y);
 }
 
 void enemies::move_x(float d) {
@@ -29,6 +29,14 @@ void enemies::move_x(float d) {
 }
 void enemies::move_y(float d) {
     enemie_pos.y += d*speed; // ACTUALIZAR CON SPEED
+}
+
+float enemies::getSpeed() const {
+    return speed;
+}
+
+void enemies::setSpeed(float speed) {
+    enemies::speed = speed;
 }
 
 
