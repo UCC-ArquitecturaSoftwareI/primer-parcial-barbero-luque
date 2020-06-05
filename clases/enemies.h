@@ -2,80 +2,89 @@
 // Created by Agustin on 25/4/2020.
 //
 
+#ifndef RAYLIBTEMPLATE_ENEMIES_H
+#define RAYLIBTEMPLATE_ENEMIES_H
+
 #include "rendering.h"
 #include <raylib.h>
 #include <string>
 
-#ifndef RAYLIBTEMPLATE_ENEMIES_H
-#define RAYLIBTEMPLATE_ENEMIES_H
 
-class Enemies{
-public:
-    // Factory Method
-    static Enemies *make_enemie(int enem);
-    virtual void quehara() = 0;
-};
-
-class easy: public Enemies{
-public:
-    void quehara(){
-        // LO SABREMOS EN EL PROXIMO CAPITULO
-    }
-};
-
-class medium: public Enemies{
-public:
-    void quehara(){
-        // LO SABREMOS EN EL PROXIMO CAPITULO
-    }
-};
-
-class hard: public Enemies{
-public:
-    void quehara(){
-        // LO SABREMOS EN EL PROXIMO CAPITULO
-    }
-};
-
-Enemies *Enemies::make_enemie(int enem){
-    if (enem == 1)
-        return new easy;
-    else if (enem == 2)
-        return new medium;
-    else
-        return new hard;
-}
-
-/*
-class enemies {
+class EnemieBuilder{
 protected:
     int level;
     float speed;
     int hp;
-    Vector2 enemie_pos;
-    Texture2D enemie;
-    rendering<enemies> renderer;
-
+    int damage;
 public:
-    enemies(int lvl, const Vector2 &enemiePos, std::string patch);
-    void move_x(float d);
-    void move_y(float d);
-    void draw();
-    Vector2 getenemie_pos(){
-        return enemie_pos;
-    }
+    virtual EnemieBuilder& buildLevel() = 0;
+    virtual EnemieBuilder& buildSpeed() = 0;
+    virtual EnemieBuilder& buildHP() = 0;
+    virtual EnemieBuilder& buildDamage() = 0;
+
+    int getLevel() const;
     float getSpeed() const;
+    int getHP() const;
+    int getDamage() const;
+    void setLevel(int);
+    void setSpeed(float);
+    void setHP(int);
+    void setDamage (int);
+};
 
-    void setSpeed(float speed);
-    Vector2 getEnemie_pos()
-    {
-        return enemie_pos;
+class EasyEnemie : public EnemieBuilder {
+public:
+    EnemieBuilder &buildLevel() override;
+
+    EnemieBuilder &buildSpeed() override;
+
+    EnemieBuilder &buildHP() override;
+
+    EnemieBuilder &buildDamage() override;
+};
+
+class MediumEnemie : public EnemieBuilder {
+public:
+    EnemieBuilder &buildLevel() override;
+
+    EnemieBuilder &buildSpeed() override;
+
+    EnemieBuilder &buildHP() override;
+
+    EnemieBuilder &buildDamage() override;
+};
+
+class HardEnemie : public EnemieBuilder {
+public:
+    EnemieBuilder &buildLevel() override;
+
+    EnemieBuilder &buildSpeed() override;
+
+    EnemieBuilder &buildHP() override;
+
+    EnemieBuilder &buildDamage() override;
+};
+
+class ReyEnemigo{
+    EnemieBuilder &builder;
+public:
+    ReyEnemigo( EnemieBuilder &builder ) : builder(builder) {}
+
+    void construct(){
+        builder.buildLevel()
+        .buildHP()
+        .buildDamage()
+        .buildSpeed();
     }
-
-    Texture2D getenemie(){
-        return enemie;
-    }
-
-};*/
+};
 
 #endif //RAYLIBTEMPLATE_ENEMIES_H
+
+/* IMPLEMENTACION
+ *  EasyEnemie builderEasy;
+ *  ReyEnemigo cuartel( builderEasy );
+ *  cuartel.construct();
+ *
+ *  cout << builderEasy.get();
+ *
+ */
