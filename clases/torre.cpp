@@ -12,17 +12,10 @@ tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, s
     towerTextureTop = LoadTexture(patch2.c_str());
 }
 
-projectile tower::fireProj(Enemies &e) {
-    if(currentCooldown==0)
-    {
+projectile tower::fireProj(EnemieBuilder &e) {
+
         Texture2D projectileText=LoadTexture("resources/Missile.png");
         projectile temp(e,10,tower_pos,projectileText,10);
-        currentCooldown=maxCooldown;
-        return temp;
-        }
-    else{
-        currentCooldown--;
-        projectile temp;
         return temp;
     }
 
@@ -33,5 +26,18 @@ void tower::setTowerPosition(Vector2 position) {
         position = GetMousePosition();
         tower_pos.x = position.x;
         tower_pos.y = position.y;
+    }
+}
+
+int tower::cooldownTick() {
+    if(currentCooldown==0)
+    {
+        currentCooldown=maxCooldown;
+        return 1;
+    }
+    else
+    {
+        currentCooldown--;
+        return 0;
     }
 }

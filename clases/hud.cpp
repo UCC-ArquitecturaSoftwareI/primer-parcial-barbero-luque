@@ -12,8 +12,6 @@ Texture2D towerCreateButton;
 
 Texture2D healthbarOverText;
 
-Texture2D
-
 
 void hudInit()
 {

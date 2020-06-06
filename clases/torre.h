@@ -30,8 +30,8 @@ public:
     {
         return name;
     };
-
-    projectile fireProj(Enemies &e);
+    int cooldownTick();
+    projectile fireProj(EnemieBuilder &e);
 
     void setTowerPosition(Vector2);
 };

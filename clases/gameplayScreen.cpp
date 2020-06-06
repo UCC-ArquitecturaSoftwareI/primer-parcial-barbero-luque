@@ -11,18 +11,17 @@
 #include "projectile.h"
 #include "rendering.h"
 
-std::list<enemies> activeEnemies;
+std::list<EnemieBuilder> activeEnemies;
 std::list<tower> activeTowers;
 std::list<projectile> activeProjectiles;
 
-Rendering<tower> renderer;
+rendering<tower> renderer;
 int currenthealth=100;
 int currentlevel=1;
 int currentdX;
 int currentdY;
 Player p;
 int currentPlayerStatus=0; //0=GameplayNormal, 1=ColocandoTorre
-projectile aux;
 Vector2 startpos{5,85 };
 Vector2 ButtonTowerCreatePos{600,50};
 
@@ -38,7 +37,7 @@ void InitGameplayScreen() {
     switch (currentlevel){
         case 1:
             for(int i=0;i<15;i++){
-                enemies currentenemy(1, startpos,"resources/towerDefense_tile245.png");
+                EasyEnemie currentenemy;
                 activeEnemies.push_back(currentenemy);
             }
             currentdX=1;

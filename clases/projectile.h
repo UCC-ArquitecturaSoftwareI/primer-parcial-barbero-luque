@@ -10,7 +10,7 @@ class projectile{
 
 private:
 
-    Enemies &target;
+    EnemieBuilder &target;
 
     float speed=0;
     Vector2 pos;
@@ -19,22 +19,7 @@ private:
     Texture2D projTexture;
 public:
 
-    projectile()
-    {
-
-    }
-
-    projectile(projectile const &p)
-    {
-        target=p.target;
-        speed=p.speed;
-        pos=p.pos;
-        damage=p.damage;
-        projTexture=p.projTexture;
-
-    }
-
-    projectile(Enemies &t, float s, Vector2 p, Texture2D pT, float d)
+    projectile(EnemieBuilder &t, float s, Vector2 p, Texture2D pT, float d): target(t)
     {
         target=t ;
         speed=s;
@@ -42,11 +27,11 @@ public:
         damage=d;
         projTexture=pT;
     }
-    const Enemies &getTarget() const {
+    const EnemieBuilder &getTarget() const {
         return target;
     }
 
-    void setTarget(const Enemies &target) {
+    void setTarget(const EnemieBuilder &target) {
         projectile::target = target;
     }
     float getSpeed() const;
@@ -68,6 +53,8 @@ public:
     const Texture2D &getProjTexture() const;
 
     void setProjTexture(const Texture2D &projTexture);
+
+    projectile();
 
 public:
 
@@ -111,6 +98,12 @@ const Texture2D &projectile::getProjTexture() const {
 
 void projectile::setProjTexture(const Texture2D &projTexture) {
     projectile::projTexture = projTexture;
+}
+
+projectile::projectile(): target(); {
+
+
+
 }
 
 #endif //RAYLIBTEMPLATE_PROJECTILE_H
