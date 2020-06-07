@@ -39,3 +39,7 @@ int tower::cooldownTick() {
         return 0;
     }
 }
+
+void tower::draw() {
+    renderer.drawTower(towerTextureBase,towerTextureTop,tower_pos.x,tower_pos.y);
+}

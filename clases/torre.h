@@ -19,6 +19,7 @@ protected:
     Texture2D towerTextureTop;
     int currentCooldown=0;
     int maxCooldown=60;
+    rendering<tower> renderer;
 public:
     tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2);
 
@@ -34,5 +35,7 @@ public:
     projectile fireProj(EnemieBuilder &e);
 
     void setTowerPosition(Vector2);
+
+    void draw();
 };
 #endif //PROYECTO_TORRE_H

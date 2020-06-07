@@ -28,7 +28,8 @@ void hudDraw(Player p)
 {
     DrawTexture(hudTexturePanel, static_cast<float>(GetScreenWidth()-(GetScreenWidth()/5)*1.54),0 ,WHITE);
     DrawTexture(healthbarBaseText, 5 , static_cast<float>(GetScreenHeight()) - 20 , WHITE);
-    DrawTextureRec(healthbarOverText,{0,0,static_cast<float>(49-(p.getPlayerMaxHealth()-p.getPlayerHealth()/p.getPlayerMaxHealth()*49)),17}, {19 , static_cast<float>(GetScreenHeight()) - 20}, WHITE);
+    float currentHPBarWidth=(49-((p.getPlayerMaxHealth()-(p.getPlayerHealth()))/p.getPlayerMaxHealth()*49));
+    DrawTextureRec(healthbarOverText,{0,0,currentHPBarWidth,17}, {19 , static_cast<float>(GetScreenHeight()) - 20}, WHITE);
     DrawTexture(towerCreateButton,600,50,WHITE);
 }
 

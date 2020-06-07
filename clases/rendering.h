@@ -21,6 +21,10 @@ public:
         DrawTexture(tope, x - tope.width/2, y- tope.height/2, GREEN);
     }
 
+    void drawTower(Texture2D base, Texture2D tope, float x, float y){
+        DrawTexture(base, x - base.width/2, y- base.height/2, WHITE);
+        DrawTexture(tope, x - tope.width/2, y- tope.height/2, WHITE);
+    }
     
 };
 
