@@ -10,13 +10,6 @@
 #include "torre.h"
 //#include "projectile.h"
 #include "rendering.h"
-/*
-std::list<EasyEnemie> builderEasy;
-std::list<MediumEnemie> builderMedium;
-std::list<HardEnemie> builderHard;
-std::list<tower> activeTowers;
-std::list<projectile> activeProjectiles;
-*/
 EasyEnemie builderEasy;
 MediumEnemie builderMedium;
 HardEnemie builderHard;
@@ -63,15 +56,18 @@ void InitGameplayScreen() {
             builderEasy.buildLevel()
                     .buildHP()
                     .buildDamage()
-                    .buildSpeed();
+                    .buildSpeed()
+                    .buildInitialPosition();
             builderMedium.buildLevel()
                     .buildHP()
                     .buildDamage()
-                    .buildSpeed();
+                    .buildSpeed()
+                    .buildInitialPosition();
             builderHard.buildLevel()
                     .buildHP()
                     .buildDamage()
-                    .buildSpeed();
+                    .buildSpeed()
+                    .buildInitialPosition();
             cuartelEasy.construct();
             cuartelMedium.construct();
             cuartelHard.construct();

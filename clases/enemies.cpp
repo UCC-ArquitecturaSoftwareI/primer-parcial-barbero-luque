@@ -71,8 +71,8 @@ EnemieBuilder &EasyEnemie::buildDamage() {
 }
 
 EnemieBuilder &EasyEnemie::buildDraw() {
-    enemie = LoadTexture("resources/ship.png");
-    renderer.drawEnemy(enemie,290, 330);
+    enemie = LoadTexture("resources/towerDefense_tile245.png");
+    renderer.drawEnemy(enemie, this->getEnemie_pos().x, this->getEnemie_pos().x);
     return *this;
 }
 
@@ -117,7 +117,7 @@ EnemieBuilder &MediumEnemie::buildDamage() {
 
 EnemieBuilder &MediumEnemie::buildDraw() {
     enemie = LoadTexture("resources/Missile.png");
-    renderer.drawEnemy(enemie,290, 330);
+    renderer.drawEnemy(enemie,20, 85);
     return *this;
 }
 
@@ -136,6 +136,24 @@ EnemieBuilder &MediumEnemie::buildMovement() {
     else{
         this->move_x(1);
     }
+    return *this;
+}
+
+EnemieBuilder &EasyEnemie::buildInitialPosition() {
+    this->enemie_pos.x = 20;
+    this->enemie_pos.y = 85;
+    return *this;
+}
+
+EnemieBuilder &MediumEnemie::buildInitialPosition() {
+    this->enemie_pos.x = 20;
+    this->enemie_pos.y = 85;
+    return *this;
+}
+
+EnemieBuilder &HardEnemie::buildInitialPosition() {
+    this->enemie_pos.x = 20;
+    this->enemie_pos.y = 85;
     return *this;
 }
 
@@ -161,7 +179,7 @@ EnemieBuilder &HardEnemie::buildDamage() {
 
 EnemieBuilder &HardEnemie::buildDraw() {
     enemie = LoadTexture("resources/TowerBase.png");
-    renderer.drawEnemy(enemie,290, 330);
+    renderer.drawEnemy(enemie,20, 85);
     return *this;
 }
 

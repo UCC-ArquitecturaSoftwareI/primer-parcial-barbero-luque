@@ -24,6 +24,7 @@ public:
     virtual EnemieBuilder& buildSpeed() = 0;
     virtual EnemieBuilder& buildHP() = 0;
     virtual EnemieBuilder& buildDamage() = 0;
+    virtual EnemieBuilder& buildInitialPosition() = 0;
     virtual EnemieBuilder& buildMovement() = 0;
     virtual EnemieBuilder& buildDraw() = 0;
 
@@ -46,6 +47,7 @@ public:
     EnemieBuilder &buildSpeed() override;
     EnemieBuilder &buildHP() override;
     EnemieBuilder &buildDamage() override;
+    EnemieBuilder &buildInitialPosition() override;
     EnemieBuilder &buildMovement() override;
     EnemieBuilder &buildDraw() override;
 };
@@ -56,6 +58,7 @@ public:
     EnemieBuilder &buildSpeed() override;
     EnemieBuilder &buildHP() override;
     EnemieBuilder &buildDamage() override;
+    EnemieBuilder &buildInitialPosition() override;
     EnemieBuilder &buildMovement() override;
     EnemieBuilder &buildDraw() override;
 };
@@ -66,6 +69,7 @@ public:
     EnemieBuilder &buildSpeed() override;
     EnemieBuilder &buildHP() override;
     EnemieBuilder &buildDamage() override;
+    EnemieBuilder &buildInitialPosition() override;
     EnemieBuilder &buildMovement() override;
     EnemieBuilder &buildDraw() override;
 };
@@ -81,6 +85,7 @@ public:
         .buildDamage()
         .buildSpeed()
         .buildDraw()
+        .buildInitialPosition()
         .buildMovement();
     }
 };
