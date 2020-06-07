@@ -19,8 +19,6 @@ projectile tower::fireProj(EnemieBuilder &e) {
         return temp;
     }
 
-}
-
 void tower::setTowerPosition(Vector2 position) {
     if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) ){
         position = GetMousePosition();

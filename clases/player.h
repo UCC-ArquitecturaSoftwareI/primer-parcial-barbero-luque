@@ -4,8 +4,6 @@
 
 #ifndef RAYLIBTEMPLATE_PLAYER_H
 #define RAYLIBTEMPLATE_PLAYER_H
-int playerhealth;
-int playermaxhealth=100;
 
 class Player{
 private:

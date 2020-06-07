@@ -16,12 +16,20 @@ protected:
     float speed;
     int hp;
     int damage;
+    Vector2 enemie_pos;
+    Texture2D enemie;
+    rendering<EnemieBuilder> renderer;
 public:
     virtual EnemieBuilder& buildLevel() = 0;
     virtual EnemieBuilder& buildSpeed() = 0;
     virtual EnemieBuilder& buildHP() = 0;
     virtual EnemieBuilder& buildDamage() = 0;
+    virtual EnemieBuilder& buildMovement() = 0;
+    virtual EnemieBuilder& buildDraw() = 0;
 
+    void move_x(float d);
+    void move_y(float d);
+    Vector2 getEnemie_pos();
     int getLevel() const;
     float getSpeed() const;
     int getHP() const;
@@ -35,46 +43,45 @@ public:
 class EasyEnemie : public EnemieBuilder {
 public:
     EnemieBuilder &buildLevel() override;
-
     EnemieBuilder &buildSpeed() override;
-
     EnemieBuilder &buildHP() override;
-
     EnemieBuilder &buildDamage() override;
+    EnemieBuilder &buildMovement() override;
+    EnemieBuilder &buildDraw() override;
 };
 
 class MediumEnemie : public EnemieBuilder {
 public:
     EnemieBuilder &buildLevel() override;
-
     EnemieBuilder &buildSpeed() override;
-
     EnemieBuilder &buildHP() override;
-
     EnemieBuilder &buildDamage() override;
+    EnemieBuilder &buildMovement() override;
+    EnemieBuilder &buildDraw() override;
 };
 
 class HardEnemie : public EnemieBuilder {
 public:
     EnemieBuilder &buildLevel() override;
-
     EnemieBuilder &buildSpeed() override;
-
     EnemieBuilder &buildHP() override;
-
     EnemieBuilder &buildDamage() override;
+    EnemieBuilder &buildMovement() override;
+    EnemieBuilder &buildDraw() override;
 };
 
-class ReyEnemigo{
+class Cuartel{
     EnemieBuilder &builder;
 public:
-    ReyEnemigo( EnemieBuilder &builder ) : builder(builder) {}
+    Cuartel(EnemieBuilder &builder ) : builder(builder) {}
 
     void construct(){
         builder.buildLevel()
         .buildHP()
         .buildDamage()
-        .buildSpeed();
+        .buildSpeed()
+        .buildDraw()
+        .buildMovement();
     }
 };
 
@@ -82,7 +89,7 @@ public:
 
 /* IMPLEMENTACION
  *  EasyEnemie builderEasy;
- *  ReyEnemigo cuartel( builderEasy );
+ *  Cuartel cuartel( builderEasy );
  *  cuartel.construct();
  *
  *  cout << builderEasy.get();

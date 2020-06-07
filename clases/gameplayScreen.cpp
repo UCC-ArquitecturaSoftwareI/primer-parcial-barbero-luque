@@ -8,12 +8,22 @@
 #include "player.h"
 #include "random"
 #include "torre.h"
-#include "projectile.h"
+//#include "projectile.h"
 #include "rendering.h"
-
-std::list<EnemieBuilder> activeEnemies;
+/*
+std::list<EasyEnemie> builderEasy;
+std::list<MediumEnemie> builderMedium;
+std::list<HardEnemie> builderHard;
 std::list<tower> activeTowers;
 std::list<projectile> activeProjectiles;
+*/
+EasyEnemie builderEasy;
+MediumEnemie builderMedium;
+HardEnemie builderHard;
+
+Cuartel cuartelEasy( builderEasy );
+Cuartel cuartelMedium( builderMedium );
+Cuartel cuartelHard( builderHard );
 
 rendering<tower> renderer;
 int currenthealth=100;
@@ -37,9 +47,34 @@ void InitGameplayScreen() {
     switch (currentlevel){
         case 1:
             for(int i=0;i<15;i++){
-                EasyEnemie currentenemy;
-                activeEnemies.push_back(currentenemy);
+                /*builderEasy.buildLevel()
+                    .buildHP()
+                    .buildDamage()
+                    .buildSpeed();
+                builderMedium.buildLevel()
+                    .buildHP()
+                    .buildDamage()
+                    .buildSpeed();
+                builderHard.buildLevel()
+                    .buildHP()
+                    .buildDamage()
+                    .buildSpeed();*/
             }
+            builderEasy.buildLevel()
+                    .buildHP()
+                    .buildDamage()
+                    .buildSpeed();
+            builderMedium.buildLevel()
+                    .buildHP()
+                    .buildDamage()
+                    .buildSpeed();
+            builderHard.buildLevel()
+                    .buildHP()
+                    .buildDamage()
+                    .buildSpeed();
+            cuartelEasy.construct();
+            cuartelMedium.construct();
+            cuartelHard.construct();
             currentdX=1;
             currentdY=0;
 
@@ -51,31 +86,10 @@ void InitGameplayScreen() {
 }
 
 void UpdateGameplayScreen() {
-    for(auto i=activeEnemies.begin(); i!=activeEnemies.end() ; ++i)
-    {
-        if(i->getenemie_pos().x==290 && i->getenemie_pos().y<330)
-        {
-            //if (rand() %2==0)
-                i->move_y(1);
-        }
-        else if(i->getenemie_pos().x==500)
-        {
-
-            //if (rand() %2==0)
-                i->move_y(-1);
-            if(i->getenemie_pos().y<0)
-            {
-               // activeEnemies.remove(*i);
-                p.pdamage(5);
-
-            }
-        }
-        else
-        {
-            i->move_x(1);
-        }
-    }
-    for(auto i=activeTowers.begin();i!=activeTowers.end();++i)
+    builderEasy.buildMovement();
+    builderMedium.buildMovement();
+    builderHard.buildMovement();
+    /*for(auto i=activeTowers.begin();i!=activeTowers.end();++i)
     {
         aux=i->fireProj(activeEnemies.front());
         if (aux.getSpeed()!=0)
@@ -103,30 +117,23 @@ void UpdateGameplayScreen() {
         currentTowerText1=LoadTexture("resources/TowerBase.png");
         currentTowerText2=LoadTexture("resources/TowerTop.png");
     }
+*/
+
 
 }
 
 void DrawGameplayScreen() {
     mapDraw();
     hudDraw(p);
-    for(auto i=activeEnemies.begin(); i!=activeEnemies.end() ; ++i)
-    {
-        i->draw();
-       /* if ( i->getenemie_pos().x >= 10 )
-            i->draw();
-            Buscar la forma de que aparezcan 1 por 1 cada 10 pixeles
-            */
-    }
-    for(auto i=activeTowers.begin(); i!=activeTowers.end() ; ++i)
-    {
-        i->draw();
-    }
-    for(auto i=activeProjectiles.begin(); i!=activeProjectiles.end() ; ++i)
-    {
-        i->draw();
-    }
+    builderEasy.buildMovement();
+    builderEasy.buildDraw();
+    builderMedium.buildMovement();
+    builderMedium.buildDraw();
+    builderHard.buildMovement();
+    builderHard.buildDraw();
     if(currentPlayerStatus==1)
     {
+
         renderer.drawPhantomTextureTower(currentTowerText1,currentTowerText2,GetMousePosition().x,GetMousePosition().y);
     }
     //DrawText(reinterpret_cast<const char *>(playerhealth), 80, static_cast<float>(GetScreenHeight()) - 20, 14 , BLACK);
