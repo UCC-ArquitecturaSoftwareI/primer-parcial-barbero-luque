@@ -19,6 +19,7 @@ protected:
     Vector2 enemie_pos;
     Texture2D enemie;
     rendering<EnemieBuilder> renderer;
+    bool toDie=false;
 public:
     virtual EnemieBuilder& buildLevel() = 0;
     virtual EnemieBuilder& buildSpeed() = 0;
@@ -33,6 +34,10 @@ public:
     void move_x(float d);
     void move_y(float d);
     Vector2 getEnemie_pos();
+    Texture2D getTexture()
+    {
+        return enemie;
+    }
     int getLevel() const;
     float getSpeed() const;
     int getHP() const;
@@ -41,6 +46,17 @@ public:
     void setSpeed(float);
     void setHP(int);
     void setDamage (int);
+    void takeDamage(int d)
+    {
+        hp-=d;
+        if (hp<=0)
+        toDie=true;
+    }
+    bool gettoDie()
+    {
+        return toDie;
+    }
+
 };
 
 class EasyEnemie : public EnemieBuilder {

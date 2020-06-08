@@ -15,8 +15,7 @@ tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, s
 projectile tower::fireProj(EnemieBuilder &e) {
 
         Texture2D projectileText=LoadTexture("resources/Missile.png");
-        projectile temp(e,10,tower_pos,projectileText,10);
-        return temp;
+        return projectile (e,10,tower_pos,projectileText,10);;
     }
 
 void tower::setTowerPosition(Vector2 position) {
