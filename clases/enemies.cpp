@@ -65,7 +65,6 @@ EnemieBuilder &EasyEnemie::buildSpeed() {
 }
 
 EnemieBuilder &EasyEnemie::buildHP() {
-    setPatch( LoadTexture("resources/Missile.png") );
     hp = 75;
     return *this;
 }
@@ -76,7 +75,7 @@ EnemieBuilder &EasyEnemie::buildDamage() {
 }
 
 EnemieBuilder &EasyEnemie::buildDraw() {
-    renderer.drawEnemy(this->enemie, this->getEnemie_pos().x, this->getEnemie_pos().x);
+    renderer.drawEnemy(this->enemie, this->getEnemie_pos().x, this->getEnemie_pos().y);
     return *this;
 }
 
@@ -121,8 +120,7 @@ EnemieBuilder &MediumEnemie::buildDamage() {
 }
 
 EnemieBuilder &MediumEnemie::buildDraw() {
-    //enemie = LoadTexture("resources/Missile.png");
-    renderer.drawEnemy(this->enemie,20, 85);
+    renderer.drawEnemy(this->enemie,this->getEnemie_pos().x, this->getEnemie_pos().y);
     return *this;
 }
 
@@ -193,7 +191,7 @@ EnemieBuilder &HardEnemie::buildDamage() {
 }
 
 EnemieBuilder &HardEnemie::buildDraw() {
-    renderer.drawEnemy(this->enemie,20, 85);
+    renderer.drawEnemy(this->enemie,this->getEnemie_pos().x, this->getEnemie_pos().y);
     return *this;
 }
 
@@ -210,7 +208,6 @@ EnemieBuilder &HardEnemie::buildMovement() {
     else if(this->getEnemie_pos().x==500){
         this->move_y(-1);
         if(this->getEnemie_pos().y<0){
-            // activeEnemies.remove(*i);
             //p.pdamage(5);
         }
     }

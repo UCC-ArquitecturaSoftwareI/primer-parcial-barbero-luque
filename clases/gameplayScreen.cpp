@@ -101,12 +101,9 @@ framesCounter++;
 void DrawGameplayScreen() {
     mapDraw();
     hudDraw(p);
-    builderEasy.buildMovement();
     builderEasy.buildDraw();
-    //builderMedium.buildMovement();
-    //builderMedium.buildDraw();
-    //builderHard.buildMovement();
-    //builderHard.buildDraw();
+    builderMedium.buildDraw();
+    builderHard.buildDraw();
     if(currentPlayerStatus==1)
     {
         renderer.drawPhantomTextureTower(currentTowerText1,currentTowerText2,GetMousePosition().x,GetMousePosition().y);
