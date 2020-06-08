@@ -42,8 +42,9 @@ void InitGameplayScreen() {
     p.startplayer();
     switch (currentlevel){
         case 1:
-
-
+            cuartelEasy.construct();
+            cuartelMedium.construct();
+            cuartelHard.construct();
         case 2:
             ;
 
@@ -59,24 +60,6 @@ void UpdateGameplayScreen() {
         case 1:
             if(framesCounter%60==0 && framesCounter<=900)
             {
-                builderEasy.buildLevel()
-                        .buildHP()
-                        .buildDamage()
-                        .buildSpeed()
-                        .buildInitialPosition();
-                builderMedium.buildLevel()
-                        .buildHP()
-                        .buildDamage()
-                        .buildSpeed()
-                        .buildInitialPosition();
-                builderHard.buildLevel()
-                        .buildHP()
-                        .buildDamage()
-                        .buildSpeed()
-                        .buildInitialPosition();
-                cuartelEasy.construct();
-                cuartelMedium.construct();
-                cuartelHard.construct();
                 currentdX=1;
                 currentdY=0;
             }
@@ -120,10 +103,10 @@ void DrawGameplayScreen() {
     hudDraw(p);
     builderEasy.buildMovement();
     builderEasy.buildDraw();
-    builderMedium.buildMovement();
-    builderMedium.buildDraw();
-    builderHard.buildMovement();
-    builderHard.buildDraw();
+    //builderMedium.buildMovement();
+    //builderMedium.buildDraw();
+    //builderHard.buildMovement();
+    //builderHard.buildDraw();
     if(currentPlayerStatus==1)
     {
         renderer.drawPhantomTextureTower(currentTowerText1,currentTowerText2,GetMousePosition().x,GetMousePosition().y);

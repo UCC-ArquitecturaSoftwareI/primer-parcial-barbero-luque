@@ -26,8 +26,10 @@ public:
     virtual EnemieBuilder& buildDamage() = 0;
     virtual EnemieBuilder& buildInitialPosition() = 0;
     virtual EnemieBuilder& buildMovement() = 0;
+    virtual EnemieBuilder& buildTexture() = 0;
     virtual EnemieBuilder& buildDraw() = 0;
 
+    void setPatch( Texture2D );
     void move_x(float d);
     void move_y(float d);
     Vector2 getEnemie_pos();
@@ -49,6 +51,7 @@ public:
     EnemieBuilder &buildDamage() override;
     EnemieBuilder &buildInitialPosition() override;
     EnemieBuilder &buildMovement() override;
+    EnemieBuilder &buildTexture() override;
     EnemieBuilder &buildDraw() override;
 };
 
@@ -60,6 +63,7 @@ public:
     EnemieBuilder &buildDamage() override;
     EnemieBuilder &buildInitialPosition() override;
     EnemieBuilder &buildMovement() override;
+    EnemieBuilder &buildTexture() override;
     EnemieBuilder &buildDraw() override;
 };
 
@@ -71,6 +75,7 @@ public:
     EnemieBuilder &buildDamage() override;
     EnemieBuilder &buildInitialPosition() override;
     EnemieBuilder &buildMovement() override;
+    EnemieBuilder &buildTexture() override;
     EnemieBuilder &buildDraw() override;
 };
 
@@ -85,6 +90,7 @@ public:
         .buildDamage()
         .buildSpeed()
         .buildDraw()
+        .buildTexture()
         .buildInitialPosition()
         .buildMovement();
     }
