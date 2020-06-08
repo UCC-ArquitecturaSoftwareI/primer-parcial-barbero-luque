@@ -44,7 +44,7 @@ void projectile::setProjTexture(const Texture2D &projTexture) {
 }
 
 void projectile::move() {
-    Vector2 movVector={pos.x-target.getEnemie_pos().x,pos.y-target.getEnemie_pos().y};
+    Vector2 movVector={target.getEnemie_pos().x-pos.x,target.getEnemie_pos().y-pos.y};
     Normalize(movVector);
     pos.x+=movVector.x*speed;
     pos.y+=movVector.y*speed;

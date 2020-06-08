@@ -130,7 +130,6 @@ void DrawGameplayScreen() {
     }
     for(auto i=activeProjectiles.begin();i!=activeProjectiles.end();++i)
     {
-
         i->draw();
     }
     //DrawText(reinterpret_cast<const char *>(playerhealth), 80, static_cast<float>(GetScreenHeight()) - 20, 14 , BLACK);
