@@ -19,6 +19,7 @@ protected:
     Vector2 enemie_pos;
     Texture2D enemie;
     rendering<EnemieBuilder> renderer;
+    bool toDie=false;
 public:
     virtual EnemieBuilder& buildLevel() = 0;
     virtual EnemieBuilder& buildSpeed() = 0;
@@ -26,11 +27,17 @@ public:
     virtual EnemieBuilder& buildDamage() = 0;
     virtual EnemieBuilder& buildInitialPosition() = 0;
     virtual EnemieBuilder& buildMovement() = 0;
+    virtual EnemieBuilder& buildTexture() = 0;
     virtual EnemieBuilder& buildDraw() = 0;
 
+    void setPatch( Texture2D );
     void move_x(float d);
     void move_y(float d);
     Vector2 getEnemie_pos();
+    Texture2D getTexture()
+    {
+        return enemie;
+    }
     int getLevel() const;
     float getSpeed() const;
     int getHP() const;
@@ -39,6 +46,17 @@ public:
     void setSpeed(float);
     void setHP(int);
     void setDamage (int);
+    void takeDamage(int d)
+    {
+        hp-=d;
+        if (hp<=0)
+        toDie=true;
+    }
+    bool gettoDie()
+    {
+        return toDie;
+    }
+
 };
 
 class EasyEnemie : public EnemieBuilder {
@@ -49,6 +67,7 @@ public:
     EnemieBuilder &buildDamage() override;
     EnemieBuilder &buildInitialPosition() override;
     EnemieBuilder &buildMovement() override;
+    EnemieBuilder &buildTexture() override;
     EnemieBuilder &buildDraw() override;
 };
 
@@ -60,6 +79,7 @@ public:
     EnemieBuilder &buildDamage() override;
     EnemieBuilder &buildInitialPosition() override;
     EnemieBuilder &buildMovement() override;
+    EnemieBuilder &buildTexture() override;
     EnemieBuilder &buildDraw() override;
 };
 
@@ -71,6 +91,7 @@ public:
     EnemieBuilder &buildDamage() override;
     EnemieBuilder &buildInitialPosition() override;
     EnemieBuilder &buildMovement() override;
+    EnemieBuilder &buildTexture() override;
     EnemieBuilder &buildDraw() override;
 };
 
@@ -85,6 +106,7 @@ public:
         .buildDamage()
         .buildSpeed()
         .buildDraw()
+        .buildTexture()
         .buildInitialPosition()
         .buildMovement();
     }

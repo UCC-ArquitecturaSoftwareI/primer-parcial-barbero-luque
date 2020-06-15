@@ -18,15 +18,35 @@ private:
     float damage;
     rendering<projectile> renderer;
     Texture2D projTexture{};
+    //std::list<Texture2D> fireframes{};
+    bool toDie=false;
+
+    inline float FastSqrtInvAroundOne(float x)
+    {
+        const float a0 = 15.0f / 8.0f;
+        const float a1 = -5.0f / 4.0f;
+        const float a2 = 3.0f / 8.0f;
+
+        return a0 + a1 * x + a2 * x * x;
+    }
+
+    const Vector2 Normalize(const Vector2 &v)
+    {
+        const float len_sq = v.x * v.x + v.y * v.y;
+        const float len_inv = FastSqrtInvAroundOne(len_sq);
+        return Vector2{v.x * len_inv, v.y * len_inv};
+    }
+
 public:
 
-    projectile(EnemieBuilder &t, float s, Vector2 p, Texture2D pT, float d): target(t)
+    projectile(EnemieBuilder &t, float s, Vector2 p, Texture2D pT, float d):target(t)
     {
         target=t ;
         speed=s;
         pos=p;
         damage=d;
         projTexture=pT;
+        //fireframes=f;
     }
     const EnemieBuilder &getTarget() const {
         return target;
@@ -55,8 +75,20 @@ public:
 
     void setProjTexture(const Texture2D &projTexture);
 
+    void move();
+
+    void draw();
+
+    bool gettoDie()
+    {
+        return toDie;
+    }
     projectile();
 
+    ~projectile()
+    {
+        UnloadTexture(projTexture);
+    }
 
 };
 

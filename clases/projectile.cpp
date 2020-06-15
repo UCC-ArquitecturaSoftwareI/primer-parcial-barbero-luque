@@ -42,3 +42,20 @@ const Texture2D &projectile::getProjTexture() const {
 void projectile::setProjTexture(const Texture2D &projTexture) {
     projectile::projTexture = projTexture;
 }
+
+void projectile::move() {
+    Vector2 movVector={target.getEnemie_pos().x-pos.x,target.getEnemie_pos().y-pos.y};
+    Normalize(movVector);
+    pos.x+=movVector.x*speed;
+    pos.y+=movVector.y*speed;
+    if(CheckCollisionCircles(pos,15,target.getEnemie_pos(),15)){
+        target.takeDamage(damage);
+        toDie=true;
+    }
+}
+
+void projectile::draw() {
+    renderer.drawProjectile(projTexture,pos.x,pos.y);
+}
+
+

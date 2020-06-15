@@ -32,6 +32,8 @@ Texture2D currentTowerText1;
 Texture2D currentTowerText2;
 
 std::list<tower> activeTowers;
+//std::list<EnemieBuilder> activeEnemies;
+std::list<projectile> activeProjectiles;
 
 void InitGameplayScreen() {
     framesCounter = 0;
@@ -42,8 +44,8 @@ void InitGameplayScreen() {
     p.startplayer();
     switch (currentlevel){
         case 1:
-
-
+            currentdX=1;
+            currentdY=0;
         case 2:
             ;
 
@@ -57,38 +59,27 @@ void UpdateGameplayScreen() {
     builderHard.buildMovement();
     switch(currentlevel){
         case 1:
-            if(framesCounter%60==0 && framesCounter<=900)
+            if(framesCounter%60==0 && framesCounter<=300)
             {
-                builderEasy.buildLevel()
-                        .buildHP()
-                        .buildDamage()
-                        .buildSpeed()
-                        .buildInitialPosition();
-                builderMedium.buildLevel()
-                        .buildHP()
-                        .buildDamage()
-                        .buildSpeed()
-                        .buildInitialPosition();
-                builderHard.buildLevel()
-                        .buildHP()
-                        .buildDamage()
-                        .buildSpeed()
-                        .buildInitialPosition();
                 cuartelEasy.construct();
-                cuartelMedium.construct();
-                cuartelHard.construct();
-                currentdX=1;
-                currentdY=0;
             }
+            if(framesCounter%60==0 && framesCounter>300 && framesCounter<=600)
+            {
+                cuartelMedium.construct();
+            }
+            if(framesCounter%60==0 && framesCounter>600 && framesCounter<=900)
+            {
+                cuartelHard.construct();
+            }
+
     }
 
  for(auto i=activeTowers.begin();i!=activeTowers.end();++i)
     {
-        /*aux=i->fireProj(activeEnemies.front());
-        if (aux.getSpeed()!=0)
-        {
-            activeProjectiles.push_back(aux);
-        }*/
+       if(i->cooldownTick()==1)
+       {
+           activeProjectiles.push_back(i->fireProj(builderEasy));
+       }
     }
     if (currentPlayerStatus==1 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) && GetMousePosition().x<(GetScreenWidth()-(GetScreenWidth()/5)*1.54)){
 
@@ -111,6 +102,14 @@ void UpdateGameplayScreen() {
         currentTowerText2=LoadTexture("resources/TowerTop.png");
     }
 
+    for(auto i=activeProjectiles.begin();i!=activeProjectiles.end();++i)
+    {
+        if(i->gettoDie())
+        {
+            activeProjectiles.erase(i);
+        }
+        i->move();
+    }
 
 framesCounter++;
 }
@@ -118,17 +117,18 @@ framesCounter++;
 void DrawGameplayScreen() {
     mapDraw();
     hudDraw(p);
-    builderEasy.buildMovement();
     builderEasy.buildDraw();
-    builderMedium.buildMovement();
     builderMedium.buildDraw();
-    builderHard.buildMovement();
     builderHard.buildDraw();
     if(currentPlayerStatus==1)
     {
         renderer.drawPhantomTextureTower(currentTowerText1,currentTowerText2,GetMousePosition().x,GetMousePosition().y);
     }
     for(auto i=activeTowers.begin(); i!=activeTowers.end(); ++i)
+    {
+        i->draw();
+    }
+    for(auto i=activeProjectiles.begin();i!=activeProjectiles.end();++i)
     {
         i->draw();
     }
