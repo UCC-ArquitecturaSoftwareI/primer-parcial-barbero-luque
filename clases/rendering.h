@@ -6,27 +6,27 @@
 #define RAYLIBTEMPLATE_RENDERING_H
 
 #include <list>
+#include <iostream>
 #include "raylib.h"
 
-template <class T>
-class rendering{
+template<class T>
+class rendering {
 private:
-    int currentframe=0;
+    int currentframe = 0;
 public:
     //TODO: PASAR TODO A DRAWTEXTUREEXTENDED
-    void drawEnemy(Texture2D a, float x, float y){
-         DrawTexture(a, x - a.width/2, y- a.height/2, WHITE);
+    void drawEnemy(Texture2D a, float x, float y) {
+        DrawTexture(a, x - a.width / 2, y - a.height / 2, WHITE);
     }
 
-    void drawPhantomTextureTower(Texture2D base, Texture2D tope, float x, float y)
-    {
-        DrawTexture(base, x - base.width/2, y- base.height/2, GREEN);
-        DrawTexture(tope, x - tope.width/2, y- tope.height/2, GREEN);
+    void drawPhantomTextureTower(Texture2D base, Texture2D tope, float x, float y) {
+        DrawTexture(base, x - base.width / 2, y - base.height / 2, GREEN);
+        DrawTexture(tope, x - tope.width / 2, y - tope.height / 2, GREEN);
     }
 
-    void drawTower(Texture2D base, Texture2D tope, float x, float y){
-        DrawTexture(base, x - base.width/2, y- base.height/2, WHITE);
-        DrawTexture(tope, x - tope.width/2, y- tope.height/2, WHITE);
+    void drawTower(Texture2D base, Texture2D tope, float x, float y) {
+        DrawTexture(base, x - base.width / 2, y - base.height / 2, WHITE);
+        DrawTexture(tope, x - tope.width / 2, y - tope.height / 2, WHITE);
     }
 
     /*void drawProjectile(Texture2D missile, std::list<Texture2D> &fireframes, float x, float y, float offset)
@@ -50,9 +50,8 @@ public:
         } TODO: PULIR Y LOGRAR QUE ANDE.
     */
 
-    void drawProjectile(Texture2D missile, float x, float y)
-    {
-        DrawTexture(missile,x,y,WHITE);
+    void drawProjectile(Texture2D *missile, float x, float y) {
+        DrawTexture(*missile, x, y, WHITE);
     }
 };
 

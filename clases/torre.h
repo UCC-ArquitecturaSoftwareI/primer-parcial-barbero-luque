@@ -17,9 +17,11 @@ protected:
     Vector2 tower_pos;
     Texture2D towerTextureBase;
     Texture2D towerTextureTop;
+    Texture2D projectileText;
     int currentCooldown=0;
     int maxCooldown=60;
     rendering<tower> renderer;
+
 public:
     tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2);
 
@@ -32,7 +34,7 @@ public:
         return name;
     };
     int cooldownTick();
-    projectile fireProj(EnemieBuilder &e);
+    void fireProj(EnemieBuilder &e, std::list<projectile> &activeProjectiles);
 
     void setTowerPosition(Vector2);
 
