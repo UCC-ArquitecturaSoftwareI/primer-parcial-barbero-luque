@@ -55,7 +55,7 @@ void EnemieBuilder::setPatch(Texture2D e) {
 }
 
 EnemieBuilder &EasyEnemie::buildLevel() {
-    level = 1;
+    enemy->level = 1;
     return *this;
 }
 
