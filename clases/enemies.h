@@ -17,7 +17,7 @@ protected:
     int damage;
     Vector2 enemie_pos;
     Texture2D enemie;
-    rendering<EnemieBuilder> renderer;
+    rendering<Enemy> renderer;
     bool toDie = false;
 public:
     void setPatch(Texture2D);
@@ -25,6 +25,8 @@ public:
     void move_x(float d);
 
     void move_y(float d);
+
+    void draw();
 
     Vector2 getEnemie_pos();
 
@@ -54,7 +56,7 @@ public:
             toDie = true;
     }
 
-    bool gettoDie() {
+    bool gettoDie() const {
         return toDie;
     }
 
@@ -83,7 +85,6 @@ public:
 
     virtual EnemieBuilder &buildTexture() = 0;
 
-    virtual EnemieBuilder &buildDraw() = 0;
 
     Enemy *get() {
         return enemy;
@@ -103,11 +104,10 @@ public:
     EnemieBuilder &buildInitialPosition() override;
 
     EnemieBuilder &buildMovement() override;
-
-    EnemieBuilder &buildTexture() override;
-
-    EnemieBuilder &buildDraw() override;
 };
+
+
+
 
 class MediumEnemie : public EnemieBuilder {
 public:
@@ -122,10 +122,6 @@ public:
     EnemieBuilder &buildInitialPosition() override;
 
     EnemieBuilder &buildMovement() override;
-
-    EnemieBuilder &buildTexture() override;
-
-    EnemieBuilder &buildDraw() override;
 };
 
 class HardEnemie : public EnemieBuilder {
@@ -142,9 +138,6 @@ public:
 
     EnemieBuilder &buildMovement() override;
 
-    EnemieBuilder &buildTexture() override;
-
-    EnemieBuilder &buildDraw() override;
 };
 
 class Cuartel {
@@ -158,8 +151,6 @@ public:
                 .buildHP()
                 .buildDamage()
                 .buildSpeed()
-                .buildDraw()
-                .buildTexture()
                 .buildInitialPosition()
                 .buildMovement().
                 get();

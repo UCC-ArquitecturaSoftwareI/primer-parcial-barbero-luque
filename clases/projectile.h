@@ -70,7 +70,6 @@ public:
     const rendering<projectile> &getRenderer() const;
 
     void setRenderer(const rendering<projectile> &renderer);
-
     void move();
 
     void draw();

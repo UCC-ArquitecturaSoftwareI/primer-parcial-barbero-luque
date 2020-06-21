@@ -5,53 +5,57 @@
 #include "enemies.h"
 #include <string>
 
-
-int EnemieBuilder::getLevel() const {
-    return level;
+void Enemy::setPatch(Texture2D e) {
+    enemie = e;
+    LoadTexture(enemie);
 }
 
-float EnemieBuilder::getSpeed() const {
-    return speed;
-}
-
-int EnemieBuilder::getHP() const {
-    return hp;
-}
-
-void EnemieBuilder::setLevel(int l) {
-    level = l;
-}
-
-void EnemieBuilder::setSpeed(float s) {
-    speed = s;
-}
-
-void EnemieBuilder::setHP(int nhp) {
-    hp = nhp;
-}
-
-int EnemieBuilder::getDamage() const {
-    return damage;
-}
-
-void EnemieBuilder::setDamage(int d) {
-    damage = d;
-}
-
-void EnemieBuilder::move_x(float d) {
+void Enemy::move_x(float d) {
     enemie_pos.x += d*speed;
 }
 
-void EnemieBuilder::move_y(float d) {
+void Enemy::move_y(float d) {
     enemie_pos.y += d*speed;
 }
 
-Vector2 EnemieBuilder::getEnemie_pos() {
+Vector2 Enemy::getEnemie_pos() {
     return enemie_pos;
 }
 
-void EnemieBuilder::setPatch(Texture2D e) {
-    enemie = e;
+int Enemy::getLevel() const {
+    return level;
+}
+
+float Enemy::getSpeed() const {
+    return speed;
+}
+
+int Enemy::getHP() const {
+    return hp;
+}
+
+int Enemy::getDamage() const {
+    return damage;
+}
+
+void Enemy::setLevel(int l) {
+    level = l;
+}
+
+void Enemy::setSpeed(float s) {
+    speed = s;
+}
+
+void Enemy::setHP(int nhp) {
+    hp = nhp;
+}
+
+void Enemy::setDamage(int ndmg) {
+    damage = ndmg;
+}
+
+void Enemy::draw(){
+    renderer.drawEnemy(this->enemie,this->getEnemie_pos().x, this->getEnemie_pos().y);
 }
 
 EnemieBuilder &EasyEnemie::buildLevel() {
@@ -60,159 +64,131 @@ EnemieBuilder &EasyEnemie::buildLevel() {
 }
 
 EnemieBuilder &EasyEnemie::buildSpeed() {
-    speed = 0.75;
+    enemy->setSpeed(0.75);
     return *this;
 }
 
 EnemieBuilder &EasyEnemie::buildHP() {
-    hp = 75;
+    enemy->setHP(75);
     return *this;
 }
 
 EnemieBuilder &EasyEnemie::buildDamage() {
-    damage = 20;
-    return *this;
-}
-
-EnemieBuilder &EasyEnemie::buildDraw() {
-    renderer.drawEnemy(this->enemie, this->getEnemie_pos().x, this->getEnemie_pos().y);
+    enemy->setDamage(20);
     return *this;
 }
 
 EnemieBuilder &EasyEnemie::buildMovement() {
-    if(this->getEnemie_pos().x==290 && this->getEnemie_pos().y<330){
+    if(enemy->getEnemie_pos().x==290 && enemy->getEnemie_pos().y<330){
         //if (rand() %2==0)
-        this->move_y(1);
+        enemy->move_y(1);
     }
-    else if(this->getEnemie_pos().x==500){
-        this->move_y(-1);
-        if(this->getEnemie_pos().y<0){
+    else if(enemy->getEnemie_pos().x==500){
+        enemy->move_y(-1);
+        if(enemy->getEnemie_pos().y<0){
             // activeEnemies.remove(*i);
             //p.pdamage(5);
         }
     }
     else{
-        this->move_x(1);
+        enemy->move_x(1);
     }
     return *this;
 }
 
 
 EnemieBuilder &MediumEnemie::buildLevel() {
-    level = 2;
+    enemy->setLevel(2);
     return *this;
 }
 
 EnemieBuilder &MediumEnemie::buildSpeed() {
-    speed = 1;
+    enemy->setSpeed(1);
     return *this;
 }
 
 EnemieBuilder &MediumEnemie::buildHP() {
 
-    hp = 100;
+    enemy->setHP(100);
     return *this;
 }
 
 EnemieBuilder &MediumEnemie::buildDamage() {
-    damage = 40;
+    enemy->setDamage(60);
     return *this;
 }
 
-EnemieBuilder &MediumEnemie::buildDraw() {
-    renderer.drawEnemy(this->enemie,this->getEnemie_pos().x, this->getEnemie_pos().y);
-    return *this;
-}
 
 EnemieBuilder &MediumEnemie::buildMovement() {
-    if(this->getEnemie_pos().x==290 && this->getEnemie_pos().y<330){
+    if(enemy->getEnemie_pos().x==290 && enemy->getEnemie_pos().y<330){
         //if (rand() %2==0)
-        this->move_y(1);
+        enemy->move_y(1);
     }
-    else if(this->getEnemie_pos().x==500){
-        this->move_y(-1);
-        if(this->getEnemie_pos().y<0){
+    else if(enemy->getEnemie_pos().x==500){
+        enemy->move_y(-1);
+        if(enemy->getEnemie_pos().y<0){
             // activeEnemies.remove(*i);
             //p.pdamage(5);
         }
     }
     else{
-        this->move_x(1);
+        enemy->move_x(1);
     }
     return *this;
 }
 
 EnemieBuilder &EasyEnemie::buildInitialPosition() {
-    this->enemie_pos.x = 20;
-    this->enemie_pos.y = 85;
-    return *this;
-}
-
-EnemieBuilder &EasyEnemie::buildTexture() {
-    setPatch( LoadTexture("resources/towerDefense_tile245.png") );
+    enemy->enemie_pos.x = 20;
+    enemy->enemie_pos.y = 85;
     return *this;
 }
 
 EnemieBuilder &MediumEnemie::buildInitialPosition() {
-    this->enemie_pos.x = 20;
-    this->enemie_pos.y = 85;
-    return *this;
-}
-
-EnemieBuilder &MediumEnemie::buildTexture() {
-    setPatch( LoadTexture("resources/towerDefense_tile245.png") );
+    enemy->enemie_pos.x = 20;
+    enemy->enemie_pos.y = 85;
     return *this;
 }
 
 EnemieBuilder &HardEnemie::buildInitialPosition() {
-    this->enemie_pos.x = 20;
-    this->enemie_pos.y = 85;
+    enemy->enemie_pos.x = 20;
+    enemy->enemie_pos.y = 85;
     return *this;
 }
 
 EnemieBuilder &HardEnemie::buildLevel() {
-    level = 3;
+    enemy->setLevel(3);
     return *this;
 }
 
 EnemieBuilder &HardEnemie::buildSpeed() {
-    speed = 1.25;
+    enemy->setSpeed(1.25);
     return *this;
 }
 
 EnemieBuilder &HardEnemie::buildHP() {
-    hp = 125;
+    enemy->setHP(125);
     return *this;
 }
 
 EnemieBuilder &HardEnemie::buildDamage() {
-    damage = 60;
+    enemy->setDamage(60);
     return *this;
 }
 
-EnemieBuilder &HardEnemie::buildDraw() {
-    renderer.drawEnemy(this->enemie,this->getEnemie_pos().x, this->getEnemie_pos().y);
-    return *this;
-}
-
-EnemieBuilder &HardEnemie::buildTexture() {
-    setPatch( LoadTexture("resources/towerDefense_tile245.png") );
-    return *this;
-}
 
 EnemieBuilder &HardEnemie::buildMovement() {
-    if(this->getEnemie_pos().x==290 && this->getEnemie_pos().y<330){
+    if(enemy->getEnemie_pos().x==290 && enemy->getEnemie_pos().y<330){
         //if (rand() %2==0)
-        this->move_y(1);
+        enemy->move_y(1);
     }
-    else if(this->getEnemie_pos().x==500){
-        this->move_y(-1);
-        if(this->getEnemie_pos().y<0){
+    else if(enemy->getEnemie_pos().x==500){
+        enemy->move_y(-1);
+        if(enemy->getEnemie_pos().y<0){
             //p.pdamage(5);
         }
     }
     else{
-        this->move_x(1);
+        enemy->move_x(1);
     }
     return *this;
 }
