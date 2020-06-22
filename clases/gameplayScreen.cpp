@@ -138,4 +138,3 @@ void UnloadGameplayScreen() {
 int FinishGameplayScreen() {
     return finishScreen;
 }
-

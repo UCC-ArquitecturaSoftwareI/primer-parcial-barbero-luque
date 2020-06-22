@@ -62,6 +62,10 @@ void Enemy::setEnemie_pos(Vector2 pos) {
     enemie_pos.y = pos.y;
 }
 
+Enemy::Enemy() {
+
+}
+
 EnemieBuilder &EasyEnemie::buildLevel() {
     enemy->level = 1;
     return *this;
@@ -142,20 +146,36 @@ EnemieBuilder &MediumEnemie::buildMovement() {
 }
 
 EnemieBuilder &EasyEnemie::buildInitialPosition() {
-    enemy->setEnemie_pos().x = 20;
-    enemy->setEnemie_pos().y = 85;
+    Vector2 initialPos;
+    initialPos.x = 20;
+    initialPos.y = 85;
+    enemy->setEnemie_pos(initialPos);
+    return *this;
+}
+
+EnemieBuilder &EasyEnemie::buildTexture() {
+    enemy->setPatch( LoadTexture("resources/towerDefense_tile245.png") );
     return *this;
 }
 
 EnemieBuilder &MediumEnemie::buildInitialPosition() {
-    enemy->setEnemie_pos().x = 20;
-    enemy->setEnemie_pos().y = 85;
+    Vector2 initialPos;
+    initialPos.x = 20;
+    initialPos.y = 85;
+    enemy->setEnemie_pos(initialPos);
+    return *this;
+}
+
+EnemieBuilder &MediumEnemie::buildTexture() {
+    enemy->setPatch( LoadTexture("resources/towerDefense_tile245.png") );
     return *this;
 }
 
 EnemieBuilder &HardEnemie::buildInitialPosition() {
-    enemy->setEnemie_pos().x = 20;
-    enemy->setEnemie_pos().y = 85;
+    Vector2 initialPos;
+    initialPos.x = 20;
+    initialPos.y = 85;
+    enemy->setEnemie_pos(initialPos);
     return *this;
 }
 
@@ -194,5 +214,10 @@ EnemieBuilder &HardEnemie::buildMovement() {
     else{
         enemy->move_x(1);
     }
+    return *this;
+}
+
+EnemieBuilder &HardEnemie::buildTexture() {
+    enemy->setPatch( LoadTexture("resources/towerDefense_tile245.png") );
     return *this;
 }
