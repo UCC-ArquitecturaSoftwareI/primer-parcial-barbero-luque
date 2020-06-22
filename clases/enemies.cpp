@@ -7,7 +7,6 @@
 
 void Enemy::setPatch(Texture2D e) {
     enemie = e;
-    LoadTexture(enemie);
 }
 
 void Enemy::move_x(float d) {
@@ -56,6 +55,11 @@ void Enemy::setDamage(int ndmg) {
 
 void Enemy::draw(){
     renderer.drawEnemy(this->enemie,this->getEnemie_pos().x, this->getEnemie_pos().y);
+}
+
+void Enemy::setEnemie_pos(Vector2 pos) {
+    enemie_pos.x = pos.x;
+    enemie_pos.y = pos.y;
 }
 
 EnemieBuilder &EasyEnemie::buildLevel() {
@@ -138,20 +142,20 @@ EnemieBuilder &MediumEnemie::buildMovement() {
 }
 
 EnemieBuilder &EasyEnemie::buildInitialPosition() {
-    enemy->enemie_pos.x = 20;
-    enemy->enemie_pos.y = 85;
+    enemy->setEnemie_pos().x = 20;
+    enemy->setEnemie_pos().y = 85;
     return *this;
 }
 
 EnemieBuilder &MediumEnemie::buildInitialPosition() {
-    enemy->enemie_pos.x = 20;
-    enemy->enemie_pos.y = 85;
+    enemy->setEnemie_pos().x = 20;
+    enemy->setEnemie_pos().y = 85;
     return *this;
 }
 
 EnemieBuilder &HardEnemie::buildInitialPosition() {
-    enemy->enemie_pos.x = 20;
-    enemy->enemie_pos.y = 85;
+    enemy->setEnemie_pos().x = 20;
+    enemy->setEnemie_pos().y = 85;
     return *this;
 }
 

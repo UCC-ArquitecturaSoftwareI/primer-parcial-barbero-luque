@@ -29,6 +29,7 @@ public:
     void draw();
 
     Vector2 getEnemie_pos();
+    void setEnemie_pos(Vector2);
 
     Texture2D getTexture() {
         return enemie;
