@@ -75,14 +75,15 @@ void UpdateGameplayScreen() {
 
     for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
         if (i->cooldownTick() == 1) {
-            i->fireProj(builderEasy, activeProjectiles);
+            i->fireProj(activeProjectiles);
 
         }
     }
     if (currentPlayerStatus == 1 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
-        GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54)) {
+        GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54) &&
+        !checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers)) {
 
-        tower tnew(100, "Torre1", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTop.png");
+        tower tnew(100, "Torre1", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTop.png", enemies);
         activeTowers.push_back(tnew);
         UnloadTexture(currentTowerText2);
         UnloadTexture(currentTowerText1);
@@ -115,8 +116,17 @@ void DrawGameplayScreen() {
     mapDraw();
     hudDraw(p);
     if (currentPlayerStatus == 1) {
-        renderer.drawPhantomTextureTower(currentTowerText1, currentTowerText2, GetMousePosition().x,
-                                         GetMousePosition().y);
+        if(checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers))
+        {
+            renderer.drawPhantomTextureError(currentTowerText1, currentTowerText2, GetMousePosition().x,
+                                             GetMousePosition().y);
+        }
+        else
+        {
+
+            renderer.drawPhantomTextureTower(currentTowerText1, currentTowerText2, GetMousePosition().x,
+                                             GetMousePosition().y);
+        }
     }
     for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
         i->draw();

@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "rendering.h"
 #include "enemies.h"
+#include "math.h"
 #ifndef RAYLIBTEMPLATE_PROJECTILE_H
 #define RAYLIBTEMPLATE_PROJECTILE_H
 
@@ -35,6 +36,32 @@ private:
         const float len_sq = v.x * v.x + v.y * v.y;
         const float len_inv = FastSqrtInvAroundOne(len_sq);
         return Vector2{v.x * len_inv, v.y * len_inv};
+    }
+
+    float atan2_approximation1(float y, float x) //Aproximacion rapida de tangente conseguido de github.
+    {
+
+        const float ONEQTR_PI = M_PI / 4.0;
+        const float THRQTR_PI = 3.0 * M_PI / 4.0;
+        float r, angle;
+        float abs_y = fabs(y) + 1e-10f;
+        if ( x < 0.0f )
+        {
+            r = (x + abs_y) / (abs_y - x);
+            angle = THRQTR_PI;
+        }
+        else
+        {
+            r = (x - abs_y) / (x + abs_y);
+            angle = ONEQTR_PI;
+        }
+        angle += (0.1963f * r * r - 0.9817f) * r;
+        if ( y < 0.0f )
+            return( -angle );
+        else
+            return( angle );
+
+
     }
 
 public:

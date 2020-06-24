@@ -24,9 +24,14 @@ public:
         DrawTexture(tope, x - tope.width / 2, y - tope.height / 2, GREEN);
     }
 
-    void drawTower(Texture2D base, Texture2D tope, float x, float y) {
+    void drawPhantomTextureError(Texture2D base, Texture2D tope, float x, float y) {
+        DrawTexture(base, x - base.width / 2, y - base.height / 2, RED);
+        DrawTexture(tope, x - tope.width / 2, y - tope.height / 2, RED);
+    }
+
+    void drawTower(Texture2D base, Texture2D tope, float x, float y, float rot) {
         DrawTexture(base, x - base.width / 2, y - base.height / 2, WHITE);
-        DrawTexture(tope, x - tope.width / 2, y - tope.height / 2, WHITE);
+        DrawTextureEx(tope, {x - tope.width / 2, y - tope.height / 2},rot,1, WHITE);
     }
 
     /*void drawProjectile(Texture2D missile, std::list<Texture2D> &fireframes, float x, float y, float offset)
@@ -50,8 +55,8 @@ public:
         } TODO: PULIR Y LOGRAR QUE ANDE.
     */
 
-    void drawProjectile(Texture2D *missile, float x, float y) {
-        DrawTexture(*missile, x, y, WHITE);
+    void drawProjectile(Texture2D *missile, float x, float y, float rot) {
+        DrawTextureEx(*missile, {x, y},rot,1, WHITE);
     }
 };
 

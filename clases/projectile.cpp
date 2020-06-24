@@ -36,9 +36,14 @@ void projectile::setRenderer(const rendering<projectile> &renderer) {
 }
 
 void projectile::move() {
+    if(target.gettoDie())
+    {
+        toDie=true;
+        return;
+    }
     Vector2 movVector = {target.getEnemie_pos().x - pos.x, target.getEnemie_pos().y - pos.y};
 
-    std::cout << pos.x << "   " << pos.y << std::endl;
+    //std::cout << pos.x << "   " << pos.y << std::endl;
     Normalize(movVector);
     pos.x += movVector.x * speed;
     pos.y += movVector.y * speed;
@@ -49,5 +54,6 @@ void projectile::move() {
 }
 
 void projectile::draw() {
-    renderer.drawProjectile(projTexture, pos.x, pos.y);
+    float angle=atan2_approximation1(target.getEnemie_pos().y-pos.y,target.getEnemie_pos().x-pos.x);
+    renderer.drawProjectile(projTexture, pos.x, pos.y,angle);
 }
