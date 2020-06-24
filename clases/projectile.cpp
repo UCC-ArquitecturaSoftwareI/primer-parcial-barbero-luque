@@ -43,7 +43,7 @@ void projectile::move() {
     pos.x += movVector.x * speed;
     pos.y += movVector.y * speed;
     if (CheckCollisionCircles(pos, 15, target.getEnemie_pos(), 15)) {
-        target.takeDamage(damage);
+        target.takeDamage(15);
         toDie = true;
     }
 }
@@ -51,5 +51,3 @@ void projectile::move() {
 void projectile::draw() {
     renderer.drawProjectile(projTexture, pos.x, pos.y);
 }
-
-

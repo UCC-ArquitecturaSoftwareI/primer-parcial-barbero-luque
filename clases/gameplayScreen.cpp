@@ -11,6 +11,8 @@
 //#include "projectile.h"
 #include "rendering.h"
 
+std::list<Enemy> enemies;
+
 EasyEnemie builderEasy;
 MediumEnemie builderMedium;
 HardEnemie builderHard;
@@ -112,9 +114,6 @@ void UpdateGameplayScreen() {
 void DrawGameplayScreen() {
     mapDraw();
     hudDraw(p);
-    builderEasy.buildDraw();
-    builderMedium.buildDraw();
-    builderHard.buildDraw();
     if (currentPlayerStatus == 1) {
         renderer.drawPhantomTextureTower(currentTowerText1, currentTowerText2, GetMousePosition().x,
                                          GetMousePosition().y);
@@ -123,6 +122,9 @@ void DrawGameplayScreen() {
         i->draw();
     }
     for (auto i = activeProjectiles.begin(); i != activeProjectiles.end(); ++i) {
+        i->draw();
+    }
+    for (auto i = enemies.begin(); i != enemies.end(); ++i) {
         i->draw();
     }
     //DrawText(reinterpret_cast<const char *>(playerhealth), 80, static_cast<float>(GetScreenHeight()) - 20, 14 , BLACK);
@@ -136,4 +138,3 @@ void UnloadGameplayScreen() {
 int FinishGameplayScreen() {
     return finishScreen;
 }
-

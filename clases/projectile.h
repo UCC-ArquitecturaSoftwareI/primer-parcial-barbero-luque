@@ -11,7 +11,7 @@ class projectile{
 
 private:
 
-    EnemieBuilder &target;
+    Enemy &target;
 
     float speed=0;
     Vector2 pos{};
@@ -39,7 +39,7 @@ private:
 
 public:
 
-    projectile(EnemieBuilder &t, float s, Vector2 p, Texture2D *pT, float d):target(t)
+    projectile(Enemy &t, float s, Vector2 p, Texture2D *pT, float d):target(t)
     {
         target=t ;
         speed=s;
@@ -48,11 +48,11 @@ public:
         projTexture=pT;
         //fireframes=f;
     }
-    const EnemieBuilder &getTarget() const {
+    const Enemy &getTarget() const {
         return target;
     }
 
-    void setTarget(const EnemieBuilder &target) {
+    void setTarget(const Enemy &target) {
         projectile::target = target;
     }
     float getSpeed() const;
@@ -70,7 +70,6 @@ public:
     const rendering<projectile> &getRenderer() const;
 
     void setRenderer(const rendering<projectile> &renderer);
-
     void move();
 
     void draw();
