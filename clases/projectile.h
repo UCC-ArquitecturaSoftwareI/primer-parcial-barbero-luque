@@ -17,8 +17,8 @@ private:
     float speed=0;
     Vector2 pos{};
     float damage;
-    rendering<projectile> renderer;
-    Texture2D *projTexture;
+    rendering renderer;
+    std::string projTexture;
     //std::list<Texture2D> fireframes{};
     bool toDie=false;
 
@@ -66,7 +66,7 @@ private:
 
 public:
 
-    projectile(Enemy &t, float s, Vector2 p, Texture2D *pT, float d):target(t)
+    projectile(Enemy &t, float s, Vector2 p, std::string pT, float d, rendering r):target(t), renderer(r)
     {
         target=t ;
         speed=s;
@@ -94,9 +94,9 @@ public:
 
     void setDamage(float damage);
 
-    const rendering<projectile> &getRenderer() const;
+    const rendering &getRenderer() const;
 
-    void setRenderer(const rendering<projectile> &renderer);
+    void setRenderer(const rendering &renderer);
     void move();
 
     void draw();
@@ -106,11 +106,6 @@ public:
         return toDie;
     }
     projectile();
-
-    ~projectile()
-    {
-        UnloadTexture(*projTexture);
-    }
 
 };
 

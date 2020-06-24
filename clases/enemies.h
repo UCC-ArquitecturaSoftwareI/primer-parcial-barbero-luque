@@ -17,7 +17,7 @@ protected:
     int damage;
     Vector2 enemie_pos;
     Texture2D enemie;
-    rendering<Enemy> renderer;
+    rendering renderer;
     bool toDie = false;
 public:
     void setPatch(Texture2D);

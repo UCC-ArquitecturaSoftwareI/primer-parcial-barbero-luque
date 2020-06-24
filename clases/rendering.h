@@ -8,30 +8,46 @@
 #include <list>
 #include <iostream>
 #include "raylib.h"
+#include <map>
+#include <unordered_map>
 
-template<class T>
 class rendering {
 private:
     int currentframe = 0;
+    std::unordered_map<std::string, Texture2D> textMap;
+
+    Texture2D &getTexture(std::string s)  //Flyweight para pasar las texturas dentro del Renderer
+    {
+        auto myText=textMap.find(s);
+        if (myText==textMap.end())
+        {
+            char c[s.size()+1];
+            s.copy(c,s.size()+1);
+            textMap.emplace(s,LoadTexture(c));
+        }
+
+        return textMap[s];
+
+    }
 public:
     //TODO: PASAR TODO A DRAWTEXTUREEXTENDED
     void drawEnemy(Texture2D a, float x, float y) {
         DrawTexture(a, x - a.width / 2, y - a.height / 2, WHITE);
     }
 
-    void drawPhantomTextureTower(Texture2D base, Texture2D tope, float x, float y) {
-        DrawTexture(base, x - base.width / 2, y - base.height / 2, GREEN);
-        DrawTexture(tope, x - tope.width / 2, y - tope.height / 2, GREEN);
+    void drawPhantomTextureTower(std::string base, std::string tope, float x, float y) {
+        DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, GREEN);
+        DrawTexture(getTexture(tope), x - getTexture(tope).width / 2, y - getTexture(tope).height / 2, GREEN);
     }
 
-    void drawPhantomTextureError(Texture2D base, Texture2D tope, float x, float y) {
-        DrawTexture(base, x - base.width / 2, y - base.height / 2, RED);
-        DrawTexture(tope, x - tope.width / 2, y - tope.height / 2, RED);
+    void drawPhantomTextureError(std::string base, std::string tope, float x, float y) {
+        DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, RED);
+        DrawTexture(getTexture(tope), x - getTexture(tope).width / 2, y - getTexture(tope).height / 2, RED);
     }
 
-    void drawTower(Texture2D base, Texture2D tope, float x, float y, float rot) {
-        DrawTexture(base, x - base.width / 2, y - base.height / 2, WHITE);
-        DrawTextureEx(tope, {x - tope.width / 2, y - tope.height / 2},rot,1, WHITE);
+    void drawTower(std::string base, std::string tope, float x, float y, float rot) {
+        DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, WHITE);
+        DrawTextureEx(getTexture(tope), {x - getTexture(tope).width / 2, y - getTexture(tope).height / 2},rot,1, WHITE);
     }
 
     /*void drawProjectile(Texture2D missile, std::list<Texture2D> &fireframes, float x, float y, float offset)
@@ -55,8 +71,8 @@ public:
         } TODO: PULIR Y LOGRAR QUE ANDE.
     */
 
-    void drawProjectile(Texture2D *missile, float x, float y, float rot) {
-        DrawTextureEx(*missile, {x, y},rot,1, WHITE);
+    void drawProjectile(std::string missile, float x, float y, float rot) {
+        DrawTextureEx(getTexture(missile), {x, y},rot,1, WHITE);
     }
 };
 

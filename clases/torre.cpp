@@ -5,23 +5,23 @@
 #include "torre.h"
 #include "projectile.h"
 
-tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy> &enL) : tower_pos(
-        towerPos), eList(enL), CurrentTarget(findInRange()) {
+tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy> &enL, rendering &r) : tower_pos(
+        towerPos), eList(enL), CurrentTarget(findInRange()), renderer(r) {
     cost = a;
     name = b;
-    towerTextureBase = LoadTexture(patch.c_str());
-    towerTextureTop = LoadTexture(patch2.c_str());
-    projectileText = LoadTexture("resources/Missile.png");
+    towerTextureBase = patch;
+    towerTextureTop = patch2;
+    projectileText = "resources/Missile.png";
 }
 
 void tower::fireProj(std::list<projectile> &activeProjectiles) {
     if(CurrentTarget.gettoDie()==false)
-        activeProjectiles.emplace_back(CurrentTarget, 0.01, tower_pos, &projectileText, 10);
+        activeProjectiles.emplace_back(CurrentTarget, 0.01, tower_pos, &projectileText, 10,renderer);
     if(CurrentTarget.gettoDie()==true)
     {
         try{
             CurrentTarget=findInRange();
-            activeProjectiles.emplace_back(CurrentTarget, 0.01, tower_pos, &projectileText, 10);
+            activeProjectiles.emplace_back(CurrentTarget, 0.01, tower_pos, &projectileText, 10,renderer);
         }catch(int e)
         {
             currentCooldown=maxCooldown;

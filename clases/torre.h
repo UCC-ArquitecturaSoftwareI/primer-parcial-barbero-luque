@@ -16,12 +16,12 @@ protected:
     int cost;
     std::string name;
     Vector2 tower_pos;
-    Texture2D towerTextureBase;
-    Texture2D towerTextureTop;
-    Texture2D projectileText;
+    std::string towerTextureBase;
+    std::string towerTextureTop;
+    std::string projectileText;
     int currentCooldown=0;
     int maxCooldown=60;
-    rendering<tower> renderer;
+    rendering renderer;
 
     std::list<Enemy> &eList;
 
@@ -54,7 +54,7 @@ protected:
     }
 
 public:
-    tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy> &enL);
+    tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy> &enL, rendering &R);
 
     int getcost(){
         return cost;
