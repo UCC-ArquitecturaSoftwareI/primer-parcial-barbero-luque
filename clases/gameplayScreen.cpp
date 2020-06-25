@@ -122,6 +122,16 @@ void UpdateGameplayScreen() {
 void DrawGameplayScreen() {
     mapDraw();
     hudDraw(p);
+
+    for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
+        i->draw();
+    }
+    for (auto i = activeProjectiles.begin(); i != activeProjectiles.end(); ++i) {
+        i->draw();
+    }
+    for (auto i = enemies.begin(); i != enemies.end(); ++i) {
+        i->draw();
+    }
     if (currentPlayerStatus == 1) {
         if(checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers))
         {
@@ -134,15 +144,6 @@ void DrawGameplayScreen() {
             renderer.drawPhantomTextureTower(currentTowerText1, currentTowerText2, GetMousePosition().x,
                                              GetMousePosition().y);
         }
-    }
-    for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
-        i->draw();
-    }
-    for (auto i = activeProjectiles.begin(); i != activeProjectiles.end(); ++i) {
-        i->draw();
-    }
-    for (auto i = enemies.begin(); i != enemies.end(); ++i) {
-        i->draw();
     }
     //DrawText(reinterpret_cast<const char *>(playerhealth), 80, static_cast<float>(GetScreenHeight()) - 20, 14 , BLACK);
 }
