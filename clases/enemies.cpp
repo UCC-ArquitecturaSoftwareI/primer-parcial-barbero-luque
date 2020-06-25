@@ -63,7 +63,13 @@ void Enemy::setEnemie_pos(Vector2 pos) {
 }
 
 Enemy::Enemy() {
-
+    level = 0;
+    speed = 0;
+    hp = 100;
+    damage = 20;
+    enemie_pos.x = 0;
+    enemie_pos.y = 0;
+    toDie = false;
 }
 
 EnemieBuilder &EasyEnemie::buildLevel() {
