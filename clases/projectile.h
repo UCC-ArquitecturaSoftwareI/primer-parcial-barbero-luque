@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "rendering.h"
 #include "enemies.h"
+#include "math.h"
 #ifndef RAYLIBTEMPLATE_PROJECTILE_H
 #define RAYLIBTEMPLATE_PROJECTILE_H
 
@@ -16,8 +17,8 @@ private:
     float speed=0;
     Vector2 pos{};
     float damage;
-    rendering<projectile> renderer;
-    Texture2D *projTexture;
+    rendering renderer;
+    std::string projTexture;
     //std::list<Texture2D> fireframes{};
     bool toDie=false;
 
@@ -37,9 +38,35 @@ private:
         return Vector2{v.x * len_inv, v.y * len_inv};
     }
 
+    float atan2_approximation1(float y, float x) //Aproximacion rapida de tangente conseguido de github.
+    {
+
+        const float ONEQTR_PI = M_PI / 4.0;
+        const float THRQTR_PI = 3.0 * M_PI / 4.0;
+        float r, angle;
+        float abs_y = fabs(y) + 1e-10f;
+        if ( x < 0.0f )
+        {
+            r = (x + abs_y) / (abs_y - x);
+            angle = THRQTR_PI;
+        }
+        else
+        {
+            r = (x - abs_y) / (x + abs_y);
+            angle = ONEQTR_PI;
+        }
+        angle += (0.1963f * r * r - 0.9817f) * r;
+        if ( y < 0.0f )
+            return( -angle );
+        else
+            return( angle );
+
+
+    }
+
 public:
 
-    projectile(Enemy &t, float s, Vector2 p, Texture2D *pT, float d):target(t)
+    projectile(Enemy &t, float s, Vector2 p, std::string pT, float d, rendering r):target(t), renderer(r)
     {
         target=t ;
         speed=s;
@@ -67,9 +94,9 @@ public:
 
     void setDamage(float damage);
 
-    const rendering<projectile> &getRenderer() const;
+    const rendering &getRenderer() const;
 
-    void setRenderer(const rendering<projectile> &renderer);
+    void setRenderer(const rendering &renderer);
     void move();
 
     void draw();
@@ -79,11 +106,6 @@ public:
         return toDie;
     }
     projectile();
-
-    ~projectile()
-    {
-        UnloadTexture(*projTexture);
-    }
 
 };
 

@@ -15,9 +15,11 @@ protected:
     float speed;
     int hp;
     int damage;
+
     Vector2 enemie_pos{};
     Texture2D enemie{};
     rendering<Enemy> renderer;
+
     bool toDie = false;
 public:
     Enemy();

@@ -6,10 +6,12 @@
 #define RAYLIBTEMPLATE_MAP_H
 
 #include <raylib.h>
+#include "torre.h"
 
 void mapInit();
 void mapDraw();
 
+bool checkCollision(Rectangle a, std::list<tower> &towers);
 void mapUnload();
 
 #endif //RAYLIBTEMPLATE_MAP_H
