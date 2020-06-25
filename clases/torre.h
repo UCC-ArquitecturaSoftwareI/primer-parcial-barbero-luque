@@ -27,31 +27,22 @@ protected:
 
     Enemy &CurrentTarget;
 
-    float atan2_approximation1(float y, float x) //Aproximacion rapida de tangente conseguido de github.
-    {
-
-        const float ONEQTR_PI = M_PI / 4.0;
-        const float THRQTR_PI = 3.0 * M_PI / 4.0;
-        float r, angle;
-        float abs_y = fabs(y) + 1e-10f;
-        if ( x < 0.0f )
-        {
-            r = (x + abs_y) / (abs_y - x);
-            angle = THRQTR_PI;
-        }
+    static inline float fast_atan2(float y, float x){
+        static const float c1 = M_PI / 4.0;
+        static const float c2 = M_PI * 3.0 / 4.0;
+        if (y == 0 && x == 0)
+            return 0;
+        float abs_y = fabsf(y);
+        float angle;
+        if (x >= 0)
+            angle = c1 - c1 * ((x - abs_y) / (x + abs_y));
         else
-        {
-            r = (x - abs_y) / (x + abs_y);
-            angle = ONEQTR_PI;
-        }
-        angle += (0.1963f * r * r - 0.9817f) * r;
-        if ( y < 0.0f )
-            return( -angle );
-        else
-            return( angle );
-
-
+            angle = c2 - c1 * ((x + abs_y) / (abs_y - x));
+        if (y < 0)
+            return -angle;
+        return angle;
     }
+
 
 public:
     tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy> &enL, rendering &R);

@@ -49,6 +49,6 @@ void projectile::move() {
 }
 
 void projectile::draw() {
-    float angle=atan2_approximation1(target.getEnemie_pos().y-pos.y,target.getEnemie_pos().x-pos.x);
+    float angle=fast_atan2(target.getEnemie_pos().y-pos.y,target.getEnemie_pos().x-pos.x);
     renderer.drawProjectile(projTexture, pos.x, pos.y,angle);
 }

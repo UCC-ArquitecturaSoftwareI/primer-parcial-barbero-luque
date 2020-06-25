@@ -48,7 +48,7 @@ int tower::cooldownTick() {
 }
 
 void tower::draw() {
-    float angle=atan2_approximation1(CurrentTarget.getEnemie_pos().y-tower_pos.y,CurrentTarget.getEnemie_pos().x-tower_pos.x);
+    float angle=fast_atan2(CurrentTarget.getEnemie_pos().y-tower_pos.y,CurrentTarget.getEnemie_pos().x-tower_pos.x);
     renderer.drawTower(towerTextureBase, towerTextureTop, tower_pos.x, tower_pos.y,angle);
 }
 
