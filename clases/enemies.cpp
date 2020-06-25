@@ -62,15 +62,22 @@ void Enemy::setEnemie_pos(Vector2 pos) {
     enemie_pos.y = pos.y;
 }
 
-Enemy::Enemy() {
-    level = 0;
-    speed = 0;
-    hp = 100;
-    damage = 20;
-    enemie_pos.x = 0;
-    enemie_pos.y = 0;
-    toDie = false;
+void Enemy::startMove() {
+    if(this->getEnemie_pos().x==290 && this->getEnemie_pos().y<330){
+        //if (rand() %2==0)
+        this->move_y(1);
+    }
+    else if(this->getEnemie_pos().x==500){
+        this->move_y(-1);
+        if(this->getEnemie_pos().y<0){
+            //p.pdamage(5);
+        }
+    }
+    else{
+        this->move_x(1);
+    }
 }
+
 
 EnemieBuilder &EasyEnemie::buildLevel() {
     enemy->level = 1;
@@ -91,25 +98,6 @@ EnemieBuilder &EasyEnemie::buildDamage() {
     enemy->setDamage(20);
     return *this;
 }
-
-EnemieBuilder &EasyEnemie::buildMovement() {
-    if(enemy->getEnemie_pos().x==290 && enemy->getEnemie_pos().y<330){
-        //if (rand() %2==0)
-        enemy->move_y(1);
-    }
-    else if(enemy->getEnemie_pos().x==500){
-        enemy->move_y(-1);
-        if(enemy->getEnemie_pos().y<0){
-            // activeEnemies.remove(*i);
-            //p.pdamage(5);
-        }
-    }
-    else{
-        enemy->move_x(1);
-    }
-    return *this;
-}
-
 
 EnemieBuilder &MediumEnemie::buildLevel() {
     enemy->setLevel(2);
@@ -133,23 +121,7 @@ EnemieBuilder &MediumEnemie::buildDamage() {
 }
 
 
-EnemieBuilder &MediumEnemie::buildMovement() {
-    if(enemy->getEnemie_pos().x==290 && enemy->getEnemie_pos().y<330){
-        //if (rand() %2==0)
-        enemy->move_y(1);
-    }
-    else if(enemy->getEnemie_pos().x==500){
-        enemy->move_y(-1);
-        if(enemy->getEnemie_pos().y<0){
-            // activeEnemies.remove(*i);
-            //p.pdamage(5);
-        }
-    }
-    else{
-        enemy->move_x(1);
-    }
-    return *this;
-}
+
 
 EnemieBuilder &EasyEnemie::buildInitialPosition() {
     Vector2 initialPos;
@@ -206,22 +178,6 @@ EnemieBuilder &HardEnemie::buildDamage() {
 }
 
 
-EnemieBuilder &HardEnemie::buildMovement() {
-    if(enemy->getEnemie_pos().x==290 && enemy->getEnemie_pos().y<330){
-        //if (rand() %2==0)
-        enemy->move_y(1);
-    }
-    else if(enemy->getEnemie_pos().x==500){
-        enemy->move_y(-1);
-        if(enemy->getEnemie_pos().y<0){
-            //p.pdamage(5);
-        }
-    }
-    else{
-        enemy->move_x(1);
-    }
-    return *this;
-}
 
 EnemieBuilder &HardEnemie::buildTexture() {
     enemy->setPatch( LoadTexture("resources/towerDefense_tile245.png") );

@@ -8,6 +8,7 @@
 #include "rendering.h"
 #include <raylib.h>
 #include <string>
+#include <utility>
 
 class Enemy {
 protected:
@@ -22,12 +23,31 @@ protected:
 
     bool toDie = false;
 public:
-    Enemy();
+    /*Enemy(rendering r):renderer(r) {
+        level = 0;
+        speed = 0;
+        hp = 100;
+        damage = 20;
+        enemie_pos.x = 0;
+        enemie_pos.y = 0;
+        toDie = false;
+    }*/
+    Enemy(){
+        level = 0;
+        speed = 0;
+        hp = 100;
+        damage = 20;
+        enemie_pos.x = 0;
+        enemie_pos.y = 0;
+        toDie = false;
+    }
     void setPatch(Texture2D);
 
     void move_x(float d);
 
     void move_y(float d);
+
+    void startMove();
 
     void draw();
 
@@ -71,8 +91,13 @@ class EnemieBuilder {
 protected:
     Enemy *enemy;
 public:
+    /*EnemieBuilder &newEnemy(rendering r) {
+        enemy = new Enemy(r);
+        return *this;
+    };
+     */
     EnemieBuilder &newEnemy() {
-        enemy = new Enemy;
+        enemy = new Enemy();
         return *this;
     };
 
@@ -85,8 +110,6 @@ public:
     virtual EnemieBuilder &buildDamage() = 0;
 
     virtual EnemieBuilder &buildInitialPosition() = 0;
-
-    virtual EnemieBuilder &buildMovement() = 0;
 
     virtual EnemieBuilder &buildTexture() = 0;
 
@@ -108,8 +131,6 @@ public:
 
     EnemieBuilder &buildInitialPosition() override;
 
-    EnemieBuilder &buildMovement() override;
-
     EnemieBuilder &buildTexture() override;
 };
 
@@ -128,8 +149,6 @@ public:
 
     EnemieBuilder &buildInitialPosition() override;
 
-    EnemieBuilder &buildMovement() override;
-
     EnemieBuilder &buildTexture() override;
 };
 
@@ -145,8 +164,6 @@ public:
 
     EnemieBuilder &buildInitialPosition() override;
 
-    EnemieBuilder &buildMovement() override;
-
     EnemieBuilder &buildTexture() override;
 
 };
@@ -156,14 +173,13 @@ class Cuartel {
 public:
     Cuartel(EnemieBuilder &builder) : builder(builder) {}
 
-    void construct() {
-        builder.newEnemy()
+    Enemy* construct() {
+        return builder.newEnemy()
                 .buildLevel()
                 .buildHP()
                 .buildDamage()
                 .buildSpeed()
                 .buildInitialPosition()
-                .buildMovement()
                 .buildTexture().
                 get();
     }

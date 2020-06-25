@@ -23,9 +23,9 @@ protected:
     int maxCooldown=60;
     rendering renderer;
 
-    std::list<Enemy> &eList;
+    std::list<Enemy*> &eList;
 
-    Enemy &CurrentTarget;
+    Enemy* CurrentTarget;
 
     static inline float fast_atan2(float y, float x){
         static const float c1 = M_PI / 4.0;
@@ -45,7 +45,7 @@ protected:
 
 
 public:
-    tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy> &enL, rendering &R);
+    tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL, rendering &R);
 
     int getcost(){
         return cost;
@@ -62,7 +62,7 @@ public:
 
     void draw();
 
-    Enemy & findInRange();
+    Enemy* findInRange();
 
     Vector2 GetTowerPos()
     {

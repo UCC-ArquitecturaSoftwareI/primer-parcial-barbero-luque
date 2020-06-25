@@ -11,7 +11,7 @@
 //#include "projectile.h"
 #include "rendering.h"
 
-std::list<Enemy> enemies;
+std::list<Enemy*> enemies;
 
 EasyEnemie builderEasy;
 MediumEnemie builderMedium;
@@ -47,6 +47,11 @@ void InitGameplayScreen() {
     p.startplayer();
     switch (currentlevel) {
         case 1:
+            for(int i=0;i<=2;i++){
+                enemies.push_front(cuartelMedium.construct());
+                enemies.push_front(cuartelEasy.construct());
+                enemies.push_front(cuartelHard.construct());
+            }
             currentdX = 1;
             currentdY = 0;
         case 2:;
@@ -60,20 +65,16 @@ void UpdateGameplayScreen() {
     switch (currentlevel) {
         case 1:
             if (framesCounter % 60 == 0 && framesCounter <= 300) {
-                cuartelEasy.construct();
+
             }
             if (framesCounter % 60 == 0 && framesCounter > 300 && framesCounter <= 600) {
-                cuartelMedium.construct();
+
             }
             if (framesCounter % 60 == 0 && framesCounter > 600 && framesCounter <= 900) {
-                cuartelHard.construct();
+
             }
 
     }
-
-        builderEasy.buildMovement();
-        builderMedium.buildMovement();
-        builderHard.buildMovement();
     for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
         if (i->cooldownTick() == 1) {
             i->fireProj(activeProjectiles);
@@ -107,12 +108,18 @@ void UpdateGameplayScreen() {
         }
         i->move();
     }
+
+    for (auto i = enemies.begin(); i != enemies.end(); ++i) {
+        if((*i)->gettoDie() == false )
+        (*i)->startMove();
+    }
+
     if(framesCounter%255==0)
     {
 
         for (auto i = enemies.begin(); i != enemies.end(); ++i) {
-            if (i->gettoDie()) {
-                enemies.erase(i);
+            if ((*i)->gettoDie()) {
+                enemies.remove(*i);
             }
         }
     }
@@ -130,7 +137,7 @@ void DrawGameplayScreen() {
         i->draw();
     }
     for (auto i = enemies.begin(); i != enemies.end(); ++i) {
-        i->draw();
+        (*i)->draw();
     }
     if (currentPlayerStatus == 1) {
         if(checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers))

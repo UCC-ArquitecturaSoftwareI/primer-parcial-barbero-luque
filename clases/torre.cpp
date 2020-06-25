@@ -5,7 +5,7 @@
 #include "torre.h"
 #include "projectile.h"
 
-tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy> &enL, rendering &r) : tower_pos(
+tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL, rendering &r) : tower_pos(
         towerPos), eList(enL), CurrentTarget(findInRange()), renderer(r) {
     cost = a;
     name = b;
@@ -15,9 +15,9 @@ tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, s
 }
 
 void tower::fireProj(std::list<projectile> &activeProjectiles) {
-    if(CurrentTarget.gettoDie()==false)
+    if(CurrentTarget->gettoDie()==false)
         activeProjectiles.emplace_back(CurrentTarget, 0.01, tower_pos, &projectileText, 10,renderer);
-    if(CurrentTarget.gettoDie()==true)
+    if(CurrentTarget->gettoDie()==true)
     {
         try{
             CurrentTarget=findInRange();
@@ -48,14 +48,16 @@ int tower::cooldownTick() {
 }
 
 void tower::draw() {
-    float angle=fast_atan2(CurrentTarget.getEnemie_pos().y-tower_pos.y,CurrentTarget.getEnemie_pos().x-tower_pos.x);
+    float angle=fast_atan2(CurrentTarget->getEnemie_pos().y-tower_pos.y,CurrentTarget->getEnemie_pos().x-tower_pos.x);
     renderer.drawTower(towerTextureBase, towerTextureTop, tower_pos.x, tower_pos.y,angle);
 }
 
-Enemy &tower::findInRange() {
+Enemy* tower::findInRange() {
     for(auto i=eList.begin();i!=eList.end();++i)
     {
-        if(i->getEnemie_pos().x-tower_pos.x<400 && i->getEnemie_pos().y-tower_pos.y<400 && i->gettoDie()==true)
+        if((*i)->getEnemie_pos().x-tower_pos.x<400 && (*i)->getEnemie_pos().y-tower_pos.y<400 && (*i)->gettoDie()==true)
             return (*i);
     }
-    }
+    auto i = eList.end();
+    return *--i;
+}

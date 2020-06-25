@@ -47,7 +47,7 @@ public:
 
     void drawTower(std::string base, std::string tope, float x, float y, float rot) {
         DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, WHITE);
-        DrawTextureEx(getTexture(tope), {x - getTexture(tope).width / 2, y - getTexture(tope).height / 2},rot,1, WHITE);
+        DrawTextureEx(getTexture(tope), {x - getTexture(tope).width / 2, y - getTexture(tope).height / 2},rot*360,1, WHITE);
     }
 
     /*void drawProjectile(Texture2D missile, std::list<Texture2D> &fireframes, float x, float y, float offset)
@@ -72,7 +72,7 @@ public:
     */
 
     void drawProjectile(std::string missile, float x, float y, float rot) {
-        DrawTextureEx(getTexture(missile), {x, y},rot,1, WHITE);
+        DrawTextureEx(getTexture(missile), {x, y},rot*360,1, WHITE);
     }
 };
 

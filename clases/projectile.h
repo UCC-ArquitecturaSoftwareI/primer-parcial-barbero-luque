@@ -14,7 +14,7 @@ class projectile{
 
 private:
 
-    Enemy &target;
+    Enemy *target;
 
     float speed=0;
     Vector2 pos{};
@@ -59,7 +59,7 @@ private:
 
 public:
 
-    projectile(Enemy &t, float s, Vector2 p, std::string *pT, float d, rendering r):target(t), renderer(r)
+    projectile(Enemy *t, float s, Vector2 p, std::string *pT, float d, rendering r):target(t), renderer(r)
     {
         target=t ;
         speed=s;
@@ -68,11 +68,11 @@ public:
         projTexture=*pT;
         //fireframes=f;
     }
-    const Enemy &getTarget() const {
+    const Enemy *getTarget() const {
         return target;
     }
 
-    void setTarget(const Enemy &target) {
+    void setTarget(Enemy* target) {
         projectile::target = target;
     }
     float getSpeed() const;
