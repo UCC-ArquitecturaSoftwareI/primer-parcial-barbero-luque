@@ -27,13 +27,8 @@ void projectile::setDamage(float damage) {
     projectile::damage = damage;
 }
 
-const rendering<projectile> &projectile::getRenderer() const {
-    return renderer;
-}
 
-void projectile::setRenderer(const rendering<projectile> &renderer) {
-    projectile::renderer = renderer;
-}
+
 
 void projectile::move() {
     if(target.gettoDie())

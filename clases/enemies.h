@@ -18,7 +18,7 @@ protected:
 
     Vector2 enemie_pos{};
     Texture2D enemie{};
-    rendering<Enemy> renderer;
+    rendering renderer;
 
     bool toDie = false;
 public:

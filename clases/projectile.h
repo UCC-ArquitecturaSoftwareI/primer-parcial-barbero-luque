@@ -1,6 +1,8 @@
 //
 // Created by Francisco on 1/6/2020.
 //
+#include <utility>
+
 #include "raylib.h"
 #include "rendering.h"
 #include "enemies.h"
@@ -66,13 +68,13 @@ private:
 
 public:
 
-    projectile(Enemy &t, float s, Vector2 p, std::string pT, float d, rendering r):target(t), renderer(r)
+    projectile(Enemy &t, float s, Vector2 p, std::string *pT, float d, rendering r):target(t), renderer(r)
     {
         target=t ;
         speed=s;
         pos=p;
         damage=d;
-        projTexture=pT;
+        projTexture=*pT;
         //fireframes=f;
     }
     const Enemy &getTarget() const {
@@ -105,7 +107,7 @@ public:
     {
         return toDie;
     }
-    projectile();
+
 
 };
 

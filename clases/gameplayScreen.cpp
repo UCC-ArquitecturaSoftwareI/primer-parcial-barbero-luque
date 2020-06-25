@@ -56,9 +56,7 @@ void InitGameplayScreen() {
 }
 
 void UpdateGameplayScreen() {
-    builderEasy.buildMovement();
-    builderMedium.buildMovement();
-    builderHard.buildMovement();
+
     switch (currentlevel) {
         case 1:
             if (framesCounter % 60 == 0 && framesCounter <= 300) {
@@ -73,6 +71,9 @@ void UpdateGameplayScreen() {
 
     }
 
+        builderEasy.buildMovement();
+        builderMedium.buildMovement();
+        builderHard.buildMovement();
     for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
         if (i->cooldownTick() == 1) {
             i->fireProj(activeProjectiles);
