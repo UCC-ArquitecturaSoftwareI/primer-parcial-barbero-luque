@@ -15,11 +15,14 @@ protected:
     float speed;
     int hp;
     int damage;
-    Vector2 enemie_pos;
-    Texture2D enemie;
-    rendering renderer;
+
+    Vector2 enemie_pos{};
+    Texture2D enemie{};
+    rendering<Enemy> renderer;
+
     bool toDie = false;
 public:
+    Enemy();
     void setPatch(Texture2D);
 
     void move_x(float d);
@@ -70,6 +73,7 @@ protected:
 public:
     EnemieBuilder &newEnemy() {
         enemy = new Enemy;
+        return *this;
     };
 
     virtual EnemieBuilder &buildLevel() = 0;
@@ -105,6 +109,8 @@ public:
     EnemieBuilder &buildInitialPosition() override;
 
     EnemieBuilder &buildMovement() override;
+
+    EnemieBuilder &buildTexture() override;
 };
 
 
@@ -123,6 +129,8 @@ public:
     EnemieBuilder &buildInitialPosition() override;
 
     EnemieBuilder &buildMovement() override;
+
+    EnemieBuilder &buildTexture() override;
 };
 
 class HardEnemie : public EnemieBuilder {
@@ -139,6 +147,8 @@ public:
 
     EnemieBuilder &buildMovement() override;
 
+    EnemieBuilder &buildTexture() override;
+
 };
 
 class Cuartel {
@@ -153,7 +163,8 @@ public:
                 .buildDamage()
                 .buildSpeed()
                 .buildInitialPosition()
-                .buildMovement().
+                .buildMovement()
+                .buildTexture().
                 get();
     }
 };
