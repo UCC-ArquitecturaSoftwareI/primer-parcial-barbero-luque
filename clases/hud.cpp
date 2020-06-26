@@ -1,6 +1,7 @@
 //
 // Created by Francisco on 24/4/2020.
 //
+#include <string>
 #include "hud.h"
 
 Texture2D hudTexturePanel;
@@ -33,7 +34,7 @@ void menuInit(){
 void menuDraw(){
     DrawRectangle( 0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
     DrawText("START", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 350, 20, WHITE);
-    DrawText("OPTIONS", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 325, 20, WHITE);
+    //DrawText("OPTIONS", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 325, 20, WHITE);
     DrawText("CLOSE", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 300, 20, WHITE);
     DrawText("Made by Fran y Agu xd", static_cast<float>(GetScreenWidth()) - 795, static_cast<float>(GetScreenHeight()) - 20, 10, WHITE);
 
@@ -54,7 +55,10 @@ void hudDraw(Player p){
     DrawText("Area", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 260, 20, BLUE);
     DrawText("$300", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 240, 20, GREEN);
 
-    DrawText("$300", 5, static_cast<float>(GetScreenHeight()) - 45, 20, RED);
+    std::string s = std::to_string(p.getPlayerMoney());
+    char const *pchar = s.c_str();
+
+    DrawText(pchar, 5, static_cast<float>(GetScreenHeight()) - 45, 20, RED);
 
 }
 
