@@ -216,7 +216,7 @@ void DrawGameplayScreen() {
             i->draw();
         }
         for (auto i = enemies.begin(); i != enemies.end(); ++i) {
-            if ((*i)->gettoDie())
+            if (!(*i)->gettoDie())
                 (*i)->draw();
         }
         if (currentPlayerStatus == 1) {

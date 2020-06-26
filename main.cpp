@@ -6,19 +6,19 @@
 
 
 // Variables Globales
-//Music music;
+Music music;
 windowcontroller w;
 
 
 int main() {
     // Inicialización de la ventana
 
-    //InitAudioDevice();              // Initialize audio device
+    InitAudioDevice();              // Initialize audio device
 
     /// Ejemplo de utilización de audio.
-    //music = LoadMusicStream("resources/Cyberpunk Moonlight Sonata.mp3");
+    music = LoadMusicStream("resources/Tower Defense Menu.mp3");
 
-    //PlayMusicStream(music);
+    PlayMusicStream(music);
     w.start();
 
 #if defined(PLATFORM_WEB)  // Para versión Web.
@@ -27,6 +27,7 @@ int main() {
     SetTargetFPS(60);   // Set our game to run at 60 frames-per-second
     // Main loop
     while (!WindowShouldClose()) {
+        UpdateMusicStream(music);
         w.UpdateDrawFrame();
     }
 #endif
@@ -34,7 +35,7 @@ int main() {
 
     // Descargar todos los resources cargados
 
-    //UnloadMusicStream(music);   // Descargo la musica de RAM
+    UnloadMusicStream(music);   // Descargo la musica de RAM
     CloseAudioDevice();         // Cierro el dispositivo de Audio
     CloseWindow();              // Cierro la ventana
     return 0;

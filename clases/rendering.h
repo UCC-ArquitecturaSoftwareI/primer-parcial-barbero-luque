@@ -10,6 +10,7 @@
 #include "raylib.h"
 #include <map>
 #include <unordered_map>
+#include <math.h>
 
 class rendering {
 private:
@@ -24,9 +25,8 @@ private:
         auto myText=textMap.find(s);
         if (myText==textMap.end())
         {
-            char c[s.size()+1];
-            s.copy(c,s.size()+1);
-            textMap.emplace(s,LoadTexture(c));
+
+            textMap.emplace(s,LoadTexture(s.c_str()));
         }
 
         return textMap[s];
@@ -40,13 +40,17 @@ public:
         return renderer;
     }
 
-    void drawEnemy(std::string a, float x, float y) {
+    /*void drawEnemy(std::string a, float x, float y) {
         DrawTexture(getTexture(a), x - getTexture(a).width / 2, y - getTexture(a).height / 2,  WHITE);
-    }
-
-    /*void drawEnemy(std::string a, float x, float y, float rot) {
-        DrawTextureEx(getTexture(a), {x - getTexture(a).width / 2, y - getTexture(a).height / 2}, rot, 1, WHITE);
     }*/
+
+    void drawEnemy(std::string a, float x, float y, float rot) {
+        //DrawTextureEx(getTexture(a), {x - getTexture(a).width / 2, y - getTexture(a).height / 2}, rot, 1, WHITE);
+        DrawTexturePro(getTexture(a),
+                       {0,0,static_cast<float>(getTexture(a).width),static_cast<float>(getTexture(a).height)},
+                       {x ,y,64,64},
+                       {32,32},rot*180/M_PI+90,WHITE);
+    }
 
     void drawPhantomTextureTower(std::string base, std::string tope, float x, float y) {
         DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, GREEN);
@@ -60,7 +64,11 @@ public:
 
     void drawTower(std::string base, std::string tope, float x, float y, float rot) {
         DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, WHITE);
-        DrawTextureEx(getTexture(tope), {x - getTexture(tope).width / 2, y - getTexture(tope).height / 2},rot*3.14,1, WHITE);
+        //DrawTextureEx(getTexture(tope), {x - getTexture(tope).width / 2, y - getTexture(tope).height / 2},rot*3.14,1, WHITE);
+        DrawTexturePro(getTexture(tope),
+                {0,0,static_cast<float>(getTexture(tope).width),static_cast<float>(getTexture(tope).height)},
+                 {x ,y,64,64},
+                  {32,32},rot*180/M_PI+90,WHITE);
     }
 
     /*void drawProjectile(Texture2D missile, std::list<Texture2D> &fireframes, float x, float y, float offset)
@@ -85,8 +93,10 @@ public:
     */
 
     void drawProjectile(std::string missile, float x, float y, float rot) {
-        DrawTextureEx(getTexture(missile), {x, y},rot*3.14,1, WHITE);
-    }
+        DrawTexturePro(getTexture(missile),
+                       {0,0,static_cast<float>(getTexture(missile).width),static_cast<float>(getTexture(missile).height)},
+                       {x ,y,64,64},
+                       {32,32},rot*180/M_PI+90,WHITE);}
 };
 
 #endif //RAYLIBTEMPLATE_RENDERING_H

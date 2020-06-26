@@ -55,7 +55,7 @@ void Enemy::setDamage(int ndmg) {
 }
 
 void Enemy::draw(){
-    renderer.drawEnemy(this->enemie,this->getEnemie_pos().x, this->getEnemie_pos().y);
+    renderer.drawEnemy(this->enemie,this->getEnemie_pos().x, this->getEnemie_pos().y, rot);
 }
 
 void Enemy::setEnemie_pos(Vector2 pos) {
