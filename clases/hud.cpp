@@ -55,7 +55,7 @@ void hudDraw(Player p){
     DrawText("Area", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 260, 20, BLUE);
     DrawText("$300", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 240, 20, GREEN);
 
-    std::string s = std::to_string(p.getPlayerMoney());
+    std::string s = "$" + std::to_string(p.getPlayerMoney());
     char const *pchar = s.c_str();
 
     DrawText(pchar, 5, static_cast<float>(GetScreenHeight()) - 45, 20, RED);
