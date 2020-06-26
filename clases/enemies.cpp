@@ -67,14 +67,11 @@ void Enemy::startMove() {
     if(this->getEnemie_pos().x==290 && this->getEnemie_pos().y<330){
         //if (rand() %2==0)
         this->move_y(1);
-        rot=270;
+        rot=90;
     }
     else if(this->getEnemie_pos().x==500){
         this->move_y(-1);
-        rot=90;
-        if(this->getEnemie_pos().y<0){
-            //p.pdamage(5);
-        }
+        rot=270;
     }
     else{
         this->move_x(1);

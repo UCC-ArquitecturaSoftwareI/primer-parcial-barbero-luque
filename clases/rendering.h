@@ -49,7 +49,7 @@ public:
         DrawTexturePro(getTexture(a),
                        {0,0,static_cast<float>(getTexture(a).width),static_cast<float>(getTexture(a).height)},
                        {x ,y,64,64},
-                       {32,32},rot*180/M_PI+90,WHITE);
+                       {32,32},rot,WHITE);
     }
 
     void drawPhantomTextureTower(std::string base, std::string tope, float x, float y) {

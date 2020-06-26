@@ -9,7 +9,7 @@ class Player{
 private:
     int playerhealth=100;
     int playermaxhealth=100;
-    int playermoney=900;
+    int playermoney=200;
 public:
 
     void startplayer();

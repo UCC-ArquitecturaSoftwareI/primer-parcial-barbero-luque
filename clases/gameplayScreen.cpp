@@ -24,7 +24,7 @@ Cuartel cuartelHard(builderHard);
 rendering &renderer=rendering::get();
 int currenthealth = 100;
 int currentlevel = 1;
-int currentStatus = 0;
+int currentStatus = 0; //0=Menu , 1=Gameplay, 2=Defeat.
 int currentdX;
 int currentdY;
 Player p;
@@ -40,6 +40,8 @@ std::string currentTowerText2;
 std::list<tower> activeTowers;
 //std::list<EnemieBuilder> activeEnemies;
 std::list<projectile> activeProjectiles;
+
+int defeatedEnemies=0;
 
 
 
@@ -85,6 +87,14 @@ void UpdateGameplayScreen() {
                 enemies.push_front(cuartelHard.construct());
             }
 
+            if(framesCounter%60==0  && framesCounter > 1200)
+            {
+                        enemies.push_front(cuartelEasy.construct());
+            }
+            if(framesCounter%90==0  && framesCounter > 1200)
+                enemies.push_front(cuartelMedium.construct());
+            if(framesCounter%115==0  && framesCounter > 1200)
+                enemies.push_front(cuartelHard.construct());
     }
     for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
         if (i->cooldownTick() == 1) {
@@ -180,15 +190,18 @@ void UpdateGameplayScreen() {
                 if((*i)->getHP()<=0)
                 {
                     p.giveMoney((*i)->getLevel()*100);
+                    defeatedEnemies++;
                 }
                 enemies.erase(i);
             }
         }
     }
-        std::cout<<"PLAYER HEALTH: "<<p.getPlayerHealth()<<std::endl;
+        //std::cout<<"PLAYER HEALTH: "<<p.getPlayerHealth()<<std::endl;
 
 //std::cout<<"PLAYER MONEY: "<<p.getPlayerMoney()<<" PLAYER STATUS: "<<currentPlayerStatus<<std::endl;
     framesCounter++;
+    if(p.getPlayerHealth()==0)
+        currentStatus=2;
     }
     else if(currentStatus==0)
     {
@@ -201,11 +214,18 @@ void UpdateGameplayScreen() {
         && IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             CloseWindow();
     }
+    else if(currentStatus==2)
+    {
+        if(IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+        {
+            CloseWindow();
+        }
+    }
 
 }
 
 void DrawGameplayScreen() {
-    if( currentStatus == 1 ) {
+    if( currentStatus == 1  || currentStatus==2) {
         mapDraw();
         hudDraw(p);
 
@@ -251,8 +271,16 @@ void DrawGameplayScreen() {
         }
         //DrawText(reinterpret_cast<const char *>(playerhealth), 80, static_cast<float>(GetScreenHeight()) - 20, 14 , BLACK);
     }
-    else{
+    else if(currentStatus==0){
         menuDraw();
+    }
+    if(currentStatus==2)
+    {
+        std::string s = "Enemigos Derrotados:" + std::to_string(defeatedEnemies);
+        char const *pchar = s.c_str();
+        DrawText("PERDISTE",200,150,60,RED);
+        DrawText(pchar,200,275,20,BLACK);
+        DrawText("Presiona click izquierdo para salir.",200,340,20,BLACK);
     }
 }
 

@@ -36,7 +36,7 @@ void menuDraw(){
     DrawText("START", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 350, 20, WHITE);
     //DrawText("OPTIONS", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 325, 20, WHITE);
     DrawText("CLOSE", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 300, 20, WHITE);
-    DrawText("Made by Fran y Agu xd", static_cast<float>(GetScreenWidth()) - 795, static_cast<float>(GetScreenHeight()) - 20, 10, WHITE);
+    DrawText("Made by Francisco Luque y Agustin Barbero", static_cast<float>(GetScreenWidth()) - 795, static_cast<float>(GetScreenHeight()) - 20, 10, WHITE);
 
 }
 
