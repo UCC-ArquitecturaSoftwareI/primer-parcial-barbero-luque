@@ -23,19 +23,19 @@ void mapUnload()
 }
 
 bool checkCollision(Rectangle a, std::list<tower> &towers) {
-    if(CheckCollisionRecs(a,{165 , 85 , 165 , 35}))
+    if(CheckCollisionRecs(a,{0 , 85 , 330 , 40}))
     {
         return true;
     }
-    if(CheckCollisionRecs(a,{295 , 210 , 35 , 160}))
+    if(CheckCollisionRecs(a,{295 , 40 , 40 , 340}))
     {
         return true;
     }
-    if(CheckCollisionRecs(a,{400 , 336 , 140 , 35}))
+    if(CheckCollisionRecs(a,{400 , 336 , 140 , 40}))
     {
         return true;
     }
-    if(CheckCollisionRecs(a,{507 , 185 , 35 , 185}))
+    if(CheckCollisionRecs(a,{507 , 0 , 40 , 350}))
     {
         return true;
     }

@@ -71,12 +71,11 @@ public:
     }
 };
 
-/*class AreaTowerDecorator : public tower
+class AreaTowerDecorator : public tower
 {
 public:
     tower* t;
-    AreaTowerDecorator(tower* t): tower t{
 
-    }
-};*/
+
+};
 #endif //PROYECTO_TORRE_H

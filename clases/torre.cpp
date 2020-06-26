@@ -23,11 +23,11 @@ void tower::fireProj(std::list<projectile> &activeProjectiles) {
     else
     {
     if(CurrentTarget->gettoDie()==false)
-        activeProjectiles.emplace_back(CurrentTarget, 0.01, tower_pos, &projectileText, damage,eList);
+        activeProjectiles.emplace_back(CurrentTarget, 0.05, tower_pos, &projectileText, damage,eList);
     if(CurrentTarget->gettoDie()==true)
     {
             CurrentTarget=findInRange();
-            activeProjectiles.emplace_back(CurrentTarget, 0.01, tower_pos, &projectileText, damage,eList);
+            activeProjectiles.emplace_back(CurrentTarget, 0.05, tower_pos, &projectileText, damage,eList);
     }
     }
 }
