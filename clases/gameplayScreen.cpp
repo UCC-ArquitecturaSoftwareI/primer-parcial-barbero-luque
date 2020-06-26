@@ -21,7 +21,7 @@ Cuartel cuartelEasy(builderEasy);
 Cuartel cuartelMedium(builderMedium);
 Cuartel cuartelHard(builderHard);
 
-rendering renderer;
+rendering &renderer=rendering::get();
 int currenthealth = 100;
 int currentlevel = 1;
 int currentdX;
@@ -48,9 +48,9 @@ void InitGameplayScreen() {
     switch (currentlevel) {
         case 1:
             for(int i=0;i<=2;i++){
-                enemies.push_front(cuartelMedium.construct());
+                /*enemies.push_front(cuartelMedium.construct());
                 enemies.push_front(cuartelEasy.construct());
-                enemies.push_front(cuartelHard.construct());
+                enemies.push_front(cuartelHard.construct());*/
             }
             currentdX = 1;
             currentdY = 0;
@@ -65,13 +65,13 @@ void UpdateGameplayScreen() {
     switch (currentlevel) {
         case 1:
             if (framesCounter % 60 == 0 && framesCounter <= 300) {
-
+                enemies.push_front(cuartelEasy.construct());
             }
             if (framesCounter % 60 == 0 && framesCounter > 300 && framesCounter <= 600) {
-
+                enemies.push_front(cuartelMedium.construct());
             }
             if (framesCounter % 60 == 0 && framesCounter > 600 && framesCounter <= 900) {
-
+                enemies.push_front(cuartelHard.construct());
             }
 
     }
@@ -85,7 +85,7 @@ void UpdateGameplayScreen() {
         GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54) &&
         !checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers)) {
 
-        tower tnew(100, "Torre1", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTop.png", enemies,renderer);
+        tower tnew(100, "Torre1", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTop.png", enemies);
         activeTowers.push_back(tnew);
         currentPlayerStatus = 0;
     }
@@ -111,7 +111,15 @@ void UpdateGameplayScreen() {
 
     for (auto i = enemies.begin(); i != enemies.end(); ++i) {
         if((*i)->gettoDie() == false )
-        (*i)->startMove();
+            (*i)->startMove();
+    }
+    for (auto i = enemies.begin(); i != enemies.end(); ++i) {
+        if((*i)->gettoDie() == false )
+            if((*i)->getEnemie_pos().y<=0 )
+            {
+               p.pdamage((*i)->getDamage());
+               (*i)->setToDie();
+            }
     }
 
     if(framesCounter%255==0)
@@ -119,10 +127,15 @@ void UpdateGameplayScreen() {
 
         for (auto i = enemies.begin(); i != enemies.end(); ++i) {
             if ((*i)->gettoDie()) {
-                enemies.remove(*i);
+                if((*i)->getHP()<=0)
+                {
+                    p.giveMoney((*i)->getLevel()*100);
+                }
+                enemies.erase(i);
             }
         }
     }
+
     framesCounter++;
 }
 
@@ -137,7 +150,8 @@ void DrawGameplayScreen() {
         i->draw();
     }
     for (auto i = enemies.begin(); i != enemies.end(); ++i) {
-        (*i)->draw();
+        if(!(*i)->gettoDie())
+            (*i)->draw();
     }
     if (currentPlayerStatus == 1) {
         if(checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers))

@@ -13,6 +13,9 @@
 
 class rendering {
 private:
+    rendering(){}
+
+
     int currentframe = 0;
     std::unordered_map<std::string, Texture2D> textMap;
 
@@ -30,10 +33,20 @@ private:
 
     }
 public:
-    //TODO: PASAR TODO A DRAWTEXTUREEXTENDED
-    void drawEnemy(Texture2D a, float x, float y) {
-        DrawTexture(a, x - a.width / 2, y - a.height / 2, WHITE);
+
+    static rendering &get()  //Singleton para tener un solo renderer global.
+    {
+        static rendering renderer;
+        return renderer;
     }
+
+    void drawEnemy(std::string a, float x, float y) {
+        DrawTexture(getTexture(a), x - getTexture(a).width / 2, y - getTexture(a).height / 2,  WHITE);
+    }
+
+    /*void drawEnemy(std::string a, float x, float y, float rot) {
+        DrawTextureEx(getTexture(a), {x - getTexture(a).width / 2, y - getTexture(a).height / 2}, rot, 1, WHITE);
+    }*/
 
     void drawPhantomTextureTower(std::string base, std::string tope, float x, float y) {
         DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, GREEN);
@@ -47,7 +60,7 @@ public:
 
     void drawTower(std::string base, std::string tope, float x, float y, float rot) {
         DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, WHITE);
-        DrawTextureEx(getTexture(tope), {x - getTexture(tope).width / 2, y - getTexture(tope).height / 2},rot*360,1, WHITE);
+        DrawTextureEx(getTexture(tope), {x - getTexture(tope).width / 2, y - getTexture(tope).height / 2},rot*3.14,1, WHITE);
     }
 
     /*void drawProjectile(Texture2D missile, std::list<Texture2D> &fireframes, float x, float y, float offset)
@@ -72,7 +85,7 @@ public:
     */
 
     void drawProjectile(std::string missile, float x, float y, float rot) {
-        DrawTextureEx(getTexture(missile), {x, y},rot*360,1, WHITE);
+        DrawTextureEx(getTexture(missile), {x, y},rot*3.14,1, WHITE);
     }
 };
 

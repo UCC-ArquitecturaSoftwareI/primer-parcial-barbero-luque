@@ -4,9 +4,10 @@
 
 #include "enemies.h"
 #include <string>
+#include <utility>
 
-void Enemy::setPatch(Texture2D e) {
-    enemie = e;
+void Enemy::setPatch(std::string e) {
+    enemie = std::move(e);
 }
 
 void Enemy::move_x(float d) {
@@ -66,16 +67,23 @@ void Enemy::startMove() {
     if(this->getEnemie_pos().x==290 && this->getEnemie_pos().y<330){
         //if (rand() %2==0)
         this->move_y(1);
+        rot=270;
     }
     else if(this->getEnemie_pos().x==500){
         this->move_y(-1);
+        rot=90;
         if(this->getEnemie_pos().y<0){
             //p.pdamage(5);
         }
     }
     else{
         this->move_x(1);
+        rot=0;
     }
+}
+
+Enemy::~Enemy() {
+
 }
 
 
@@ -95,7 +103,7 @@ EnemieBuilder &EasyEnemie::buildHP() {
 }
 
 EnemieBuilder &EasyEnemie::buildDamage() {
-    enemy->setDamage(20);
+    enemy->setDamage(5);
     return *this;
 }
 
@@ -116,7 +124,7 @@ EnemieBuilder &MediumEnemie::buildHP() {
 }
 
 EnemieBuilder &MediumEnemie::buildDamage() {
-    enemy->setDamage(60);
+    enemy->setDamage(10);
     return *this;
 }
 
@@ -132,7 +140,7 @@ EnemieBuilder &EasyEnemie::buildInitialPosition() {
 }
 
 EnemieBuilder &EasyEnemie::buildTexture() {
-    enemy->setPatch( LoadTexture("resources/towerDefense_tile245.png") );
+    enemy->setPatch("resources/towerDefense_tile245.png");
     return *this;
 }
 
@@ -145,7 +153,7 @@ EnemieBuilder &MediumEnemie::buildInitialPosition() {
 }
 
 EnemieBuilder &MediumEnemie::buildTexture() {
-    enemy->setPatch( LoadTexture("resources/towerDefense_tile245.png") );
+    enemy->setPatch("resources/towerDefense_tile245.png");
     return *this;
 }
 
@@ -173,13 +181,13 @@ EnemieBuilder &HardEnemie::buildHP() {
 }
 
 EnemieBuilder &HardEnemie::buildDamage() {
-    enemy->setDamage(60);
+    enemy->setDamage(15);
     return *this;
 }
 
 
 
 EnemieBuilder &HardEnemie::buildTexture() {
-    enemy->setPatch( LoadTexture("resources/towerDefense_tile245.png") );
+    enemy->setPatch("resources/towerDefense_tile245.png");
     return *this;
 }

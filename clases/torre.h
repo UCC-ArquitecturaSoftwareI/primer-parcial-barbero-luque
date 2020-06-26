@@ -21,7 +21,8 @@ protected:
     std::string projectileText;
     int currentCooldown=0;
     int maxCooldown=60;
-    rendering renderer;
+    rendering &renderer=rendering::get();
+    int damage;
 
     std::list<Enemy*> &eList;
 
@@ -45,7 +46,7 @@ protected:
 
 
 public:
-    tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL, rendering &R);
+    tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL);
 
     int getcost(){
         return cost;
@@ -69,4 +70,13 @@ public:
         return tower_pos;
     }
 };
+
+/*class AreaTowerDecorator : public tower
+{
+public:
+    tower* t;
+    AreaTowerDecorator(tower* t): tower t{
+
+    }
+};*/
 #endif //PROYECTO_TORRE_H

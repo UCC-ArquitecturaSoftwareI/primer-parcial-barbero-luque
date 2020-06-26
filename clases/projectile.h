@@ -9,6 +9,7 @@
 #include "math.h"
 #ifndef RAYLIBTEMPLATE_PROJECTILE_H
 #define RAYLIBTEMPLATE_PROJECTILE_H
+class impactBehavior;
 
 class projectile{
 
@@ -18,11 +19,15 @@ private:
 
     float speed=0;
     Vector2 pos{};
-    float damage;
-    rendering renderer;
+    int damage;
+    rendering &renderer=rendering::get();
     std::string projTexture;
+    impactBehavior* behavior=nullptr;
+    std::list<Enemy*> &eList;
     //std::list<Texture2D> fireframes{};
     bool toDie=false;
+
+
 
     inline float FastSqrtInvAroundOne(float x)
     {
@@ -59,7 +64,7 @@ private:
 
 public:
 
-    projectile(Enemy *t, float s, Vector2 p, std::string *pT, float d, rendering r):target(t), renderer(r)
+    projectile(Enemy *t, float s, Vector2 p, std::string *pT, int d, std::list<Enemy*> &eL):target(t), eList(eL)
     {
         target=t ;
         speed=s;
@@ -81,6 +86,8 @@ public:
 
     const Vector2 &getPos() const;
 
+    void setImpactbehavior(impactBehavior* b);
+
     void setPos(const Vector2 &pos);
 
     float getDamage() const;
@@ -90,6 +97,8 @@ public:
     void move();
 
     void draw();
+
+
 
     bool gettoDie()
     {
@@ -103,5 +112,19 @@ public:
 /*projectile::projectile(): target(); {
 
 }*/
+class impactBehavior{
+public:
+    virtual void impact(Enemy *target, std::list<Enemy*> &eList, int d)=0;
+};
+
+class singleTargetMissile : public impactBehavior{
+public:
+    virtual void impact(Enemy *target, std::list<Enemy*> &eList, int d);
+};
+class aoeTargetMissile : public impactBehavior{
+public:
+    virtual void impact(Enemy *target, std::list<Enemy*> &eList, int d);
+};
+
 
 #endif //RAYLIBTEMPLATE_PROJECTILE_H

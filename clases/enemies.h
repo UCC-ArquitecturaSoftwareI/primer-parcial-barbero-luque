@@ -16,10 +16,11 @@ protected:
     float speed;
     int hp;
     int damage;
+    float rot=0;
 
     Vector2 enemie_pos{};
-    Texture2D enemie{};
-    rendering renderer;
+    std::string enemie;
+    rendering &renderer=rendering::get();
 
     bool toDie = false;
 public:
@@ -36,12 +37,12 @@ public:
         level = 0;
         speed = 0;
         hp = 100;
-        damage = 20;
+        damage = 5;
         enemie_pos.x = 0;
         enemie_pos.y = 0;
         toDie = false;
     }
-    void setPatch(Texture2D);
+    void setPatch(std::string);
 
     void move_x(float d);
 
@@ -54,7 +55,7 @@ public:
     Vector2 getEnemie_pos();
     void setEnemie_pos(Vector2);
 
-    Texture2D getTexture() {
+    std::string getTexture() {
         return enemie;
     }
 
@@ -76,6 +77,7 @@ public:
 
     void takeDamage(int d) {
         hp -= d;
+        //std::cout<<"CURRENTHP:"<<hp<<std::endl;
         if (hp <= 0)
             toDie = true;
     }
@@ -84,6 +86,16 @@ public:
         return toDie;
     }
 
+    void setToDie()
+    {
+        toDie=true;
+    }
+
+    int getLevel()
+    {
+        return level;
+    }
+    ~Enemy();
     friend class EasyEnemie;
 };
 
