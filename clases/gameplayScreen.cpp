@@ -185,6 +185,8 @@ void UpdateGameplayScreen() {
             }
         }
     }
+        std::cout<<"PLAYER HEALTH: "<<p.getPlayerHealth()<<std::endl;
+
 //std::cout<<"PLAYER MONEY: "<<p.getPlayerMoney()<<" PLAYER STATUS: "<<currentPlayerStatus<<std::endl;
     framesCounter++;
     }
