@@ -10,6 +10,9 @@
 void hudInit();
 void hudDraw(Player p);
 
+void menuInit();
+void menuDraw();
+
 void hudUnload();
 
 #endif //RAYLIBTEMPLATE_HUD_H

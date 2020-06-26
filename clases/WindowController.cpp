@@ -4,12 +4,14 @@
 
 #include "WindowController.h"
 
-
+//Music music = LoadMusicStream("resources/Tower Defense Menu.mp3");
 
 
     void windowcontroller::start(){
         InitWindow(screenWidth, screenHeight, "Tower Defense");
         InitGameplayScreen();
+        //InitAudioDevice();
+        //PlayMusicStream(music);
         SetTargetFPS(60);
 
     }
@@ -21,8 +23,13 @@
     void windowcontroller::UpdateDrawFrame() {
 
         // siempre hay que reproducir la musica que esta actualmente
-        //UpdateMusicStream(music);
 
+        //UpdateMusicStream(music);
+        /*if (IsKeyPressed(KEY_SPACE))
+        {
+            StopMusicStream(music);
+            PlayMusicStream(music);
+        }*/
         UpdateGameplayScreen();
 
 

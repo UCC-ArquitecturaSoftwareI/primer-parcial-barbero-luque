@@ -8,6 +8,7 @@
 #include "rendering.h"
 #include <raylib.h>
 #include <string>
+#include <utility>
 
 class Enemy {
 protected:
@@ -15,20 +16,46 @@ protected:
     float speed;
     int hp;
     int damage;
-    Vector2 enemie_pos;
-    Texture2D enemie;
-    rendering<EnemieBuilder> renderer;
+    float rot=0;
+
+    Vector2 enemie_pos{};
+    std::string enemie;
+    rendering &renderer=rendering::get();
+
     bool toDie = false;
 public:
-    void setPatch(Texture2D);
+    /*Enemy(rendering r):renderer(r) {
+        level = 0;
+        speed = 0;
+        hp = 100;
+        damage = 20;
+        enemie_pos.x = 0;
+        enemie_pos.y = 0;
+        toDie = false;
+    }*/
+    Enemy(){
+        level = 0;
+        speed = 0;
+        hp = 100;
+        damage = 5;
+        enemie_pos.x = 0;
+        enemie_pos.y = 0;
+        toDie = false;
+    }
+    void setPatch(std::string);
 
     void move_x(float d);
 
     void move_y(float d);
 
-    Vector2 getEnemie_pos();
+    void startMove();
 
-    Texture2D getTexture() {
+    void draw();
+
+    Vector2 getEnemie_pos();
+    void setEnemie_pos(Vector2);
+
+    std::string getTexture() {
         return enemie;
     }
 
@@ -50,14 +77,25 @@ public:
 
     void takeDamage(int d) {
         hp -= d;
+        //std::cout<<"CURRENTHP:"<<hp<<std::endl;
         if (hp <= 0)
             toDie = true;
     }
 
-    bool gettoDie() {
+    bool gettoDie() const {
         return toDie;
     }
 
+    void setToDie()
+    {
+        toDie=true;
+    }
+
+    int getLevel()
+    {
+        return level;
+    }
+    ~Enemy();
     friend class EasyEnemie;
 };
 
@@ -65,8 +103,14 @@ class EnemieBuilder {
 protected:
     Enemy *enemy;
 public:
+    /*EnemieBuilder &newEnemy(rendering r) {
+        enemy = new Enemy(r);
+        return *this;
+    };
+     */
     EnemieBuilder &newEnemy() {
-        enemy = new Enemy;
+        enemy = new Enemy();
+        return *this;
     };
 
     virtual EnemieBuilder &buildLevel() = 0;
@@ -79,11 +123,8 @@ public:
 
     virtual EnemieBuilder &buildInitialPosition() = 0;
 
-    virtual EnemieBuilder &buildMovement() = 0;
-
     virtual EnemieBuilder &buildTexture() = 0;
 
-    virtual EnemieBuilder &buildDraw() = 0;
 
     Enemy *get() {
         return enemy;
@@ -102,12 +143,11 @@ public:
 
     EnemieBuilder &buildInitialPosition() override;
 
-    EnemieBuilder &buildMovement() override;
-
     EnemieBuilder &buildTexture() override;
-
-    EnemieBuilder &buildDraw() override;
 };
+
+
+
 
 class MediumEnemie : public EnemieBuilder {
 public:
@@ -121,11 +161,7 @@ public:
 
     EnemieBuilder &buildInitialPosition() override;
 
-    EnemieBuilder &buildMovement() override;
-
     EnemieBuilder &buildTexture() override;
-
-    EnemieBuilder &buildDraw() override;
 };
 
 class HardEnemie : public EnemieBuilder {
@@ -140,11 +176,8 @@ public:
 
     EnemieBuilder &buildInitialPosition() override;
 
-    EnemieBuilder &buildMovement() override;
-
     EnemieBuilder &buildTexture() override;
 
-    EnemieBuilder &buildDraw() override;
 };
 
 class Cuartel {
@@ -152,16 +185,14 @@ class Cuartel {
 public:
     Cuartel(EnemieBuilder &builder) : builder(builder) {}
 
-    void construct() {
-        builder.newEnemy()
+    Enemy* construct() {
+        return builder.newEnemy()
                 .buildLevel()
                 .buildHP()
                 .buildDamage()
                 .buildSpeed()
-                .buildDraw()
-                .buildTexture()
                 .buildInitialPosition()
-                .buildMovement().
+                .buildTexture().
                 get();
     }
 };

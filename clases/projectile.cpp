@@ -27,29 +27,51 @@ void projectile::setDamage(float damage) {
     projectile::damage = damage;
 }
 
-const rendering<projectile> &projectile::getRenderer() const {
-    return renderer;
-}
 
-void projectile::setRenderer(const rendering<projectile> &renderer) {
-    projectile::renderer = renderer;
-}
+
 
 void projectile::move() {
-    Vector2 movVector = {target.getEnemie_pos().x - pos.x, target.getEnemie_pos().y - pos.y};
+    if(target->gettoDie())
+    {
+        toDie=true;
+        return;
+    }
+    Vector2 movVector = {target->getEnemie_pos().x - pos.x, target->getEnemie_pos().y - pos.y};
 
-    std::cout << pos.x << "   " << pos.y << std::endl;
+    //std::cout << pos.x << "   " << pos.y << std::endl;
     Normalize(movVector);
     pos.x += movVector.x * speed;
     pos.y += movVector.y * speed;
-    if (CheckCollisionCircles(pos, 15, target.getEnemie_pos(), 15)) {
-        target.takeDamage(damage);
+    if (CheckCollisionCircles(pos, 15, target->getEnemie_pos(), 15)) {
+        if(behavior)
+            behavior->impact(target,eList, damage);
+        else
+            target->takeDamage(damage);
         toDie = true;
     }
 }
 
 void projectile::draw() {
-    renderer.drawProjectile(projTexture, pos.x, pos.y);
+    float angle=fast_atan2(target->getEnemie_pos().y-pos.y,target->getEnemie_pos().x-pos.x);
+    renderer.drawProjectile(projTexture, pos.x, pos.y,angle);
 }
 
+void projectile::setImpactbehavior(impactBehavior *b) {
+    behavior=b;
 
+}
+
+//Strategies para dos tipos distintos de misiles.
+void singleTargetMissile::impact(Enemy *target, std::list<Enemy*> &eList, int d) {
+    target->takeDamage(d);
+}
+
+void aoeTargetMissile::impact(Enemy *target, std::list<Enemy*> &eList, int d) {
+    for(auto i=eList.begin();i!=eList.end();++i)
+    {
+        if((*i)->getEnemie_pos().x-target->getEnemie_pos().x<=100 && (*i)->getEnemie_pos().y-target->getEnemie_pos().y<=100 && !(*i)->gettoDie())
+        {
+            (*i)->takeDamage(d);
+        }
+    }
+}

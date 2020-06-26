@@ -1,25 +1,33 @@
 //
 // Created by Francisco on 1/6/2020.
 //
+#include <utility>
+
 #include "raylib.h"
 #include "rendering.h"
 #include "enemies.h"
+#include "math.h"
 #ifndef RAYLIBTEMPLATE_PROJECTILE_H
 #define RAYLIBTEMPLATE_PROJECTILE_H
+class impactBehavior;
 
 class projectile{
 
 private:
 
-    EnemieBuilder &target;
+    Enemy *target;
 
     float speed=0;
     Vector2 pos{};
-    float damage;
-    rendering<projectile> renderer;
-    Texture2D *projTexture;
+    int damage;
+    rendering &renderer=rendering::get();
+    std::string projTexture;
+    impactBehavior* behavior=nullptr;
+    std::list<Enemy*> &eList;
     //std::list<Texture2D> fireframes{};
     bool toDie=false;
+
+
 
     inline float FastSqrtInvAroundOne(float x)
     {
@@ -37,22 +45,39 @@ private:
         return Vector2{v.x * len_inv, v.y * len_inv};
     }
 
+    static inline float fast_atan2(float y, float x){
+        static const float c1 = M_PI / 4.0;
+        static const float c2 = M_PI * 3.0 / 4.0;
+        if (y == 0 && x == 0)
+            return 0;
+        float abs_y = fabsf(y);
+        float angle;
+        if (x >= 0)
+            angle = c1 - c1 * ((x - abs_y) / (x + abs_y));
+        else
+            angle = c2 - c1 * ((x + abs_y) / (abs_y - x));
+        if (y < 0)
+            return -angle;
+        return angle;
+    }
+
+
 public:
 
-    projectile(EnemieBuilder &t, float s, Vector2 p, Texture2D *pT, float d):target(t)
+    projectile(Enemy *t, float s, Vector2 p, std::string *pT, int d, std::list<Enemy*> &eL):target(t), eList(eL)
     {
         target=t ;
         speed=s;
         pos=p;
         damage=d;
-        projTexture=pT;
+        projTexture=*pT;
         //fireframes=f;
     }
-    const EnemieBuilder &getTarget() const {
+    const Enemy *getTarget() const {
         return target;
     }
 
-    void setTarget(const EnemieBuilder &target) {
+    void setTarget(Enemy* target) {
         projectile::target = target;
     }
     float getSpeed() const;
@@ -61,30 +86,25 @@ public:
 
     const Vector2 &getPos() const;
 
+    void setImpactbehavior(impactBehavior* b);
+
     void setPos(const Vector2 &pos);
 
     float getDamage() const;
 
     void setDamage(float damage);
 
-    const rendering<projectile> &getRenderer() const;
-
-    void setRenderer(const rendering<projectile> &renderer);
-
     void move();
 
     void draw();
+
+
 
     bool gettoDie()
     {
         return toDie;
     }
-    projectile();
 
-    ~projectile()
-    {
-        UnloadTexture(*projTexture);
-    }
 
 };
 
@@ -92,5 +112,19 @@ public:
 /*projectile::projectile(): target(); {
 
 }*/
+class impactBehavior{
+public:
+    virtual void impact(Enemy *target, std::list<Enemy*> &eList, int d)=0;
+};
+
+class singleTargetMissile : public impactBehavior{
+public:
+    virtual void impact(Enemy *target, std::list<Enemy*> &eList, int d);
+};
+class aoeTargetMissile : public impactBehavior{
+public:
+    virtual void impact(Enemy *target, std::list<Enemy*> &eList, int d);
+};
+
 
 #endif //RAYLIBTEMPLATE_PROJECTILE_H
