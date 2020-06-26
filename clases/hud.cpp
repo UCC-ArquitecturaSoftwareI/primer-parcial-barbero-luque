@@ -27,16 +27,19 @@ void hudInit()
 }
 
 void menuInit(){
-    testing=LoadTexture("resources/background-menu.png");
+    testing=LoadTexture("resources/background-menu.png" );
 }
 
 void menuDraw(){
-    DrawTexture(testing, 0,0 ,WHITE);
+    DrawRectangle( 0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
+    DrawText("START", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 350, 20, WHITE);
+    DrawText("OPTIONS", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 325, 20, WHITE);
+    DrawText("CLOSE", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 300, 20, WHITE);
+    DrawText("Made by Fran y Agu xd", static_cast<float>(GetScreenWidth()) - 795, static_cast<float>(GetScreenHeight()) - 20, 10, WHITE);
 
 }
 
-void hudDraw(Player p)
-{
+void hudDraw(Player p){
     DrawTexture(hudTexturePanel, static_cast<float>(GetScreenWidth()-(GetScreenWidth()/5)*1.54),0 ,WHITE);
     DrawTexture(healthbarBaseText, 5 , static_cast<float>(GetScreenHeight()) - 20 , WHITE);
     float currentHPBarWidth=(49-((p.getPlayerMaxHealth()-(p.getPlayerHealth()))/p.getPlayerMaxHealth()*49));

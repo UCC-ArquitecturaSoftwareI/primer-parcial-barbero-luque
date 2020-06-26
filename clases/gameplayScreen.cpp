@@ -39,12 +39,16 @@ std::list<tower> activeTowers;
 //std::list<EnemieBuilder> activeEnemies;
 std::list<projectile> activeProjectiles;
 
+
+
 void InitGameplayScreen() {
     framesCounter = 0;
     finishScreen = 0;
     mapInit();
     hudInit();
     menuInit();
+
+
     currentPlayerStatus = 0;
     p.startplayer();
     switch (currentlevel) {
@@ -63,7 +67,6 @@ void InitGameplayScreen() {
 }
 
 void UpdateGameplayScreen() {
-
     switch (currentlevel) {
         case 1:
             if (framesCounter % 60 == 0 && framesCounter <= 300) {
