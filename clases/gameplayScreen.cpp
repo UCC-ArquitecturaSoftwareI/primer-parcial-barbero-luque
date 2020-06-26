@@ -24,6 +24,7 @@ Cuartel cuartelHard(builderHard);
 rendering &renderer=rendering::get();
 int currenthealth = 100;
 int currentlevel = 1;
+int currentStatus = 0;
 int currentdX;
 int currentdY;
 Player p;
@@ -43,6 +44,7 @@ void InitGameplayScreen() {
     finishScreen = 0;
     mapInit();
     hudInit();
+    menuInit();
     currentPlayerStatus = 0;
     p.startplayer();
     switch (currentlevel) {
@@ -140,33 +142,35 @@ void UpdateGameplayScreen() {
 }
 
 void DrawGameplayScreen() {
-    mapDraw();
-    hudDraw(p);
+    if( currentStatus == 1 ) {
+        mapDraw();
+        hudDraw(p);
 
-    for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
-        i->draw();
-    }
-    for (auto i = activeProjectiles.begin(); i != activeProjectiles.end(); ++i) {
-        i->draw();
-    }
-    for (auto i = enemies.begin(); i != enemies.end(); ++i) {
-        if(!(*i)->gettoDie())
-            (*i)->draw();
-    }
-    if (currentPlayerStatus == 1) {
-        if(checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers))
-        {
-            renderer.drawPhantomTextureError(currentTowerText1, currentTowerText2, GetMousePosition().x,
-                                             GetMousePosition().y);
+        for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
+            i->draw();
         }
-        else
-        {
+        for (auto i = activeProjectiles.begin(); i != activeProjectiles.end(); ++i) {
+            i->draw();
+        }
+        for (auto i = enemies.begin(); i != enemies.end(); ++i) {
+            if ((*i)->gettoDie())
+                (*i)->draw();
+        }
+        if (currentPlayerStatus == 1) {
+            if (checkCollision({GetMousePosition().x, GetMousePosition().y, 32, 32}, activeTowers)) {
+                renderer.drawPhantomTextureError(currentTowerText1, currentTowerText2, GetMousePosition().x,
+                                                 GetMousePosition().y);
+            } else {
 
-            renderer.drawPhantomTextureTower(currentTowerText1, currentTowerText2, GetMousePosition().x,
-                                             GetMousePosition().y);
+                renderer.drawPhantomTextureTower(currentTowerText1, currentTowerText2, GetMousePosition().x,
+                                                 GetMousePosition().y);
+            }
         }
+        //DrawText(reinterpret_cast<const char *>(playerhealth), 80, static_cast<float>(GetScreenHeight()) - 20, 14 , BLACK);
     }
-    //DrawText(reinterpret_cast<const char *>(playerhealth), 80, static_cast<float>(GetScreenHeight()) - 20, 14 , BLACK);
+    else{
+        menuDraw();
+    }
 }
 
 
