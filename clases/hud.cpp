@@ -73,17 +73,17 @@ void hudUnload()
 bool isTowerSelected(std::list<tower> tList) {
     for(auto i =tList.begin();i!=tList.end();++i)
     {
-        if(GetMousePosition().x-i->GetTowerPos().x<64 && GetMousePosition().y-i->GetTowerPos().y<64)
+        if(abs(GetMousePosition().x-i->GetTowerPos().x)<64 && abs(GetMousePosition().y-i->GetTowerPos().y)<64)
             return true;
     }
     return false;
 }
 
 tower *getSelectedTower(std::list<tower> tList) {
-    for(auto i =tList.begin();i!=tList.end();++i)
+    for(auto i=tList.begin();i!=tList.end();++i)
     {
-        if(GetMousePosition().x-i->GetTowerPos().x<64 && GetMousePosition().y-i->GetTowerPos().y<64)
-            if(typeid(&*i).name()=="tower")
+        if(abs(GetMousePosition().x-i->GetTowerPos().x)<64 && abs(GetMousePosition().y-i->GetTowerPos().y)<64)
+            //if(typeid(&*i).name()=="tower")
                 return &*i;
     }
     return nullptr;

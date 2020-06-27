@@ -20,6 +20,12 @@ protected:
     Vector2 tower_pos;
     std::string towerTextureBase;
     std::string towerTextureTop;
+    std::string towerType;
+public:
+    const std::string &getTowerType() const;
+
+    void setTowerType(const std::string &towerType);
+
 public:
     void setTowerTextureTop(const std::string &towerTextureTop);
 
@@ -72,17 +78,13 @@ public:
 
     void setTowerPosition(Vector2);
 
-    void draw();
+    virtual void draw();
 
     Enemy* findInRange();
 
     bool operator==(tower t)
     {
-        if(tower_pos.x==t.tower_pos.x && tower_pos.y==t.tower_pos.y)
-        {
-            return true;
-        }
-        return false;
+        return tower_pos.x == t.tower_pos.x && tower_pos.y == t.tower_pos.y && towerType == t.towerType;
     }
 
     Vector2 GetTowerPos()
@@ -96,17 +98,27 @@ class AreaTowerDecorator : public tower
 private:
     tower &t;
 public:
-
-    AreaTowerDecorator(tower &t) : t(t) {
+    AreaTowerDecorator(tower &t, tower &t1) : tower(t), t(t1) {
         t.setCost(300);
         t.setTowerTextureTop("resources/TowerTopArea.png");
+        t.setTowerType("Area");
 
     }
+
+    /*explicit AreaTowerDecorator(tower &t) : t(t) {
+
+    }*/
 
     void fireProj(std::list<projectile> &activeProjectiles) override
     {
         t.fireProj(activeProjectiles);
         activeProjectiles.back().setImpactbehavior(new aoeTargetMissile);
+    };
+
+    void draw() override
+    {
+        float angle=fast_atan2(CurrentTarget->getEnemie_pos().y-tower_pos.y,CurrentTarget->getEnemie_pos().x-tower_pos.x);
+        renderer.drawTower(towerTextureBase, "resources/TowerTopArea.png", tower_pos.x, tower_pos.y,angle);
     };
 
 };
@@ -116,16 +128,27 @@ class StrongTowerDecorator : public tower
 private:
     tower &t;
 public:
-
-    StrongTowerDecorator(tower &t) : t(t) {
+    StrongTowerDecorator(tower &t, tower &t1) : tower(t), t(t1) {
         t.setCost(200);
         t.setTowerTextureTop("resources/TowerTopStrong.png");
+        t.setTowerType("Strong");
     }
+
+    /*explicit StrongTowerDecorator(tower &t) : t(t) {
+        t.setCost(200);
+        t.setTowerTextureTop("resources/TowerTopStrong.png");
+    }*/
 
     void fireProj(std::list<projectile> &activeProjectiles) override
     {
         t.fireProj(activeProjectiles);
         activeProjectiles.back().setDamage(50);
+    };
+
+    void draw() override
+    {
+        float angle=fast_atan2(CurrentTarget->getEnemie_pos().y-tower_pos.y,CurrentTarget->getEnemie_pos().x-tower_pos.x);
+        renderer.drawTower(towerTextureBase, "resources/TowerTopStrong.png", tower_pos.x, tower_pos.y,angle);
     };
 
 };

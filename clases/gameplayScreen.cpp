@@ -112,20 +112,17 @@ void UpdateGameplayScreen() {
         currentPlayerStatus = 0;
     }
 
-    if(currentPlayerStatus==0 && IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+    if(currentPlayerStatus==0 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) && (GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54)))
     {
         selectedTower=getSelectedTower(activeTowers);
     }
     if (currentPlayerStatus == 1 && IsMouseButtonDown(MOUSE_RIGHT_BUTTON)) {
             currentPlayerStatus = 0;
         }
-    if (currentPlayerStatus == 2 && IsMouseButtonDown(MOUSE_RIGHT_BUTTON)) {
-            currentPlayerStatus = 0;
-        }
 
-        if (currentPlayerStatus == 2 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) && !isTowerSelected(activeTowers)) {
+        /*if (currentPlayerStatus == 2 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) && !isTowerSelected(activeTowers)) {
             currentPlayerStatus = 0;
-        }
+        }*/
 
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && ((std::abs(GetMousePosition().x - ButtonTowerCreatePos.x)) < 32 &&
                                                  std::abs((GetMousePosition().y - ButtonTowerCreatePos.y)) < 32)) {
@@ -138,11 +135,11 @@ void UpdateGameplayScreen() {
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && ((std::abs(GetMousePosition().x - ButtonTowerStrongCreatePos.x)) < 32 &&
                                                      std::abs((GetMousePosition().y - ButtonTowerStrongCreatePos.y)) < 32) && p.getPlayerMoney()>=200 && selectedTower!=
                                                                                                                                                          nullptr) {
-
-            StrongTowerDecorator StrongTower(*selectedTower);
-            activeTowers.push_back(StrongTower);
-            activeTowers.remove(*selectedTower);
             p.takeMoney(200);
+            StrongTowerDecorator StrongTower(*selectedTower,*selectedTower);
+            activeTowers.remove(*selectedTower);
+            activeTowers.push_back(StrongTower);
+
             currentPlayerStatus = 0;
             selectedTower=nullptr;
         }
@@ -150,9 +147,9 @@ void UpdateGameplayScreen() {
                                                      std::abs((GetMousePosition().y - ButtonTowerAreaCreatePos.y)) < 32 && p.getPlayerMoney()>=300 && selectedTower!=
                                                                                                                                                       nullptr)) {
 
-            AreaTowerDecorator AreaTower(*selectedTower);
-            activeTowers.push_back(AreaTower);
+            AreaTowerDecorator AreaTower(*selectedTower,*selectedTower);
             activeTowers.remove(*selectedTower);
+            activeTowers.push_back(AreaTower);
             p.takeMoney(300);
             currentPlayerStatus = 0;
             selectedTower=nullptr;
@@ -245,8 +242,8 @@ void DrawGameplayScreen() {
                                                  GetMousePosition().y);
             }
         }
-        if (currentPlayerStatus == 2) {
-            DrawCircle(selectedTower->GetTowerPos().x,selectedTower->GetTowerPos().y,38,RED);
+        if (selectedTower!= nullptr) {
+            DrawCircleLines(selectedTower->GetTowerPos().x,selectedTower->GetTowerPos().y,38,RED);
             }
         }
         /*if (currentPlayerStatus == 3) {

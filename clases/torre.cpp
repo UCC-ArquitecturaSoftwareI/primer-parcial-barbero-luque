@@ -13,6 +13,7 @@ tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, s
     towerTextureTop = patch2;
     projectileText = "resources/Missile.png";
     damage=20;
+    towerType="normal";
 }
 
 void tower::fireProj(std::list<projectile> &activeProjectiles) {
@@ -81,4 +82,12 @@ void tower::setCost(int cost) {
 
 void tower::setTowerTextureTop(const std::string &towerTextureTop) {
     tower::towerTextureTop = towerTextureTop;
+}
+
+const std::string &tower::getTowerType() const {
+    return towerType;
+}
+
+void tower::setTowerType(const std::string &towerType) {
+    tower::towerType = towerType;
 }
