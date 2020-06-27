@@ -13,11 +13,20 @@
 
 class tower{
 protected:
+    tower();
+
     int cost;
     std::string name;
     Vector2 tower_pos;
     std::string towerTextureBase;
     std::string towerTextureTop;
+public:
+    void setTowerTextureTop(const std::string &towerTextureTop);
+
+public:
+    void setCost(int cost);
+
+protected:
     std::string projectileText;
     int currentCooldown=0;
     int maxCooldown=60;
@@ -48,6 +57,8 @@ protected:
 public:
     tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL);
 
+    tower(const tower &t);
+
     int getcost(){
         return cost;
     };
@@ -57,13 +68,22 @@ public:
         return name;
     };
     int cooldownTick();
-    void fireProj(std::list<projectile> &activeProjectiles);
+    virtual void fireProj(std::list<projectile> &activeProjectiles);
 
     void setTowerPosition(Vector2);
 
     void draw();
 
     Enemy* findInRange();
+
+    bool operator==(tower t)
+    {
+        if(tower_pos.x==t.tower_pos.x && tower_pos.y==t.tower_pos.y)
+        {
+            return true;
+        }
+        return false;
+    }
 
     Vector2 GetTowerPos()
     {
@@ -73,9 +93,40 @@ public:
 
 class AreaTowerDecorator : public tower
 {
+private:
+    tower &t;
 public:
-    tower* t;
 
+    AreaTowerDecorator(tower &t) : t(t) {
+        t.setCost(300);
+        t.setTowerTextureTop("resources/TowerTopArea.png");
+
+    }
+
+    void fireProj(std::list<projectile> &activeProjectiles) override
+    {
+        t.fireProj(activeProjectiles);
+        activeProjectiles.back().setImpactbehavior(new aoeTargetMissile);
+    };
+
+};
+
+class StrongTowerDecorator : public tower
+{
+private:
+    tower &t;
+public:
+
+    StrongTowerDecorator(tower &t) : t(t) {
+        t.setCost(200);
+        t.setTowerTextureTop("resources/TowerTopStrong.png");
+    }
+
+    void fireProj(std::list<projectile> &activeProjectiles) override
+    {
+        t.fireProj(activeProjectiles);
+        activeProjectiles.back().setDamage(50);
+    };
 
 };
 #endif //PROYECTO_TORRE_H

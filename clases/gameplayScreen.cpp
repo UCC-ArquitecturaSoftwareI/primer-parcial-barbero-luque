@@ -28,7 +28,7 @@ int currentStatus = 0; //0=Menu , 1=Gameplay, 2=Defeat.
 int currentdX;
 int currentdY;
 Player p;
-int currentPlayerStatus = 0; //0=GameplayNormal, 1=ColocandoTorreNormal, 2=ColocandoTorreFuerte, 3=ColocandoTorreEnArea
+int currentPlayerStatus = 0; //0=GameplayNormal, 1=ColocandoTorreNormal, 2=Seleccionando torre
 Vector2 startpos{5, 85};
 Vector2 ButtonTowerCreatePos{635, 85};
 Vector2 ButtonTowerStrongCreatePos{635, 155};
@@ -43,7 +43,7 @@ std::list<projectile> activeProjectiles;
 
 int defeatedEnemies=0;
 
-
+tower* selectedTower=nullptr;
 
 void InitGameplayScreen() {
     framesCounter = 0;
@@ -111,31 +111,19 @@ void UpdateGameplayScreen() {
         p.takeMoney(100);
         currentPlayerStatus = 0;
     }
-        if (currentPlayerStatus == 2 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
-            GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54) &&
-            !checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers ) && p.getPlayerMoney()>=200) {
-            //TODO: AGREGAR DECORATOR
-            tower tnew(200, "Torre2", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTopStrong.png", enemies);
-            activeTowers.push_back(tnew);
-            p.takeMoney(200);
-            currentPlayerStatus = 0;
-        }
-        if (currentPlayerStatus == 3 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
-            GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54) &&
-            !checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers ) && p.getPlayerMoney()>=300) {
-            //TODO: AGREGAR DECORATOR
-            tower tnew(200, "Torre2", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTopArea.png", enemies);
-            activeTowers.push_back(tnew);
-            p.takeMoney(300);
-            currentPlayerStatus = 0;
-        }
+
+    if(currentPlayerStatus==0 && IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+    {
+        selectedTower=getSelectedTower(activeTowers);
+    }
     if (currentPlayerStatus == 1 && IsMouseButtonDown(MOUSE_RIGHT_BUTTON)) {
             currentPlayerStatus = 0;
         }
     if (currentPlayerStatus == 2 && IsMouseButtonDown(MOUSE_RIGHT_BUTTON)) {
             currentPlayerStatus = 0;
         }
-    if (currentPlayerStatus == 3 && IsMouseButtonDown(MOUSE_RIGHT_BUTTON)) {
+
+        if (currentPlayerStatus == 2 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) && !isTowerSelected(activeTowers)) {
             currentPlayerStatus = 0;
         }
 
@@ -148,18 +136,26 @@ void UpdateGameplayScreen() {
         currentTowerText2 = "resources/TowerTop.png";
     }
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && ((std::abs(GetMousePosition().x - ButtonTowerStrongCreatePos.x)) < 32 &&
-                                                     std::abs((GetMousePosition().y - ButtonTowerStrongCreatePos.y)) < 32)) {
+                                                     std::abs((GetMousePosition().y - ButtonTowerStrongCreatePos.y)) < 32) && p.getPlayerMoney()>=200 && selectedTower!=
+                                                                                                                                                         nullptr) {
 
-            currentPlayerStatus = 2;
-            currentTowerText1 = "resources/TowerBase.png";
-            currentTowerText2 = "resources/TowerTopStrong.png";
+            StrongTowerDecorator StrongTower(*selectedTower);
+            activeTowers.push_back(StrongTower);
+            activeTowers.remove(*selectedTower);
+            p.takeMoney(200);
+            currentPlayerStatus = 0;
+            selectedTower=nullptr;
         }
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON) && ((std::abs(GetMousePosition().x - ButtonTowerAreaCreatePos.x)) < 32 &&
-                                                     std::abs((GetMousePosition().y - ButtonTowerAreaCreatePos.y)) < 32)) {
+                                                     std::abs((GetMousePosition().y - ButtonTowerAreaCreatePos.y)) < 32 && p.getPlayerMoney()>=300 && selectedTower!=
+                                                                                                                                                      nullptr)) {
 
-            currentPlayerStatus = 3;
-            currentTowerText1 = "resources/TowerBase.png";
-            currentTowerText2 = "resources/TowerTopArea.png";
+            AreaTowerDecorator AreaTower(*selectedTower);
+            activeTowers.push_back(AreaTower);
+            activeTowers.remove(*selectedTower);
+            p.takeMoney(300);
+            currentPlayerStatus = 0;
+            selectedTower=nullptr;
         }
 
     for (auto i = activeProjectiles.begin(); i != activeProjectiles.end(); ++i) {
@@ -250,6 +246,10 @@ void DrawGameplayScreen() {
             }
         }
         if (currentPlayerStatus == 2) {
+            DrawCircle(selectedTower->GetTowerPos().x,selectedTower->GetTowerPos().y,38,RED);
+            }
+        }
+        /*if (currentPlayerStatus == 3) {
             if (checkCollision({GetMousePosition().x, GetMousePosition().y, 32, 32}, activeTowers)) {
                 renderer.drawPhantomTextureError(currentTowerText1, currentTowerText2, GetMousePosition().x,
                                                  GetMousePosition().y);
@@ -258,19 +258,9 @@ void DrawGameplayScreen() {
                 renderer.drawPhantomTextureTower(currentTowerText1, currentTowerText2, GetMousePosition().x,
                                                  GetMousePosition().y);
             }
-        }
-        if (currentPlayerStatus == 3) {
-            if (checkCollision({GetMousePosition().x, GetMousePosition().y, 32, 32}, activeTowers)) {
-                renderer.drawPhantomTextureError(currentTowerText1, currentTowerText2, GetMousePosition().x,
-                                                 GetMousePosition().y);
-            } else {
-
-                renderer.drawPhantomTextureTower(currentTowerText1, currentTowerText2, GetMousePosition().x,
-                                                 GetMousePosition().y);
-            }
-        }
+        }*/
         //DrawText(reinterpret_cast<const char *>(playerhealth), 80, static_cast<float>(GetScreenHeight()) - 20, 14 , BLACK);
-    }
+
     else if(currentStatus==0){
         menuDraw();
     }

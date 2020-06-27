@@ -6,12 +6,16 @@
 #define RAYLIBTEMPLATE_HUD_H
 #include <raylib.h>
 #include "player.h"
+#include "torre.h"
 
 void hudInit();
 void hudDraw(Player p);
 
 void menuInit();
 void menuDraw();
+
+bool isTowerSelected(std::list<tower> tList);
+tower* getSelectedTower(std::list<tower> tList);
 
 void hudUnload();
 

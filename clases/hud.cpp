@@ -3,6 +3,7 @@
 //
 #include <string>
 #include "hud.h"
+#include <typeinfo>
 
 Texture2D hudTexturePanel;
 Rectangle hudRightPanel;
@@ -50,11 +51,11 @@ void hudDraw(Player p){
     DrawTexture(towerCreateButton, static_cast<float>(GetScreenWidth()) - 200,static_cast<float>(GetScreenHeight()) - 400,WHITE);
     DrawTexture(towerCreateButton,static_cast<float>(GetScreenWidth()) - 200,static_cast<float>(GetScreenHeight()) - 330,WHITE);
     DrawTexture(towerCreateButton,static_cast<float>(GetScreenWidth()) - 200,static_cast<float>(GetScreenHeight()) - 260,WHITE);
-    DrawText("Normal", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 400, 20, BLUE);
+    DrawText("Crear Torre Normal", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 400, 20, BLUE);
     DrawText("$100", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 380, 20, GREEN);
-    DrawText("Fuerte", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 330, 20, BLUE);
+    DrawText("Mejorar a Fuerte", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 330, 20, BLUE);
     DrawText("$200", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 310, 20, GREEN);
-    DrawText("Area", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 260, 20, BLUE);
+    DrawText("Mejorar a Area", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 260, 20, BLUE);
     DrawText("$300", static_cast<float>(GetScreenWidth()) - 130, static_cast<float>(GetScreenHeight()) - 240, 20, GREEN);
 
     std::string s = "$" + std::to_string(p.getPlayerMoney());
@@ -67,4 +68,23 @@ void hudDraw(Player p){
 void hudUnload()
 {
     UnloadTexture(hudTexturePanel);
+}
+
+bool isTowerSelected(std::list<tower> tList) {
+    for(auto i =tList.begin();i!=tList.end();++i)
+    {
+        if(GetMousePosition().x-i->GetTowerPos().x<64 && GetMousePosition().y-i->GetTowerPos().y<64)
+            return true;
+    }
+    return false;
+}
+
+tower *getSelectedTower(std::list<tower> tList) {
+    for(auto i =tList.begin();i!=tList.end();++i)
+    {
+        if(GetMousePosition().x-i->GetTowerPos().x<64 && GetMousePosition().y-i->GetTowerPos().y<64)
+            if(typeid(&*i).name()=="tower")
+                return &*i;
+    }
+    return nullptr;
 }

@@ -65,3 +65,20 @@ Enemy* tower::findInRange() {
     return *--i;
 }
 
+tower::tower(const tower &t): tower_pos(
+        t.tower_pos), eList(t.eList), CurrentTarget(t.CurrentTarget) {
+    cost = t.cost;
+    name = t.name;
+    towerTextureBase = t.towerTextureBase;
+    towerTextureTop = t.towerTextureTop;
+    projectileText = t.projectileText;
+    damage=t.damage;
+}
+
+void tower::setCost(int cost) {
+    tower::cost = cost;
+}
+
+void tower::setTowerTextureTop(const std::string &towerTextureTop) {
+    tower::towerTextureTop = towerTextureTop;
+}

@@ -58,7 +58,6 @@ void projectile::draw() {
 
 void projectile::setImpactbehavior(impactBehavior *b) {
     behavior=b;
-
 }
 
 //Strategies para dos tipos distintos de misiles.
