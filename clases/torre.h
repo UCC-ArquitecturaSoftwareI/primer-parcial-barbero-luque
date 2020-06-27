@@ -78,7 +78,7 @@ public:
 
     void setTowerPosition(Vector2);
 
-    virtual void draw();
+    void draw();
 
     Enemy* findInRange();
 
@@ -102,7 +102,6 @@ public:
         t.setCost(300);
         t.setTowerTextureTop("resources/TowerTopArea.png");
         t.setTowerType("Area");
-
     }
 
     /*explicit AreaTowerDecorator(tower &t) : t(t) {
@@ -113,12 +112,6 @@ public:
     {
         t.fireProj(activeProjectiles);
         activeProjectiles.back().setImpactbehavior(new aoeTargetMissile);
-    };
-
-    void draw() override
-    {
-        float angle=fast_atan2(CurrentTarget->getEnemie_pos().y-tower_pos.y,CurrentTarget->getEnemie_pos().x-tower_pos.x);
-        renderer.drawTower(towerTextureBase, "resources/TowerTopArea.png", tower_pos.x, tower_pos.y,angle);
     };
 
 };
@@ -145,11 +138,6 @@ public:
         activeProjectiles.back().setDamage(50);
     };
 
-    void draw() override
-    {
-        float angle=fast_atan2(CurrentTarget->getEnemie_pos().y-tower_pos.y,CurrentTarget->getEnemie_pos().x-tower_pos.x);
-        renderer.drawTower(towerTextureBase, "resources/TowerTopStrong.png", tower_pos.x, tower_pos.y,angle);
-    };
 
 };
 #endif //PROYECTO_TORRE_H
