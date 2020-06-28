@@ -37,16 +37,11 @@ Vector2 ButtonTowerAreaCreatePos{635, 225};
 std::string currentTowerText1;
 std::string currentTowerText2;
 
-std::list<tower> activeTowers;
+std::list<tower*> activeTowers;
 //std::list<EnemieBuilder> activeEnemies;
 std::list<projectile> activeProjectiles;
 
 int defeatedEnemies=0;
-
-void callToFireTemplateMethod(tower *tow, std::list<projectile> &activeProjectiles)
-{
-    tow->fireProj(activeProjectiles);
-}
 
 void InitGameplayScreen() {
     framesCounter = 0;
@@ -100,31 +95,28 @@ void UpdateGameplayScreen() {
                 enemies.push_front(cuartelHard.construct());
     }
     for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
-        if (i->cooldownTick() == 1) {
-            callToFireTemplateMethod(&(*i),activeProjectiles);
+        if ((*i)->cooldownTick() == 1) {
+            (*i)->fireProj(activeProjectiles);
         }
     }
     if (currentPlayerStatus == 1 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
         GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54) &&
         !checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers) && p.getPlayerMoney()>=100) {
-        tower tnew(100, "Torre1", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTop.png", enemies);
-        activeTowers.push_back(tnew);
+        activeTowers.push_back(new NormalTower(100, "Torre1", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTop.png", enemies));
         p.takeMoney(100);
         currentPlayerStatus = 0;
     }
         if (currentPlayerStatus == 2 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
             GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54) &&
             !checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers ) && p.getPlayerMoney()>=200) {
-            StrongTower tnew(200, "Torre2", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTopStrong.png", enemies);
-            activeTowers.push_back(tnew);
+           activeTowers.push_back(new StrongTower(200, "Torre2", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTopStrong.png", enemies));
             p.takeMoney(200);
             currentPlayerStatus = 0;
         }
         if (currentPlayerStatus == 3 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
             GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54) &&
             !checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers ) && p.getPlayerMoney()>=300) {
-            AreaTower tnew(200, "Torre2", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTopArea.png", enemies);
-            activeTowers.push_back(tnew);
+            activeTowers.push_back(new AreaTower(200, "Torre2", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTopArea.png", enemies));
             p.takeMoney(300);
             currentPlayerStatus = 0;
         }
@@ -229,7 +221,7 @@ void DrawGameplayScreen() {
         hudDraw(p);
 
         for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
-            i->draw();
+            (*i)->draw();
         }
         for (auto i = activeProjectiles.begin(); i != activeProjectiles.end(); ++i) {
             i->draw();

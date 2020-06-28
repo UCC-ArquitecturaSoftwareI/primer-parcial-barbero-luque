@@ -22,7 +22,7 @@ void mapUnload()
     UnloadTexture(mapTexture);
 }
 
-bool checkCollision(Rectangle a, std::list<tower> &towers) {
+bool checkCollision(Rectangle a, std::list<tower*> &towers) {
     if(CheckCollisionRecs(a,{0 , 85 , 330 , 40}))
     {
         return true;
@@ -42,7 +42,7 @@ bool checkCollision(Rectangle a, std::list<tower> &towers) {
 
     for(auto i=towers.begin();i!=towers.end();++i)
     {
-        if(CheckCollisionRecs(a,{i->GetTowerPos().x,i->GetTowerPos().y,32,32}))
+        if(CheckCollisionRecs(a,{(*i)->GetTowerPos().x,(*i)->GetTowerPos().y,32,32}))
         {
             return true;
         }
