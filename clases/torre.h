@@ -13,6 +13,7 @@
 
 class tower{
 protected:
+    virtual void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const=0;
     int cost;
     std::string name;
     Vector2 tower_pos;
@@ -44,8 +45,9 @@ protected:
         return angle;
     }
 
-    virtual void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const{}
+
 public:
+
     tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL);
 
     int getcost(){
@@ -71,28 +73,42 @@ public:
     }
 };
 //TemplateMethods para mayores funcionalidades.
-class AreaTower: public tower
+
+class NormalTower:public tower
+{
+public:
+    NormalTower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL):
+            tower(a, b, towerPos, patch,  patch2, enL){};
+
+    void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const override {
+        //std::cout<<"HERE"<<std::endl;
+    }
+
+};
+
+
+class AreaTower: public NormalTower
 {
 public:
     AreaTower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL):
-    tower(a, b,  towerPos, patch,  patch2, enL){};
+            NormalTower(a, b,  towerPos, patch,  patch2, enL){};
 
     void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const override
     {
-            std::cout<<"ADDED AREA DAMAGE"<<std::endl;
+            //std::cout<<"ADDED AREA DAMAGE"<<std::endl;
             activeProjectiles.back().setImpactbehavior(new aoeTargetMissile);
     }
 
 };
 
-class StrongTower:public tower
+class StrongTower:public NormalTower
 {
 public:
     StrongTower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL):
-            tower(a, b, towerPos, patch,  patch2, enL){};
+            NormalTower(a, b, towerPos, patch,  patch2, enL){};
 
     void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const override {
-            std::cout<<"ADDED EXTRA DAMAGE"<<std::endl;
+            //std::cout<<"ADDED EXTRA DAMAGE"<<std::endl;
             activeProjectiles.back().setDamage(70);
         }
 
