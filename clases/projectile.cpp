@@ -69,9 +69,10 @@ void singleTargetMissile::impact(Enemy *target, std::list<Enemy*> &eList, int d)
 void aoeTargetMissile::impact(Enemy *target, std::list<Enemy*> &eList, int d) {
     for(auto i=eList.begin();i!=eList.end();++i)
     {
-        if((*i)->getEnemie_pos().x-target->getEnemie_pos().x<=100 && (*i)->getEnemie_pos().y-target->getEnemie_pos().y<=100 && !(*i)->gettoDie())
+        if(abs((*i)->getEnemie_pos().x-target->getEnemie_pos().x)<=100 && abs((*i)->getEnemie_pos().y-target->getEnemie_pos().y)<=100 && !(*i)->gettoDie())
         {
             (*i)->takeDamage(d);
         }
     }
+    //std::cout<<"AREA DAMAGE"<<std::endl;
 }

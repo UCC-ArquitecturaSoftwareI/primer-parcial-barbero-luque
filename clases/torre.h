@@ -44,7 +44,7 @@ protected:
         return angle;
     }
 
-
+    virtual void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const{}
 public:
     tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL);
 
@@ -70,12 +70,33 @@ public:
         return tower_pos;
     }
 };
-
-class AreaTowerDecorator : public tower
+//TemplateMethods para mayores funcionalidades.
+class AreaTower: public tower
 {
 public:
-    tower* t;
+    AreaTower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL):
+    tower(a, b,  towerPos, patch,  patch2, enL){};
 
+    void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const override
+    {
+            std::cout<<"ADDED AREA DAMAGE"<<std::endl;
+            activeProjectiles.back().setImpactbehavior(new aoeTargetMissile);
+    }
 
 };
+
+class StrongTower:public tower
+{
+public:
+    StrongTower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL):
+            tower(a, b, towerPos, patch,  patch2, enL){};
+
+    void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const override {
+            std::cout<<"ADDED EXTRA DAMAGE"<<std::endl;
+            activeProjectiles.back().setDamage(70);
+        }
+
+};
+
+
 #endif //PROYECTO_TORRE_H

@@ -24,10 +24,14 @@ void tower::fireProj(std::list<projectile> &activeProjectiles) {
     {
     if(CurrentTarget->gettoDie()==false)
         activeProjectiles.emplace_back(CurrentTarget, 0.05, tower_pos, &projectileText, damage,eList);
+        //TemplateMethod para mayores funcionalidades.
+        this->hookadditionalFireProperties(activeProjectiles);
     if(CurrentTarget->gettoDie()==true)
     {
             CurrentTarget=findInRange();
             activeProjectiles.emplace_back(CurrentTarget, 0.05, tower_pos, &projectileText, damage,eList);
+            //TemplateMethod para mayores funcionalidades.
+            this->hookadditionalFireProperties(activeProjectiles);
     }
     }
 }
@@ -58,10 +62,14 @@ void tower::draw() {
 Enemy* tower::findInRange() {
     for(auto i=eList.begin();i!=eList.end();++i)
     {
-        if((*i)->getEnemie_pos().x-tower_pos.x<400 && (*i)->getEnemie_pos().y-tower_pos.y<400 && !(*i)->gettoDie())
+        if(abs((*i)->getEnemie_pos().x-tower_pos.x)<100 && abs((*i)->getEnemie_pos().y-tower_pos.y)<100 && !(*i)->gettoDie())
+            return (*i);
+    }
+    for(auto i=eList.begin();i!=eList.end();++i)
+    {
+        if(!(*i)->gettoDie())
             return (*i);
     }
     auto i = eList.end();
     return *--i;
 }
-
