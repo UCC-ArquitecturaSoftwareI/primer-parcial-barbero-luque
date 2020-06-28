@@ -77,6 +77,7 @@ public:
 
     void takeDamage(int d) {
         hp -= d;
+        //std::cout<<"TOOKDAMAGE:"<<d<<std::endl;
         //std::cout<<"CURRENTHP:"<<hp<<std::endl;
         if (hp <= 0)
             toDie = true;

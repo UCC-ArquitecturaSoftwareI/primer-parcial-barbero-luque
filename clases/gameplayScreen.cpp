@@ -43,7 +43,10 @@ std::list<projectile> activeProjectiles;
 
 int defeatedEnemies=0;
 
-
+void callToFireTemplateMethod(tower *tow, std::list<projectile> &activeProjectiles)
+{
+    tow->fireProj(activeProjectiles);
+}
 
 void InitGameplayScreen() {
     framesCounter = 0;
@@ -98,14 +101,12 @@ void UpdateGameplayScreen() {
     }
     for (auto i = activeTowers.begin(); i != activeTowers.end(); ++i) {
         if (i->cooldownTick() == 1) {
-            i->fireProj(activeProjectiles);
-
+            callToFireTemplateMethod(&(*i),activeProjectiles);
         }
     }
     if (currentPlayerStatus == 1 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
         GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54) &&
         !checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers) && p.getPlayerMoney()>=100) {
-
         tower tnew(100, "Torre1", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTop.png", enemies);
         activeTowers.push_back(tnew);
         p.takeMoney(100);
@@ -114,8 +115,7 @@ void UpdateGameplayScreen() {
         if (currentPlayerStatus == 2 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
             GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54) &&
             !checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers ) && p.getPlayerMoney()>=200) {
-            //TODO: AGREGAR DECORATOR
-            tower tnew(200, "Torre2", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTopStrong.png", enemies);
+            StrongTower tnew(200, "Torre2", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTopStrong.png", enemies);
             activeTowers.push_back(tnew);
             p.takeMoney(200);
             currentPlayerStatus = 0;
@@ -123,8 +123,7 @@ void UpdateGameplayScreen() {
         if (currentPlayerStatus == 3 && IsMouseButtonDown(MOUSE_LEFT_BUTTON) &&
             GetMousePosition().x < (GetScreenWidth() - (GetScreenWidth() / 5) * 1.54) &&
             !checkCollision({GetMousePosition().x,GetMousePosition().y,32,32},activeTowers ) && p.getPlayerMoney()>=300) {
-            //TODO: AGREGAR DECORATOR
-            tower tnew(200, "Torre2", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTopArea.png", enemies);
+            AreaTower tnew(200, "Torre2", GetMousePosition(), "resources/TowerBase.png", "resources/TowerTopArea.png", enemies);
             activeTowers.push_back(tnew);
             p.takeMoney(300);
             currentPlayerStatus = 0;
