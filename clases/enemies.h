@@ -24,15 +24,9 @@ protected:
 
     bool toDie = false;
 public:
-    /*Enemy(rendering r):renderer(r) {
-        level = 0;
-        speed = 0;
-        hp = 100;
-        damage = 20;
-        enemie_pos.x = 0;
-        enemie_pos.y = 0;
-        toDie = false;
-    }*/
+    /**
+ *  Constructor predeterminado de Enemy.
+ */
     Enemy(){
         level = 0;
         speed = 0;
@@ -77,8 +71,6 @@ public:
 
     void takeDamage(int d) {
         hp -= d;
-        //std::cout<<"TOOKDAMAGE:"<<d<<std::endl;
-        //std::cout<<"CURRENTHP:"<<hp<<std::endl;
         if (hp <= 0)
             toDie = true;
     }
@@ -100,15 +92,17 @@ public:
     friend class EasyEnemie;
 };
 
+/**
+ *  Patron creacional Builder encargada de crear cada Enemy
+ */
+
 class EnemieBuilder {
 protected:
     Enemy *enemy;
 public:
-    /*EnemieBuilder &newEnemy(rendering r) {
-        enemy = new Enemy(r);
-        return *this;
-    };
-     */
+    /**
+ * Funcion para crear un enemy a partir del constructor Enemy();
+ */
     EnemieBuilder &newEnemy() {
         enemy = new Enemy();
         return *this;
@@ -186,6 +180,9 @@ class Cuartel {
 public:
     Cuartel(EnemieBuilder &builder) : builder(builder) {}
 
+    /**
+ *  Funcion que crea un enemigo ya listo para la batalla dependiendo de que EnemieBuilder venga.
+ */
     Enemy* construct() {
         return builder.newEnemy()
                 .buildLevel()
@@ -199,12 +196,3 @@ public:
 };
 
 #endif //RAYLIBTEMPLATE_ENEMIES_H
-
-/* IMPLEMENTACION
- *  EasyEnemie builderEasy;
- *  Cuartel cuartel( builderEasy );
- *  cuartel.construct();
- *
- *  cout << builderEasy.get();
- *
- */
