@@ -10,8 +10,10 @@ void mapInit()
 {
     mapRec = {0,0,static_cast<float>(GetScreenWidth()/15), static_cast<float>(GetScreenHeight())};
     mapTexture = LoadTexture("resources/Map1.png");
-
 }
+/**
+ *  Dibuja el Mapa
+ */
 void mapDraw()
 {
     DrawTexture(mapTexture, 0,0 ,WHITE);

@@ -29,7 +29,11 @@ void projectile::setDamage(float damage) {
 
 
 
-
+/**
+ *  Funcion clave del proyectil, si el objetivo esta por morir este tambien se autodestruye, sino se mueve
+ *  en dirección a su objetivo, una vez lo suficientemente cerca, realiza su funcion strategy de impacto (si la tiene)
+ *  o sino solo realiza daño. Posteriormente el misil se autodestruye.
+ */
 void projectile::move() {
     if(target->gettoDie())
     {
@@ -50,7 +54,9 @@ void projectile::move() {
         toDie = true;
     }
 }
-
+/**
+ *  Calcula la rotacion del misil a su objetivo y lo dibuja
+ */
 void projectile::draw() {
     float angle=fast_atan2(target->getEnemie_pos().y-pos.y,target->getEnemie_pos().x-pos.x);
     renderer.drawProjectile(projTexture, pos.x, pos.y,angle);
@@ -65,7 +71,9 @@ void projectile::setImpactbehavior(impactBehavior *b) {
 void singleTargetMissile::impact(Enemy *target, std::list<Enemy*> &eList, int d) {
     target->takeDamage(d);
 }
-
+/**
+ *  Realiza daño en area. Buscando en la lista enemigos cercanos que tambien le hacen daño
+ */
 void aoeTargetMissile::impact(Enemy *target, std::list<Enemy*> &eList, int d) {
     for(auto i=eList.begin();i!=eList.end();++i)
     {

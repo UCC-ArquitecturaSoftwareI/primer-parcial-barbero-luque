@@ -43,6 +43,9 @@ public:
     /*void drawEnemy(std::string a, float x, float y) {
         DrawTexture(getTexture(a), x - getTexture(a).width / 2, y - getTexture(a).height / 2,  WHITE);
     }*/
+    /**
+ *  Función dedicada a dibujar cada enemigo. Se le deben pasar el path a la textura, las coordenadas x e y, y la rotacion.
+ */
 
     void drawEnemy(std::string a, float x, float y, float rot) {
         //DrawTextureEx(getTexture(a), {x - getTexture(a).width / 2, y - getTexture(a).height / 2}, rot, 1, WHITE);
@@ -51,17 +54,28 @@ public:
                        {x ,y,64,64},
                        {32,32},rot,WHITE);
     }
-
+/**
+ *  Función dedicada a dibujar una torre a ser colocada correctamente
+ *  Se le deben pasar el path a las texturas, las coordenadas x e y.
+ */
     void drawPhantomTextureTower(std::string base, std::string tope, float x, float y) {
         DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, GREEN);
         DrawTexture(getTexture(tope), x - getTexture(tope).width / 2, y - getTexture(tope).height / 2, GREEN);
     }
 
+    /**
+ *  Función dedicada a dibujar una torre a ser colocada incorrectamente
+ *  Se le deben pasar el path a las texturas, las coordenadas x e y.
+ */
+
     void drawPhantomTextureError(std::string base, std::string tope, float x, float y) {
         DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, RED);
         DrawTexture(getTexture(tope), x - getTexture(tope).width / 2, y - getTexture(tope).height / 2, RED);
     }
-
+    /**
+ *  Función dedicada a dibujar una torre
+ *  Se le deben pasar el path a las texturas, las coordenadas x e y, y la rotacion del tope.
+ */
     void drawTower(std::string base, std::string tope, float x, float y, float rot) {
         DrawTexture(getTexture(base), x - getTexture(base).width / 2, y - getTexture(base).height / 2, WHITE);
         //DrawTextureEx(getTexture(tope), {x - getTexture(tope).width / 2, y - getTexture(tope).height / 2},rot*3.14,1, WHITE);
@@ -89,9 +103,12 @@ public:
             currentframe=0;
         }
         currentframe++;
-        } TODO: PULIR Y LOGRAR QUE ANDE.
+        }
     */
-
+    /**
+ *  Función dedicada a dibujar un proyectil
+ *  Se le deben pasar el path a la textura, las coordenadas x e y, y la rotacion del misil.
+ */
     void drawProjectile(std::string missile, float x, float y, float rot) {
         DrawTexturePro(getTexture(missile),
                        {0,0,static_cast<float>(getTexture(missile).width),static_cast<float>(getTexture(missile).height)},

@@ -5,6 +5,9 @@
 #include "torre.h"
 #include "projectile.h"
 
+/**
+ *  Constructor de Tower
+ */
 tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL) : tower_pos(
         towerPos), eList(enL), CurrentTarget(findInRange()){
     cost = a;
@@ -15,6 +18,10 @@ tower::tower(int a, std::string b, const Vector2 &towerPos, std::string patch, s
     damage=20;
 }
 
+/**
+ *  Dada la lista de misiles, dispara un misil a un enemigo en la lista de enemigos, poniendolo al misil en la lista.
+ *  Prioriza enemigos cercanos. Utiliza templatemethod para propiedades de cada torre.
+ */
 void tower::fireProj(std::list<projectile> &activeProjectiles) {
     if(eList.empty())
     {
@@ -43,7 +50,9 @@ void tower::setTowerPosition(Vector2 position) {
         tower_pos.y = position.y;
     }
 }
-
+/**
+ *  Retorna 1 si esta lista para disparar, y reinicia el conteo, de lo contrario retorna 0 y reduce el cooldown.
+ */
 int tower::cooldownTick() {
     if (currentCooldown == 0) {
         currentCooldown = maxCooldown;
@@ -53,12 +62,17 @@ int tower::cooldownTick() {
         return 0;
     }
 }
-
+/**
+ *  Dibuja la torre, llamando al renderer y a un calculo para ver a donde apunta el tope.
+ */
 void tower::draw() {
     float angle=fast_atan2(CurrentTarget->getEnemie_pos().y-tower_pos.y,CurrentTarget->getEnemie_pos().x-tower_pos.x);
     renderer.drawTower(towerTextureBase, towerTextureTop, tower_pos.x, tower_pos.y,angle);
 }
-
+/**
+ *  Encuentra un enemigo cerca en la lista de enemigos. de no haber, retorna un puntero al primero de la lista vivo, de no
+ *  haber, retorna un puntero al ultimo de la lista.
+ */
 Enemy* tower::findInRange() {
     for(auto i=eList.begin();i!=eList.end();++i)
     {
