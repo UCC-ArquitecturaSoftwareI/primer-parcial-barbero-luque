@@ -68,6 +68,9 @@ void InitGameplayScreen() {
     }
 }
 
+/**
+ *  Loop de Lógica del Juego
+ */
 void UpdateGameplayScreen() {
     if(currentStatus==1)
     {
@@ -215,6 +218,9 @@ void UpdateGameplayScreen() {
 
 }
 
+/**
+ *  Loop de Dibujo del Juego
+ */
 void DrawGameplayScreen() {
     if( currentStatus == 1  || currentStatus==2) {
         mapDraw();

@@ -64,6 +64,9 @@ private:
 
 public:
 
+    /**
+ *  Constructor de Projectile
+ */
     projectile(Enemy *t, float s, Vector2 p, std::string *pT, int d, std::list<Enemy*> &eL):target(t), eList(eL)
     {
         target=t ;
@@ -108,10 +111,8 @@ public:
 
 };
 
+//Strategies para funciones adicionales de los misiles.
 
-/*projectile::projectile(): target(); {
-
-}*/
 class impactBehavior{
 public:
     virtual void impact(Enemy *target, std::list<Enemy*> &eList, int d)=0;

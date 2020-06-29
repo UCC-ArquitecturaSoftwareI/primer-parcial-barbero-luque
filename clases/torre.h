@@ -80,6 +80,9 @@ public:
     NormalTower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL):
             tower(a, b, towerPos, patch,  patch2, enL){};
 
+    /**
+ *  Clase Base, la funcion a llenar se deja vacia.
+ */
     void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const override {
         //std::cout<<"HERE"<<std::endl;
     }
@@ -92,7 +95,9 @@ class AreaTower: public NormalTower
 public:
     AreaTower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL):
             NormalTower(a, b,  towerPos, patch,  patch2, enL){};
-
+    /**
+ *  Aplica un strategy al misil despues de crearlo en fireProj
+ */
     void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const override
     {
             //std::cout<<"ADDED AREA DAMAGE"<<std::endl;
@@ -106,7 +111,9 @@ class StrongTower:public NormalTower
 public:
     StrongTower(int a, std::string b, const Vector2 &towerPos, std::string patch, std::string patch2, std::list<Enemy*> &enL):
             NormalTower(a, b, towerPos, patch,  patch2, enL){};
-
+    /**
+ *  Aumenta el Daño del misil despues de crearlo en FireProj
+ */
     void hookadditionalFireProperties(std::list<projectile> &activeProjectiles) const override {
             //std::cout<<"ADDED EXTRA DAMAGE"<<std::endl;
             activeProjectiles.back().setDamage(70);

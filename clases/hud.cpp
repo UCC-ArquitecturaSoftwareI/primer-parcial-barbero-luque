@@ -30,7 +30,9 @@ void hudInit()
 void menuInit(){
     testing=LoadTexture("resources/background-menu.png" );
 }
-
+/**
+ *  Dibuja el Menu
+ */
 void menuDraw(){
     DrawRectangle( 0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
     DrawText("START", static_cast<float>(GetScreenWidth()) - 450, static_cast<float>(GetScreenHeight()) - 350, 20, WHITE);
@@ -39,7 +41,9 @@ void menuDraw(){
     DrawText("Made by Francisco Luque y Agustin Barbero", static_cast<float>(GetScreenWidth()) - 795, static_cast<float>(GetScreenHeight()) - 20, 10, WHITE);
 
 }
-
+/**
+ *  Dibuja el HUD, necesita un player para dibujar su dinero actual y su vida.
+ */
 void hudDraw(Player p){
     DrawTexture(hudTexturePanel, static_cast<float>(GetScreenWidth()-(GetScreenWidth()/5)*1.54),0 ,WHITE);
     DrawTexture(healthbarBaseText, 5 , static_cast<float>(GetScreenHeight()) - 20 , WHITE);
